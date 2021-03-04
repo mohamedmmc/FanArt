@@ -19,11 +19,14 @@ import javafx.stage.StageStyle;
  * @author TheDot
  */
 public class Main extends Application {
+    
+    
     private Stage primaryStage;
     private Parent parentPage;
     
     @Override
    public void start(Stage primaryStage) throws IOException {
+        
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Login");
         

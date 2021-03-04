@@ -28,10 +28,36 @@ public class ServiceUser {
     public ServiceUser() throws SQLException {
         cnx = MyDB.getInstance().getCnx();
         ste = (Statement) cnx.createStatement();
+        
+    }
+    public String decrypt(String mdp){
+        char [] chars = mdp.toCharArray();
+        String decrypted = "";
+        for (char c : chars){
+            c -=25;
+            decrypted +=c;
+        }
+        
+        
+        return decrypted;
+    }
+    public String encrypt(String mdp){
+        char [] chars = mdp.toCharArray();
+        String encrypted = "";
+        for (char c : chars){
+            c +=25;
+            encrypted +=c;
+            System.out.println(c);
+        }
+        System.out.println(encrypted);
+        
+        return encrypted;
     }
 
     public void insert(User u) {
-        String req = "insert into user (nom,prenom,mdp,email,numtel) values ('" + u.getNom() + "','" + u.getPrenom() + "','" + u.getMdp() + "','" + u.getEmail() + "','" + u.getNumtel() + "')";
+        String a = u.getMdp();
+        String encrypted = encrypt(a);
+        String req = "insert into user (nom,prenom,mdp,email,numtel) values ('" + u.getNom() + "','" + u.getPrenom() + "','" + encrypted + "','" + u.getEmail() + "','" + u.getNumtel() + "')";
         try {
             ste.executeUpdate(req);
         } catch (SQLException ex) {
@@ -40,18 +66,31 @@ public class ServiceUser {
     }
 
     public void verify(String email, String mdp) throws SQLException {
-        String req = "select email,mdp from user where email='" + email + "' and mdp='" + mdp + "'";
+        String req = "select email,mdp from user where email='" + email + "'";
         ResultSet rs = ste.executeQuery(req);
-        Boolean bmail = false, bmdp = false;
-        while (rs.next() && bmail==false) {
-            if (email.equals(rs.getString("email")) && mdp.equals(rs.getString("mdp"))) {
-                System.out.println("réussie");
-            }
-            else{
-                System.out.println("nope");
+        String decrypted;
+        boolean mailtrue = false, mdptrue = false;
+        while (rs.next()) {
+
+            if (email.equals(rs.getString("email"))) {
+                mailtrue = true;
+                decrypted = decrypt(rs.getString("mdp"));
+                if (mdp.equals(decrypted)) {
+                    mdptrue = true;
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Connexion réussie");
+                    alert.show();
+                }
             }
         }
-        
+        if (mailtrue == false || mdptrue == false) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Mot de passe ou login incorrect");
+            alert.show();
+        }
     }
-
 }

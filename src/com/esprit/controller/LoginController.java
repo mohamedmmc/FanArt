@@ -6,6 +6,7 @@
 package com.esprit.controller;
 
 import com.esprit.dao.ServiceUser;
+import static com.esprit.entity.User.validate;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -37,7 +38,7 @@ public class LoginController implements Initializable {
     @FXML
     AnchorPane parent;
     double x = 0, y = 0;
-    
+
     @FXML
     private TextField email;
     @FXML
@@ -52,23 +53,24 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         makeDragable();
-        creationCompte.setOnAction(event ->{
+
+        creationCompte.setOnAction(event -> {
             try {
-                
+
                 Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/CreateCompte.fxml"));
                 Scene scene = new Scene(page1);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
                 stage.show();
-                        } catch (IOException ex) {
+            } catch (IOException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+
     }
-    
+
     private void makeDragable() {
-        
+
         parent.setOnMousePressed(((event) -> {
             x = event.getSceneX();
             y = event.getSceneY();
@@ -91,9 +93,7 @@ public class LoginController implements Initializable {
             stage.setOpacity(1.0f);
 
         }));
-        
-        
-        
+
     }
 
     @FXML
@@ -105,20 +105,32 @@ public class LoginController implements Initializable {
     @FXML
     private void verify(ActionEvent event) throws SQLException {
         ServiceUser sp = new ServiceUser();
-        if (email.getText().isEmpty()){
+        if (email.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Login vide");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Login vide");
-                    alert.show();}
-        else if (mdp.getText().isEmpty()){
+            alert.setTitle("Login vide");
+            alert.setHeaderText(null);
+            alert.setContentText("Login vide");
+            alert.show();
+        } else if (mdp.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Mot de passe vide");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Mot de passe vide");
-                    alert.show();}
-        sp.verify(email.getText(), mdp.getText());
+            alert.setTitle("Mot de passe vide");
+            alert.setHeaderText(null);
+            alert.setContentText("Mot de passe vide");
+            alert.show();
+        } else {
+            if (validate(email.getText())) {
+                sp.verify(email.getText(), mdp.getText());
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Mot de passe vide");
+                alert.setHeaderText(null);
+                alert.setContentText("Mail non valide");
+                alert.show();
+            }
+        }
+
     }
-    
-    
+
 }
+
+

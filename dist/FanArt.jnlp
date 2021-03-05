@@ -2,18 +2,19 @@
 <jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="FanArt.jnlp">
   <information>
     <title>FanArt</title>
-    <vendor>splin</vendor>
+    <vendor>ranya</vendor>
     <description>null</description>
     <offline-allowed/>
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="FanArt.jar" size="120210" download="eager" />
-    <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
+    <jar href="FanArt.jar" size="17328" download="eager" />
+    <jar href="lib\jfoenix-9.0.10.jar" size="2432549" download="eager" />
+    <jar href="lib\mysql-connector-java-5.0.7-bin.jar" size="526905" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="FanArt" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="com.esprit.test.Main"  name="FanArt" />
+  <jfx:javafx-desc  width="800" height="600" main-class="fanart.FanArt"  name="FanArt" />
   <update check="always"/>
 </jnlp>

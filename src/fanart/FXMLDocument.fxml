@@ -5,21 +5,36 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="612.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fanart.FXMLDocumentController">
+<AnchorPane id="AnchorPane" prefHeight="479.0" prefWidth="612.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fanart.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <TableView fx:id="tab" layoutX="76.0" layoutY="99.0" prefHeight="282.0" prefWidth="487.0">
+      <TableView fx:id="tab" layoutX="43.0" layoutY="99.0" prefHeight="282.0" prefWidth="520.0">
         <columns>
           <TableColumn fx:id="idsalle" prefWidth="75.0" text="ID salle" />
           <TableColumn fx:id="numsalle" prefWidth="85.66668701171875" text="Numero salle" />
             <TableColumn fx:id="nbreplace" prefWidth="118.66668701171875" text="Nombre de places" />
             <TableColumn fx:id="dispo" prefWidth="92.66668701171875" text="Disponibilite" />
-            <TableColumn fx:id="date" prefWidth="113.0" text="Date" />
+            <TableColumn fx:id="date" prefWidth="146.0" text="Date" />
         </columns>
       </TableView>
-      <Button layoutX="376.0" layoutY="395.0" mnemonicParsing="false" onAction="#modifiersalle" prefHeight="8.0" prefWidth="88.0" text="Modifier salle" />
-      <Button fx:id="ajoutsalle" layoutX="450.0" layoutY="48.0" mnemonicParsing="false" onAction="#addsalle" text="Ajouter salle" />
-      <Button fx:id="suppsalle" layoutX="211.0" layoutY="395.0" mnemonicParsing="false" text="Supprimer salle" />
+      <Button layoutX="397.0" layoutY="410.0" mnemonicParsing="false" onAction="#modifiersalle" prefHeight="30.0" prefWidth="123.0" text="Modifier salle">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button fx:id="ajoutsalle" layoutX="450.0" layoutY="48.0" mnemonicParsing="false" onAction="#addsalle" text="Ajouter salle">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button fx:id="suppsalle" layoutX="153.0" layoutY="410.0" mnemonicParsing="false" text="Supprimer salle">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Label layoutX="32.0" layoutY="28.0" text="Gerer les salles" textFill="#fbf8f8">
+         <font>
+            <Font name="Copperplate Gothic Bold" size="36.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

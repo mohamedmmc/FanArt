@@ -14,9 +14,14 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 /**
@@ -45,9 +50,13 @@ public class ModifierSalleController implements Initializable {
 
     @FXML
     private Button modifier;
-   
+    
     @FXML
-     void modifier(ActionEvent event) throws SQLException {
+    private Button retour;
+    
+    
+    @FXML
+     void modifiersalle(ActionEvent event) throws SQLException {
          Connection con ;
       Connexion cnx = new Connexion();
       con = cnx.getConnection();
@@ -70,6 +79,19 @@ public class ModifierSalleController implements Initializable {
         JOptionPane.showMessageDialog(null, ex);
     }
     }
+     
+      @FXML
+            void retour2(ActionEvent event) {
+          try {
+       Parent page1 = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+    } catch(Exception e) {
+        e.printStackTrace();
+    }
+            }
      
     @Override
     public void initialize(URL url, ResourceBundle rb) {

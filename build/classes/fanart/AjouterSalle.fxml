@@ -6,20 +6,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="406.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fanart.AjouterSalleController">
+<AnchorPane id="AnchorPane" prefHeight="406.0" prefWidth="641.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fanart.AjouterSalleController">
    <children>
-      <Label layoutX="89.0" layoutY="104.0" text="Numéro salle" />
-      <Label layoutX="87.0" layoutY="168.0" text="Nombre de places" />
-      <Label layoutX="87.0" layoutY="257.0" prefHeight="0.0" prefWidth="37.0" text="Photos" />
+      <Label layoutX="89.0" layoutY="104.0" text="Numéro salle" textFill="#fbf8f8">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font></Label>
+      <Label layoutX="87.0" layoutY="168.0" text="Nombre de places" textFill="#fbf8f8">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font></Label>
+      <Label layoutX="87.0" layoutY="257.0" prefHeight="27.0" prefWidth="79.0" text="Photos" textFill="#fbf8f8">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font></Label>
       <TextField fx:id="numsalle" layoutX="248.0" layoutY="100.0" />
       <TextField fx:id="place" layoutX="248.0" layoutY="164.0" />
-      <Button fx:id="parcourrir" layoutX="248.0" layoutY="253.0" mnemonicParsing="false" text="Parcourir" />
-      <Button fx:id="annuler" layoutX="160.0" layoutY="358.0" mnemonicParsing="false" text="Annuler" />
-      <Button fx:id="ajout" layoutX="423.0" layoutY="358.0" mnemonicParsing="false" onAction="#add" text="Ajouter" />
-      <Label layoutX="44.0" layoutY="39.0" text="Ajouter une nouvelle salle">
+      <Button fx:id="parcourrir" layoutX="248.0" layoutY="253.0" mnemonicParsing="false" text="Parcourir">
          <font>
-            <Font name="System Bold" size="23.0" />
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button fx:id="annuler" layoutX="160.0" layoutY="358.0" mnemonicParsing="false" text="Annuler">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Button fx:id="ajout" layoutX="423.0" layoutY="358.0" mnemonicParsing="false" onAction="#add" text="Ajouter">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Label layoutX="44.0" layoutY="39.0" text="Ajouter une nouvelle salle" textFill="#fbf8f8">
+         <font>
+            <Font name="Copperplate Gothic Bold" size="36.0" />
          </font>
       </Label>
+      <Button fx:id="return2" layoutX="25.0" layoutY="14.0" mnemonicParsing="false" onAction="#retour2" text="&lt;">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

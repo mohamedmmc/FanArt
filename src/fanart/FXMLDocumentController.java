@@ -72,38 +72,38 @@ public class FXMLDocumentController implements Initializable {
       
       
 // ------------------------- Supprimer salle ----------------------------------------------
-     /*   @FXML
+    /*  @FXML
                 
      void suppsalle(ActionEvent event) throws SQLException {
          Connection con ;
       Connexion cnx = new Connexion();
       con = cnx.getConnection();
-         
-    
+      String val = (tab.getModel().getValueAt(row, 0).toString());
+      int d=Integer.parseInt(val);
         
-        String query = "DELETE FROM `salle` WHERE  idsalle = ?";
+      String query = "DELETE FROM `salle` WHERE  idsalle = ?";
         try {
         ps = con.prepareStatement(query);
-        //ps.setString(1, numsalle);
-        //ps.setString(2, nbreplace);
-        ps.execute();
+            ps.setString(1, val);
+            ps.execute();
         
        
             } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
      }
-*/
-     
+
+     */
     
       //-------------------------------- Ajouter salle-----------------------------------------------------  
          @FXML
         void addsalle(ActionEvent event) {
           try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/AjouterSalle.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root1));  
+  Parent page1 = FXMLLoader.load(getClass().getResource("AjouterSalle.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show(); 
         stage.show();
     } catch(Exception e) {
         e.printStackTrace();
@@ -113,16 +113,17 @@ public class FXMLDocumentController implements Initializable {
     @FXML
             void modifiersalle(ActionEvent event) {
           try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ModifierSalle.fxml"));
-        Parent root1 = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root1));  
-        stage.show();
+       Parent page1 = FXMLLoader.load(getClass().getResource("ModifierSalle.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
     } catch(Exception e) {
         e.printStackTrace();
-    }
+    } 
           
     }
+            
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
         label.setText("Hello World!");

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="parent" prefHeight="567.0" prefWidth="643.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.FXMLInterfaceproduitController">
+    <stylesheets>
+        <URL value="@fxmlinterfaceproduit.css" />
+    </stylesheets>
+   <children>
+      <TextField fx:id="titrefxid" layoutX="125.0" layoutY="88.0" />
+      <TextField fx:id="prixfxid" layoutX="125.0" layoutY="128.0" />
+      <TextArea fx:id="descriptionfxid" layoutX="125.0" layoutY="168.0" prefHeight="147.0" prefWidth="200.0" />
+      <Label layoutX="39.0" layoutY="92.0" text="Titre" />
+      <Label layoutX="39.0" layoutY="132.0" text="Prix" />
+      <Label layoutX="36.0" layoutY="180.0" text="Description" />
+      <Label layoutX="39.0" layoutY="342.0" text="Image" />
+      <Button fx:id="AjouterProduitFxid" layoutX="427.0" layoutY="438.0" mnemonicParsing="false" onMouseClicked="#Insert" style="-fx-background-color: #3dcfe3;" text="Ajouter">
+         <font>
+            <Font name="Bodoni MT" size="15.0" />
+         </font></Button>
+      <Button layoutX="125.0" layoutY="338.0" mnemonicParsing="false" onAction="#UploadImage" style="-fx-background-color: #3dcfe3;" text="Ajouter image">
+         <font>
+            <Font name="Bodoni MT" size="15.0" />
+         </font></Button>
+      <ImageView fx:id="imageviewfxid" fitHeight="150.0" fitWidth="200.0" layoutX="125.0" layoutY="388.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/insertionimage.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="22.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Produit ">
+         <font>
+            <Font name="Bauhaus 93" size="36.0" />
+         </font>
+      </Text>
+      <Pane layoutX="-6.0" layoutY="71.0" prefHeight="1.0" prefWidth="649.0" style="-fx-background-color: black;" />
+      <Button fx:id="retourfxid" layoutX="532.0" layoutY="438.0" mnemonicParsing="false" onAction="#retour" onMouseClicked="#retour" style="-fx-background-color: #3dcfe3;" text="Retour">
+         <font>
+            <Font name="Bodoni MT" size="15.0" />
+         </font></Button>
+   </children>
+</AnchorPane>

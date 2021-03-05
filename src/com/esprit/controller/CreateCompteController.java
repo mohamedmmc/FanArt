@@ -7,7 +7,6 @@ package com.esprit.controller;
 
 import com.esprit.dao.ServiceUser;
 import com.esprit.entity.User;
-import static com.esprit.entity.User.validate;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -59,40 +58,25 @@ public class CreateCompteController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    Boolean emailvalide = false, mdpvalide = false;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         makeDragable();
         creation.setOnAction((event) -> {
             String numtell = numtel.getText();
             int num = Integer.parseInt(numtell);
-            if (validate(email.getText())) {
-                User u = new User(nom.getText(), prenom.getText(), mdp.getText(), email.getText(), num);
-                try {
-                    ServiceUser su = new ServiceUser();
-                    su.insert(u);
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information Dialog");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Profil crée avec succés!");
-                    alert.show();
-                } catch (SQLException ex) {
-                    Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Information Dialog");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Echec de l'ajout");
-                    alert.show();
-                }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
-                alert.setHeaderText(null);
-                alert.setContentText("Mail invalid");
-                alert.show();
+            User u = new User(nom.getText(), prenom.getText(), mdp.getText(), email.getText(), num);
+            try {
+                ServiceUser su = new ServiceUser();
+                su.insert(u);
+            } catch (SQLException ex) {
+                Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Personne insérée avec succés!");
+            alert.show();
         });
         retour.setOnAction(event -> {
             try {
@@ -115,19 +99,23 @@ public class CreateCompteController implements Initializable {
             x = event.getSceneX();
             y = event.getSceneY();
         }));
+
         parent.setOnMouseDragged(((event) -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setX(event.getScreenX() - x);
             stage.setY(event.getScreenY() - y);
             stage.setOpacity(0.8f);
         }));
+
         parent.setOnDragDone(((event) -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setOpacity(1.0f);
         }));
+
         parent.setOnMouseReleased(((event) -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setOpacity(1.0f);
+
         }));
 
     }

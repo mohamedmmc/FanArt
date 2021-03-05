@@ -19,18 +19,15 @@ import javafx.stage.StageStyle;
  * @author TheDot
  */
 public class Main extends Application {
-    
-    
     private Stage primaryStage;
     private Parent parentPage;
     
     @Override
-   public void start(Stage primaryStage) throws IOException {
-        
-        this.primaryStage = primaryStage;
+   public void start(Stage stage) throws IOException {
+       /* this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Login");
         
-        parentPage = FXMLLoader.load(getClass().getResource("/com/esprit/view/Login.fxml"));
+        parentPage = FXMLLoader.load(getClass().getResource("/com/esprit/view/FXMLAffichageProduit.fxml"));
         Scene scene = new Scene(parentPage);
         scene.setFill(Color.TRANSPARENT);
         
@@ -38,8 +35,19 @@ public class Main extends Application {
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         this.primaryStage.setScene(scene);
         //this.primaryStage.showAndWait();
-        this.primaryStage.show();
+        this.primaryStage.show();*/
+        try {
+            
         
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/FXMLAffichageProduit.fxml"));
+        
+        Scene scene = new Scene(root);
+        
+        stage.setScene(scene);
+        stage.show();
+        }catch (IOException e){
+            System.err.println(e);
+        }
 
     }
 

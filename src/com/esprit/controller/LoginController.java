@@ -49,6 +49,8 @@ public class LoginController implements Initializable {
     private Button connexion;
     @FXML
     private ImageView cross;
+    @FXML
+    private Button admin;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -58,6 +60,18 @@ public class LoginController implements Initializable {
             try {
 
                 Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/CreateCompte.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        admin.setOnAction(event -> {
+            try {
+
+                Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/Admin.fxml"));
                 Scene scene = new Scene(page1);
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);

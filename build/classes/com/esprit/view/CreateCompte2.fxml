@@ -12,11 +12,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="941.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.CreateCompteController">
+
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="719.0" prefWidth="978.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1 " fx:controller="com.esprit.controller.CreateCompteController">
    <children>
-      <HBox layoutX="72.0" layoutY="561.0" prefHeight="128.0" prefWidth="729.0" spacing="80.0">
+      <HBox layoutX="111.0" layoutY="559.0" prefHeight="128.0" prefWidth="729.0" spacing="80.0">
          <children>
-            <Button fx:id="retour" mnemonicParsing="false" prefHeight="32.0" prefWidth="97.0" style="-fx-background-color: null; -fx-text-fill: white; -fx-border-color: white;" text="Annuler">
+            <Button fx:id="retour" mnemonicParsing="false" onAction="#annuler" prefHeight="32.0" prefWidth="97.0" style="-fx-background-color: null; -fx-text-fill: white; -fx-border-color: white;" text="Annuler">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -31,7 +32,7 @@
             <Insets left="250.0" top="50.0" />
          </padding>
       </HBox>
-      <VBox layoutX="271.0" layoutY="58.0" prefHeight="519.0" prefWidth="419.0" spacing="25.0">
+      <VBox layoutX="279.0" layoutY="60.0" prefHeight="519.0" prefWidth="419.0" spacing="25.0">
          <children>
             <HBox prefWidth="383.0" style="-fx-border-color: white; -fx-background-radius: 0;">
                <children>
@@ -53,7 +54,7 @@
                   <PasswordField id="mdp" fx:id="mdp" prefHeight="32.0" prefWidth="331.0" promptText="Mot de passe" style="-fx-background-color: transparent; -fx-prompt-text-fill: #dedede; -fx-text-fill: white;" />
                </children>
             </HBox>
-            <HBox prefHeight="31.0" prefWidth="380.0" style="-fx-border-color: white;">
+            <HBox fx:id="mdp2" prefHeight="31.0" prefWidth="380.0" style="-fx-border-color: white;">
                <children>
                   <PasswordField fx:id="mdp2" promptText="Repeter mot de passe" style="-fx-background-color: transparent; -fx-prompt-text-fill: #decade; -fx-text-fill: white;" />
                </children>
@@ -65,19 +66,19 @@
             </HBox>
             <HBox prefHeight="62.0" prefWidth="374.0" spacing="80.0">
                <children>
-                  <Label style="-fx-border-color: white;" text="Photo de profil" textFill="#eeeeee" />
-                  <Button fx:id="browse" mnemonicParsing="false" onAction="#browseaction" text="Parcourir" />
+                  <Label text="Photo de profil" textFill="#eeeeee" />
+                  <Button mnemonicParsing="false" text="Parcourir" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="45.0">
                <children>
-                  <Label prefHeight="21.0" prefWidth="107.0" style="-fx-border-color: white;" text="Type" textFill="#eeeeee" />
-                  <ComboBox fx:id="type" prefWidth="150.0" promptText="Choisir" />
+                  <Label prefHeight="21.0" prefWidth="107.0" text="Type" textFill="#eeeeee" />
+                  <ComboBox prefWidth="150.0" promptText="Choisir" />
                </children>
             </HBox>
          </children>
       </VBox>
-      <ImageView fx:id="cross" fitHeight="59.0" fitWidth="59.0" layoutX="843.0" layoutY="16.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="cross" fitHeight="67.0" fitWidth="113.0" layoutX="882.0" layoutY="14.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/x.png" />
          </image>

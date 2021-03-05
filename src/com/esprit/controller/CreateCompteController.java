@@ -8,9 +8,14 @@ package com.esprit.controller;
 import com.esprit.dao.ServiceUser;
 import com.esprit.entity.User;
 import static com.esprit.entity.User.validate;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,12 +28,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -60,31 +70,37 @@ public class CreateCompteController implements Initializable {
      * Initializes the controller class.
      */
     Boolean emailvalide = false, mdpvalide = false;
+    @FXML
+    private PasswordField mdp2;
+    @FXML
+    private ComboBox<String> type;
+    @FXML
+    private Button browse;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         makeDragable();
+        type.getItems().removeAll(type.getItems());
+    type.getItems().addAll("Client", "Artiste");
+    type.getSelectionModel().select("Client");
         creation.setOnAction((event) -> {
             String numtell = numtel.getText();
             int num = Integer.parseInt(numtell);
             if (validate(email.getText())) {
-                User u = new User(nom.getText(), prenom.getText(), mdp.getText(), email.getText(), num);
+                User u = new User(nom.getText(), prenom.getText(), mdp.getText(), email.getText(), num,pathimage , type.getValue());
+                ServiceUser su = new ServiceUser();
                 try {
-                    ServiceUser su = new ServiceUser();
                     su.insert(u);
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information Dialog");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Profil crée avec succés!");
-                    alert.show();
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
                     Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Information Dialog");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Echec de l'ajout");
-                    alert.show();
                 }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("Profil crée avec succés!");
+                alert.show();
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
@@ -107,7 +123,9 @@ public class CreateCompteController implements Initializable {
             }
         });
     }
+    byte[] userimage = null;
     double x, y = 0;
+    String pathimage = "";
 
     private void makeDragable() {
 
@@ -133,14 +151,26 @@ public class CreateCompteController implements Initializable {
     }
 
     @FXML
-    private void annuler(ActionEvent event) {
-
-    }
-
-    @FXML
     private void exit(MouseEvent event) {
         Stage stage = (Stage) cross.getScene().getWindow();
         stage.close();
     }
 
+    @FXML
+    private void browseaction(ActionEvent event) throws FileNotFoundException {
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
+        List<File> f = fc.showOpenMultipleDialog(null);
+        String x = "/";
+        for (File file : f) {
+            
+            x = file.getAbsolutePath();
+
+        }
+        //Image image = new Image(new FileInputStream(f.);
+
+        pathimage = x;
+       
+
+    }
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="506.0" prefWidth="740.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="com.esprit.controller.FXMLListEmpController">
+   <children>
+      <LineChart layoutX="485.0" layoutY="253.0" prefHeight="185.0" prefWidth="241.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis prefWidth="40.0" side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <StackedBarChart layoutX="485.0" layoutY="17.0" prefHeight="185.0" prefWidth="241.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </StackedBarChart>
+      <TableView layoutX="34.0" layoutY="27.0" prefHeight="443.0" prefWidth="442.0">
+        <columns>
+          <TableColumn prefWidth="88.0" text="Nom" />
+          <TableColumn prefWidth="89.0" text="Prenom" />
+            <TableColumn prefWidth="96.0" text="tache" />
+            <TableColumn prefWidth="103.0" text="Mobile" />
+            <TableColumn prefWidth="73.0" text="Salle" />
+        </columns>
+      </TableView>
+      <Label fx:id="label11" layoutX="544.0" layoutY="209.0" minHeight="16" minWidth="69" text="best worker" />
+      <Label fx:id="label111" layoutX="544.0" layoutY="444.0" minHeight="16" minWidth="69" text="courbe de travail" />
+   </children>
+</AnchorPane>

@@ -9,22 +9,18 @@ package com.esprit.controller;
  *
  * @author ranya
  */
-public class ModelTable {
-    int idsalle;
-    String numsalle,nbreplace,dispo,date;
-
-    public ModelTable(int idsalle, String numsalle, String nbreplace, String dispo, String date) {
-        this.idsalle =idsalle;
+public class ModelTable2 {
+      String numsalle,nbreplace,dispo;
+      
+     public ModelTable2( String numsalle, String nbreplace, String dispo) {
+       
         this.numsalle = numsalle;
         this.nbreplace = nbreplace;
         this.dispo = dispo;
-        this.date = date;
-       
+             
     }
-
-    ModelTable(String string, String string0, String string1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+     
+    
 
     public String getNumsalle() {
         return numsalle;
@@ -49,23 +45,4 @@ public class ModelTable {
     public void setDispo(String dispo) {
         this.dispo = dispo;
     }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public int getIdsalle() {
-        return idsalle;
-    }
-
-    public void setIdsalle(int idsalle) {
-        this.idsalle = idsalle;
-    }
-    
-  
-    
 }

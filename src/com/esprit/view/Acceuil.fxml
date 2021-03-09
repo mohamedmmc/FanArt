@@ -4,27 +4,28 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="489.0" prefWidth="669.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.AcceuilController">
+<AnchorPane id="AnchorPane" prefHeight="518.0" prefWidth="669.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.AcceuilController">
    <children>
       <Label fx:id="label" layoutX="136.0" layoutY="130.0" minHeight="16" minWidth="69" />
-      <TableView fx:id="tab" layoutX="47.0" layoutY="113.0" prefHeight="282.0" prefWidth="582.0">
+      <TableView fx:id="tab" layoutX="147.0" layoutY="130.0" prefHeight="276.0" prefWidth="505.0">
          <columns>
             <TableColumn fx:id="idsalle" prefWidth="46.333343505859375" text="ID salle" />
             <TableColumn fx:id="numsalle" prefWidth="114.66665649414062" text="Numéro salle" />
             <TableColumn fx:id="nbreplace" prefWidth="118.66668701171875" text="Nombre de places" />
-            <TableColumn fx:id="dispo" prefWidth="129.66668701171875" text="Disponibilité" />
-            <TableColumn fx:id="date" prefWidth="170.0" text="Date" />
+            <TableColumn fx:id="dispo" prefWidth="85.33331298828125" text="Disponibilité" />
+            <TableColumn fx:id="date" prefWidth="137.0" text="Date" />
          </columns>
       </TableView>
-      <Button layoutX="532.0" layoutY="78.0" mnemonicParsing="false" onAction="#modifiersalle" prefHeight="30.0" prefWidth="123.0" text="Modifier salle">
+      <Button layoutX="306.0" layoutY="421.0" mnemonicParsing="false" onAction="#modifiersalle" prefHeight="30.0" prefWidth="123.0" text="Modifier salle">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="ajoutsalle" layoutX="429.0" layoutY="48.0" mnemonicParsing="false" onAction="#addsalle" text="Ajouter salle">
+      <Button fx:id="ajoutsalle" layoutX="524.0" layoutY="78.0" mnemonicParsing="false" onAction="#addsalle" text="Ajouter salle">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -34,11 +35,12 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Label layoutX="42.0" layoutY="38.0" text="Gerer les salles" textFill="#fbf8f8">
+      <Label layoutX="136.0" layoutY="61.0" text="Gerer les salles" textFill="#fbf8f8">
          <font>
-            <Font name="Copperplate Gothic Bold" size="36.0" />
+            <Font name="Copperplate Gothic Bold" size="30.0" />
          </font>
       </Label>
-      <Button layoutX="549.0" layoutY="423.0" mnemonicParsing="false" text="Plus d'information" />
+      <Button fx:id="info" layoutX="519.0" layoutY="471.0" mnemonicParsing="false" onAction="#information" text="Plus d'information" />
+      <ImageView fitHeight="525.0" fitWidth="133.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

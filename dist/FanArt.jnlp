@@ -8,7 +8,9 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="FanArt.jar" size="240123" download="eager" />
+    <jar href="FanArt.jar" size="245231" download="eager" />
+    <jar href="lib\activation.jar" size="124332" download="eager" />
+    <jar href="lib\java-mail-1.4.4.jar" size="494975" download="eager" />
     <jar href="lib\mysql-connector-java-5.0.7-bin.jar" size="526905" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="FanArt" >

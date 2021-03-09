@@ -6,12 +6,16 @@
 package com.esprit.controller;
 
 import com.esprit.test.Connexion;
+
+import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +31,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 
 /**
@@ -73,26 +82,28 @@ public class ReservationSalleController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       /* artiste.getItems().addAll(
-            "cat"
-            
-        );
-       */
+   
        
-       /*
+       
+       
+        Connexion cnx = new Connexion();
+        con = cnx.getConnection();
         try {
-            String query="select * from salle";
-            ps = con.prepareStatement(query);
-            ResultSet rs = ps.executeQuery("select *
-                String s=rs.getString("numsal);\n" +
-"            while (rs.next()) {le");
-                System.out.println(s);
-            }
+            
+            String query="select * from reservation";
+            Statement ps =con.createStatement();
+             ResultSet rs =ps.executeQuery(query);
+           
+             if (rs.next()) {
+                String s=rs.getString("artiste");
+                 System.out.println(rs.getString("nomclient"));    
+                artiste.getItems().addAll(s);
+             }
                        
         } catch (SQLException ex) {
             Logger.getLogger(ReservationSalleController.class.getName()).log(Level.SEVERE, null, ex);
         }
-  */
+  
     
 
         // TODO
@@ -141,8 +152,69 @@ public class ReservationSalleController implements Initializable {
         ps.execute();
         
         JOptionPane.showMessageDialog(null,"La reservation a bien été ajouté ");
+        
+        try {
+			
+			String from = "samehbr63@gmail.com";
+			String pass = "sameh2016";
+			String to ="sameh.benromdhane@esprit.tn";
+			String subject = "Reservation" ;
+			String messageText = " Votre réservation a été bien enregistré.. Merci ";
+
+			String host = "smtp.gmail.com";
+
+			boolean sessionDebug = false;
+
+			Properties props = System.getProperties();
+
+			props.put("mail.smtp.starttls.enable", "true");
+
+			props.put("mail.smtp.host", host);
+
+			props.put("mail.smtp.port", "587");
+
+			props.put("mail.smtp.auth", "true");
+
+			props.put("mail.smtp.starttls.required", "true");
+
+			Session mailSession = Session.getDefaultInstance(props, null);
+
+			mailSession.setDebug(sessionDebug);
+
+			Message msg = new MimeMessage(mailSession);
+
+			msg.setFrom(new InternetAddress(from));
+
+			InternetAddress[] address = { new InternetAddress(to) };
+
+			msg.setRecipients(Message.RecipientType.TO, address);
+
+			msg.setSubject(subject);
+			msg.setSentDate(new Date());
+
+			msg.setText(messageText);
+
+			Transport transport = mailSession.getTransport("smtp");
+
+			transport.connect(host, from, pass);
+
+			transport.sendMessage(msg, msg.getAllRecipients());
+
+			transport.close();
+
+			System.out.println("message send successfully");
+
+		} catch (Exception ex)
+
+		{
+			System.out.println(ex);
+
+		}
+	
     }
     
+    
+  
     @FXML
     private void annuler(ActionEvent event) {
         nomclient.setText("");

@@ -4,10 +4,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="484.0" prefWidth="667.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.AjouterSalleController">
+<AnchorPane id="AnchorPane" prefHeight="539.0" prefWidth="667.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.AjouterSalleController">
    <children>
       <Label layoutX="154.0" layoutY="102.0" text="Numéro salle" textFill="#fbf8f8">
          <font>
@@ -25,18 +26,18 @@
          </font>
       </Label>
       <TextField fx:id="numsalle" layoutX="394.0" layoutY="103.0" />
-      <TextField fx:id="place" layoutX="394.0" layoutY="179.0" />
-      <Button fx:id="parcourrir" layoutX="394.0" layoutY="374.0" mnemonicParsing="false" text="Parcourir">
+      <TextField fx:id="place" layoutX="394.0" layoutY="167.0" />
+      <Button fx:id="parcourrir" layoutX="238.0" layoutY="375.0" mnemonicParsing="false" text="Parcourir">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="annuler" layoutX="231.0" layoutY="440.0" mnemonicParsing="false" onAction="#Annuler" text="Annuler">
+      <Button fx:id="annuler" layoutX="439.0" layoutY="485.0" mnemonicParsing="false" onAction="#Annuler" text="Annuler">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="ajout" layoutX="508.0" layoutY="440.0" mnemonicParsing="false" onAction="#add" text="Ajouter">
+      <Button fx:id="ajout" layoutX="524.0" layoutY="485.0" mnemonicParsing="false" onAction="#add" text="Ajouter">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -46,7 +47,7 @@
             <Font name="Copperplate Gothic Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="return2" layoutX="170.0" layoutY="440.0" mnemonicParsing="false" onAction="#retour2" text="&lt;">
+      <Button fx:id="return2" layoutX="171.0" layoutY="495.0" mnemonicParsing="false" onAction="#retour2" text="&lt;">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
@@ -57,5 +58,7 @@
          </font>
       </Label>
       <TextArea fx:id="desc" layoutX="394.0" layoutY="235.0" prefHeight="113.0" prefWidth="200.0" />
+      <ImageView fitHeight="484.0" fitWidth="122.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="74.0" fitWidth="113.0" layoutX="356.0" layoutY="376.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

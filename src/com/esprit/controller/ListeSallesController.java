@@ -5,7 +5,9 @@ import com.esprit.test.Connexion;
 import com.esprit.controller.ModelTable2;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +25,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -56,17 +59,40 @@ public class ListeSallesController implements Initializable {
     
     ObservableList<ModelTable2> ob2 =FXCollections.observableArrayList();
          
-     @FXML
-     void information(ActionEvent event) {
-        try {
-            Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/InfoSalle.fxml"));
-            Scene scene = new Scene(page1);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-             } catch(Exception e) {
-              e.printStackTrace();
-             }
+           
+        @FXML
+     void information(ActionEvent event) throws SQLException {
+        
+         Connection con ;
+        Connexion cnx = new Connexion();
+        con = cnx.getConnection();
+
+        
+        String s,nbr,desc;
+        ModelTable2 song = tab.getSelectionModel().getSelectedItem();
+        System.out.println(song);
+        ResultSet rs;
+
+        
+    // there is a selection -> delete
+    
+       
+            
+        PreparedStatement ps = con.prepareStatement("select * FROM salle  WHERE numsalle="+song.getNumsalle() );
+
+         rs=ps.executeQuery();
+         while(rs.next())
+         {
+            
+          s=rs.getString("numsalle");
+             nbr = rs.getString("nbreplace");
+             desc = rs.getString("description");
+
+         }
+
+       
+        
+       
     }
     
     

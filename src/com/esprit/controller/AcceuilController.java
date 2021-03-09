@@ -69,6 +69,9 @@ public class AcceuilController implements Initializable {
 
     @FXML
     private Button suppsalle;
+    
+    @FXML
+    private Button info;
 
     ObservableList<ModelTable> ob =FXCollections.observableArrayList();
  
@@ -117,8 +120,19 @@ public class AcceuilController implements Initializable {
         e.printStackTrace();
          }
     }
+     
+     
+     
+  //---------------------------- Plus d'information
+     
+       @FXML
+    void information(ActionEvent event) throws SQLException {
+
         
-        
+    }   
+    
+    
+    
 // -------------------------------------------------Bouton modifier salle ----------------------------------------------------------
     @FXML
     void modifiersalle(ActionEvent event) {

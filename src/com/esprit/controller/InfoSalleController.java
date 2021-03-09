@@ -44,7 +44,11 @@ public class InfoSalleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }   
+    public void initData(ModelTable2 tab)
+    {
+        System.out.println(tab.getNumsalle());
+    }
 
     @FXML
     private void numerosalle(ActionEvent event) {

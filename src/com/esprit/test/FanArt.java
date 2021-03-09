@@ -19,7 +19,7 @@ public class FanArt extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/InfoReservation.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/ListeSalles.fxml"));
         
         Scene scene = new Scene(root);
         
@@ -30,8 +30,9 @@ public class FanArt extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         launch(args);
+       
     }
     
 }

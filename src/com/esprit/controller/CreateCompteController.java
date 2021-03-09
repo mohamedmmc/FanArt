@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import java.security.MessageDigest;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -81,19 +83,26 @@ public class CreateCompteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         makeDragable();
         type.getItems().removeAll(type.getItems());
-    type.getItems().addAll("Client", "Artiste");
-    type.getSelectionModel().select("Client");
+        type.getItems().addAll("Client", "Artiste");
+        type.getSelectionModel().select("Client");
         creation.setOnAction((event) -> {
+            
             String numtell = numtel.getText();
             int num = Integer.parseInt(numtell);
+            if (email.getText().isEmpty() && prenom.getText().isEmpty() && mdp.getText().isEmpty() && nom.getText().isEmpty() && browse.getText().isEmpty() && numtel.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("Tout les champs sont obligatoires !");
+                alert.show();
+            }
             if (validate(email.getText())) {
-                User u = new User(nom.getText(), prenom.getText(), mdp.getText(), email.getText(), num,pathimage , type.getValue());
+                
+                User u = new User(nom.getText(), prenom.getText(), mdp.getText(), email.getText(), num, pathimage, type.getValue());
                 ServiceUser su = new ServiceUser();
                 try {
                     su.insert(u);
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SQLException ex) {
+                } catch (NoSuchAlgorithmException ex) {
                     Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -103,7 +112,6 @@ public class CreateCompteController implements Initializable {
                 alert.show();
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-
                 alert.setHeaderText(null);
                 alert.setContentText("Mail invalid");
                 alert.show();
@@ -163,14 +171,14 @@ public class CreateCompteController implements Initializable {
         List<File> f = fc.showOpenMultipleDialog(null);
         String x = "/";
         for (File file : f) {
-            
+
             x = file.getAbsolutePath();
 
         }
         //Image image = new Image(new FileInputStream(f.);
 
         pathimage = x;
-       
 
     }
+
 }

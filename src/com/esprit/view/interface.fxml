@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.web.WebView?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="730.0" prefWidth="1056.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.esprit.controller.InterfaceController">
+   <children>
+      <ComboBox layoutX="60.0" layoutY="114.0" prefWidth="150.0" />
+      <ColorPicker layoutX="162.0" layoutY="21.0" />
+      <MediaView fitHeight="200.0" fitWidth="200.0" layoutX="358.0" layoutY="79.0" />
+      <MenuBar layoutX="60.0" layoutY="202.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Pagination layoutX="48.0" layoutY="252.0" prefHeight="200.0" prefWidth="200.0" />
+      <ProgressIndicator layoutX="48.0" layoutY="26.0" progress="0.0" />
+      <SplitMenuButton layoutX="148.0" layoutY="296.0" mnemonicParsing="false" text="SplitMenuButton">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </SplitMenuButton>
+      <WebView layoutX="420.0" layoutY="118.0" prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>

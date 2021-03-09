@@ -30,7 +30,7 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Login");
         
-            parentPage = FXMLLoader.load(getClass().getResource("/com/esprit/view/Login.fxml"));
+            parentPage = FXMLLoader.load(getClass().getResource("/com/esprit/view/interface.fxml"));
         Scene scene = new Scene(parentPage);
         scene.setFill(Color.TRANSPARENT);
         

@@ -29,6 +29,10 @@ public class User {
     private String email;
     private int numtel;
 
+    public User(long l, String jennifer, String jenniferdomaincom) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public String getPhoto() {
         return photo;
     }

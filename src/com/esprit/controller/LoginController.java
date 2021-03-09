@@ -6,9 +6,11 @@
 package com.esprit.controller;
 
 import com.esprit.dao.ServiceUser;
+import com.esprit.entity.User;
 import static com.esprit.entity.User.validate;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -55,6 +57,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         makeDragable();
+        
 
         creationCompte.setOnAction(event -> {
             try {
@@ -117,8 +120,9 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void verify(ActionEvent event) throws SQLException {
+    private void verify(ActionEvent event) throws SQLException, NoSuchAlgorithmException {
         ServiceUser sp = new ServiceUser();
+        //sp.verify(email.getText(), mdp.getText());
         if (email.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Login vide");
@@ -134,16 +138,11 @@ public class LoginController implements Initializable {
         } else {
             if (validate(email.getText())) {
                 sp.verify(email.getText(), mdp.getText());
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Mot de passe vide");
-                alert.setHeaderText(null);
-                alert.setContentText("Mail non valide");
-                alert.show();
-            }
+            } 
         }
 
     }
+    
 
 }
 

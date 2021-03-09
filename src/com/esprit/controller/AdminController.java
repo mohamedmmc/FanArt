@@ -10,6 +10,7 @@ import com.esprit.entity.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +22,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -64,25 +67,23 @@ public class AdminController implements Initializable {
     private Label typelabel;
     @FXML
     private ImageView cross;
-    
-    
-    String imagepath,emaildel;
+
+    String imagepath, emaildel;
     @FXML
     private AnchorPane parent;
-    double x=0,y=0;
+    double x = 0, y = 0;
     @FXML
     private Label path;
 
     /**
      * Initializes the controller class.
      */
-
     @Override
 
     public void initialize(URL url, ResourceBundle rb) {
         makeDragable();
         ServiceUser su = new ServiceUser();
-        
+
         userTab.setOnMouseClicked((event) -> {
             nomlabel.setText(su.displayAllList()
                     .get(userTab.getSelectionModel().getSelectedIndex())
@@ -95,16 +96,14 @@ public class AdminController implements Initializable {
                     .getEmail());
             typelabel.setText(su.displayAllList()
                     .get(userTab.getSelectionModel().getSelectedIndex())
-                   .getType());
+                    .getType());
             numerolabel.setText(String.valueOf(su.displayAllList()
                     .get(userTab.getSelectionModel().getSelectedIndex())
                     .getNumtel()));
             path.setText(String.valueOf(su.displayAllList()
                     .get(userTab.getSelectionModel().getSelectedIndex())
                     .getPhoto()));
-            
-            
-                    
+
         });
         try {
             // TODO
@@ -114,8 +113,6 @@ public class AdminController implements Initializable {
             prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
             email.setCellValueFactory(new PropertyValueFactory<>("email"));
             numerotel.setCellValueFactory(new PropertyValueFactory<>("numtel"));
-            type.setCellValueFactory(new PropertyValueFactory<>("type"));
-            type.setCellValueFactory(new PropertyValueFactory<>("type"));
             type.setCellValueFactory(new PropertyValueFactory<>("type"));
 
             userTab.setItems(list);
@@ -129,7 +126,8 @@ public class AdminController implements Initializable {
         Stage stage = (Stage) cross.getScene().getWindow();
         stage.close();
     }
-private void makeDragable() {
+
+    private void makeDragable() {
 
         parent.setOnMousePressed(((event) -> {
             x = event.getSceneX();
@@ -156,14 +154,14 @@ private void makeDragable() {
     private void retour(ActionEvent event) {
         try {
 
-                Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/Login.fxml"));
-                Scene scene = new Scene(page1);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/Login.fxml"));
+            Scene scene = new Scene(page1);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -173,14 +171,32 @@ private void makeDragable() {
 
     @FXML
     private void supprimer(ActionEvent event) {
-        /*ServiceUser su = new ServiceUser();
-        try {
-            su.Deluser(emaillabel.toString()); 
-             System.out.println(emaillabel.toString());
-        } catch (Exception e) {
-            System.out.println(false);
-        }*/
-        
+        Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
+        alert2.setTitle("Confirmation");
+        alert2.setHeaderText("Voulez vous vraiment supprimer cet utilisateur ?");
+        Optional<ButtonType> result = alert2.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            ServiceUser su = new ServiceUser();
+            try {
+                su.Deluser(emaillabel.getText());
+                System.out.println(emaillabel.toString());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Supprimé");
+                alert.setHeaderText(null);
+                alert.setContentText("Supprimé avec succés !");
+                alert.show();
+                userTab.setItems(su.getUserList());
+            } catch (SQLException e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Echec");
+                alert.setHeaderText(null);
+                alert.setContentText("Utilisateur non supprimé !");
+            }
+
+        } else {
+            alert2.close();
+        }
+
     }
 
     @FXML

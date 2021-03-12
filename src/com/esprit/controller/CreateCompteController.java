@@ -132,18 +132,17 @@ public class CreateCompteController implements Initializable {
                 MailSender ms = new MailSender();
                 try {
                     su.insert(u);
-                    Thread.sleep(2000);
-                    ms.send(email.getText(),nom.getText());
+                    //Thread.sleep(2000);
+                   
                 } catch (NoSuchAlgorithmException ex) {
                     Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
-                }   catch (InterruptedException ex) {
-                        Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                }
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
                 alert.setHeaderText(null);
                 alert.setContentText("Profil crée avec succés!");
                 alert.show();
+                 ms.send(email.getText(),nom.getText());
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText(null);

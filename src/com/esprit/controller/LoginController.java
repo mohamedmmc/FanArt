@@ -8,6 +8,7 @@ package com.esprit.controller;
 import com.esprit.dao.ServiceUser;
 import com.esprit.entity.User;
 import static com.esprit.entity.User.validate;
+import com.esprit.utilis.Session;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -37,6 +38,8 @@ import javafx.stage.Stage;
  */
 public class LoginController implements Initializable {
 
+    private String current;
+
     @FXML
     AnchorPane parent;
     double x = 0, y = 0;
@@ -56,8 +59,8 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         makeDragable();
-        
 
         creationCompte.setOnAction(event -> {
             try {
@@ -122,6 +125,8 @@ public class LoginController implements Initializable {
     @FXML
     private void verify(ActionEvent event) throws SQLException, NoSuchAlgorithmException {
         ServiceUser sp = new ServiceUser();
+        User u = new User();
+
         //sp.verify(email.getText(), mdp.getText());
         if (email.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -137,13 +142,37 @@ public class LoginController implements Initializable {
             alert.show();
         } else {
             if (validate(email.getText())) {
-                sp.verify(email.getText(), mdp.getText());
-            } 
+                if (sp.verify(email.getText(), mdp.getText())) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Connexion réussie");
+                    alert.show();
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/interface.fxml"));
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        stage.setScene(new Scene(loader.load()));
+                        InterfaceController ic = loader.getController();
+                        ic.initData(email.getText());
+                        //System.out.println(email.getText());
+                        stage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Mot de passe ou login incorrect");
+                    alert.show();
+                }
+            }
         }
+    }
+
+    public void initData(String mail) {
+        current = mail;
 
     }
-    
 
 }
-
-

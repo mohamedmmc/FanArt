@@ -5,32 +5,36 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="890.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.AdminController">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="965.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.AdminController">
    <children>
-      <ImageView fx:id="cross" fitHeight="59.0" fitWidth="59.0" layoutX="817.0" layoutY="9.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="cross" fitHeight="59.0" fitWidth="59.0" layoutX="883.0" layoutY="9.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/x.png" />
          </image>
       </ImageView>
-      <TableView fx:id="userTab" layoutX="353.0" layoutY="53.0" prefHeight="387.0" prefWidth="454.0" style="-fx-background-color: grey;">
+      <TableView fx:id="userTab" layoutX="362.0" layoutY="82.0" prefHeight="432.0" prefWidth="551.0" style="-fx-background-color: grey;">
         <columns>
           <TableColumn fx:id="nom" editable="false" prefWidth="88.0" text="Nom" />
-          <TableColumn fx:id="prenom" editable="false" prefWidth="64.0" text="Prenom" />
-            <TableColumn fx:id="email" editable="false" prefWidth="104.0" text="Email" />
-            <TableColumn fx:id="numerotel" editable="false" prefWidth="94.0" text="Numéro" />
-            <TableColumn fx:id="type" editable="false" prefWidth="94.0" text="Type" />
+          <TableColumn fx:id="prenom" editable="false" prefWidth="114.0" text="Prenom" />
+            <TableColumn fx:id="email" editable="false" prefWidth="130.0" text="Email" />
+            <TableColumn fx:id="numerotel" editable="false" prefWidth="113.0" text="Numéro" />
+            <TableColumn fx:id="type" editable="false" prefWidth="104.0" text="Type" />
         </columns>
       </TableView>
-      <VBox layoutX="14.0" layoutY="62.0" prefHeight="369.0" prefWidth="291.0" spacing="10.0" style="-fx-background-color: #26283d; -fx-border-radius: 50px;">
+      <VBox layoutX="31.0" layoutY="96.0" prefHeight="369.0" prefWidth="291.0" spacing="10.0" style="-fx-background-color: #26283d; -fx-border-radius: 50px;">
          <children>
-            <ImageView fx:id="imagee" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="nomlabel" mouseTransparent="true" prefHeight="41.0" prefWidth="255.0" textFill="WHITE">
+            <ImageView fx:id="imagee" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin></ImageView>
+            <Label fx:id="nomlabel" mouseTransparent="true" prefHeight="41.0" prefWidth="255.0" textAlignment="CENTER" textFill="WHITE">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -38,7 +42,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Label>
-            <Label fx:id="prenomlabel" mouseTransparent="true" prefHeight="41.0" prefWidth="297.0" textFill="WHITE">
+            <Label fx:id="prenomlabel" mouseTransparent="true" prefHeight="41.0" prefWidth="297.0" textAlignment="CENTER" textFill="WHITE">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -46,7 +50,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Label>
-            <Label fx:id="emaillabel" mouseTransparent="true" prefHeight="41.0" prefWidth="358.0" textFill="WHITE">
+            <Label fx:id="emaillabel" mouseTransparent="true" prefHeight="41.0" prefWidth="358.0" textAlignment="CENTER" textFill="WHITE">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -54,7 +58,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Label>
-            <Label fx:id="numerolabel" mouseTransparent="true" prefHeight="41.0" prefWidth="375.0" textFill="WHITE">
+            <Label fx:id="numerolabel" mouseTransparent="true" prefHeight="41.0" prefWidth="375.0" textAlignment="CENTER" textFill="WHITE">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -62,7 +66,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Label>
-            <Label fx:id="typelabel" mouseTransparent="true" prefHeight="41.0" prefWidth="378.0" textFill="WHITE">
+            <Label fx:id="typelabel" mouseTransparent="true" prefHeight="41.0" prefWidth="378.0" textAlignment="CENTER" textFill="WHITE">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -79,15 +83,15 @@
          </opaqueInsets>
       </VBox>
       <Label fx:id="path" layoutX="139.0" layoutY="17.0" />
-      <HBox layoutX="245.0" layoutY="491.0" prefHeight="71.0" prefWidth="433.0" spacing="80.0" style="-fx-background-color: #26283d;">
+      <HBox layoutX="333.0" layoutY="534.0" prefHeight="71.0" prefWidth="214.0" spacing="80.0" style="-fx-background-color: #26283d;">
          <children>
-            <Button mnemonicParsing="false" onAction="#modifier" prefHeight="31.0" prefWidth="116.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Modifier" />
-            <Button mnemonicParsing="false" onAction="#supprimer" prefHeight="31.0" prefWidth="116.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Supprimer" />
+            <Button mnemonicParsing="false" onAction="#supprimer" prefHeight="33.0" prefWidth="114.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Supprimer" />
          </children>
          <padding>
             <Insets bottom="10.0" left="50.0" right="10.0" top="20.0" />
          </padding>
       </HBox>
       <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#retour" prefHeight="31.0" prefWidth="116.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Déconnexion" />
+      <TextField fx:id="chercher" layoutX="466.0" layoutY="30.0" onKeyPressed="#chercher" prefHeight="31.0" prefWidth="266.0" promptText="Rechercher par nom" />
    </children>
 </AnchorPane>

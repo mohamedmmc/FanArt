@@ -30,9 +30,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -77,6 +79,8 @@ public class AdminController implements Initializable {
     private Label path;
     @FXML
     private ImageView imagee;
+    @FXML
+    private TextField chercher;
 
     /**
      * Initializes the controller class.
@@ -85,18 +89,20 @@ public class AdminController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
         makeDragable();
+        
 
         ServiceUser su = new ServiceUser();
         //Image im = new Image(getClass().getResourceAsStream("/com/esprit/img/guestuser.png"));
         imagee.setFitHeight(150);
         imagee.setPreserveRatio(true);
+        
 
         userTab.setOnMouseClicked((event) -> {
             Image img = new Image(getClass().getResourceAsStream(su.displayAllList()
                     .get(userTab.getSelectionModel().getSelectedIndex())
                     .getPhoto()));
             imagee.setImage(img);
-            System.out.println(String.valueOf(su.displayAllList().get(userTab.getSelectionModel().getSelectedIndex()).getPhoto()));
+            //System.out.println(String.valueOf(su.displayAllList().get(userTab.getSelectionModel().getSelectedIndex()).getNom()));
             nomlabel.setText(su.displayAllList()
                     .get(userTab.getSelectionModel().getSelectedIndex())
                     .getNom());
@@ -214,7 +220,12 @@ public class AdminController implements Initializable {
 
     }
 
+
     @FXML
-    private void modifier(ActionEvent event) {
+    private void chercher(KeyEvent event) throws SQLException {
+        ServiceUser su = new ServiceUser();
+        su.chercher(chercher.getText());
+        //tableau.setItems(su.getUserList());
+        userTab.setItems(su.getUserListfiltered(chercher.getText()));
     }
 }

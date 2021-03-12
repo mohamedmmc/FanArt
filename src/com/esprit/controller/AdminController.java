@@ -9,6 +9,9 @@ import com.esprit.dao.ServiceUser;
 import com.esprit.entity.User;
 import java.io.IOException;
 import java.net.URL;
+import javax.mail.*;  
+import javax.mail.internet.*;  
+import javax.activation.*;  
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -54,8 +57,6 @@ public class AdminController implements Initializable {
     @FXML
     private TableColumn<User, String> type;
     @FXML
-    private ImageView image;
-    @FXML
     private Label nomlabel;
     @FXML
     private Label prenomlabel;
@@ -74,6 +75,8 @@ public class AdminController implements Initializable {
     double x = 0, y = 0;
     @FXML
     private Label path;
+    @FXML
+    private ImageView imagee;
 
     /**
      * Initializes the controller class.
@@ -82,9 +85,18 @@ public class AdminController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
         makeDragable();
+
         ServiceUser su = new ServiceUser();
+        //Image im = new Image(getClass().getResourceAsStream("/com/esprit/img/guestuser.png"));
+        imagee.setFitHeight(150);
+        imagee.setPreserveRatio(true);
 
         userTab.setOnMouseClicked((event) -> {
+            Image img = new Image(getClass().getResourceAsStream(su.displayAllList()
+                    .get(userTab.getSelectionModel().getSelectedIndex())
+                    .getPhoto()));
+            imagee.setImage(img);
+            System.out.println(String.valueOf(su.displayAllList().get(userTab.getSelectionModel().getSelectedIndex()).getPhoto()));
             nomlabel.setText(su.displayAllList()
                     .get(userTab.getSelectionModel().getSelectedIndex())
                     .getNom());
@@ -104,6 +116,9 @@ public class AdminController implements Initializable {
                     .get(userTab.getSelectionModel().getSelectedIndex())
                     .getPhoto()));
 
+            /* ImageView f = new ImageView();
+            f.setImage(img);
+            profilpane.getChildren().add(f);*/
         });
         try {
             // TODO
@@ -179,7 +194,7 @@ public class AdminController implements Initializable {
             ServiceUser su = new ServiceUser();
             try {
                 su.Deluser(emaillabel.getText());
-                System.out.println(emaillabel.toString());
+                //System.out.println(emaillabel.toString());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Supprimé");
                 alert.setHeaderText(null);

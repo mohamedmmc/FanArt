@@ -135,8 +135,9 @@ public class ServiceUser {
                 p.setPrenom(rs.getString("prenom"));
                 p.setEmail(rs.getString("email"));
                 p.setNumtel(rs.getInt("numtel"));
-                p.setPrenom(rs.getString("photo"));
+                p.setPhoto(rs.getString("photo"));
                 p.setType(rs.getString("type"));
+                
                 list.add(p);
 
             }

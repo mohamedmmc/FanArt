@@ -8,6 +8,7 @@ package com.esprit.controller;
 import com.esprit.dao.ServiceUser;
 import com.esprit.entity.User;
 import static com.esprit.entity.User.validate;
+import com.esprit.utilis.MailSender;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,6 +42,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import org.apache.commons.io.FileUtils;
 
 /**
  * FXML Controller class
@@ -78,6 +80,7 @@ public class CreateCompteController implements Initializable {
     private ComboBox<String> type;
     @FXML
     private Button browse;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -86,25 +89,56 @@ public class CreateCompteController implements Initializable {
         type.getItems().addAll("Client", "Artiste");
         type.getSelectionModel().select("Client");
         creation.setOnAction((event) -> {
+            if (email.getText().isEmpty())
+            {
+                System.out.println("test reussi");
+            }
+
             
-            String numtell = numtel.getText();
-            int num = Integer.parseInt(numtell);
-            if (email.getText().isEmpty() && prenom.getText().isEmpty() && mdp.getText().isEmpty() && nom.getText().isEmpty() && browse.getText().isEmpty() && numtel.getText().isEmpty()){
+            if (email.getText().isEmpty() || prenom.getText().isEmpty() || mdp.getText().isEmpty() || nom.getText().isEmpty() || browse.getText().isEmpty() || numtel.getText().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
                 alert.setHeaderText(null);
                 alert.setContentText("Tout les champs sont obligatoires !");
                 alert.show();
             }
-            if (validate(email.getText())) {
-                
-                User u = new User(nom.getText(), prenom.getText(), mdp.getText(), email.getText(), num, pathimage, type.getValue());
+            else if (numtel.getText().length()!=8)
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("Numéro invalide !");
+                alert.show();
+            }
+            else if (!mdp.getText().equals(mdp2.getText())){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("Le mot de passe n'est pas identique !");
+                alert.show();
+            }
+            else
+            {
+                if (validate(email.getText())) {
+                try {
+                FileUtils.copyFile(source, dest);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+                String numtell = numtel.getText();
+            int num = Integer.parseInt(numtell);
+                User u = new User(nom.getText(), prenom.getText(), mdp.getText(), email.getText(), num, stringfinal, type.getValue());
                 ServiceUser su = new ServiceUser();
+                MailSender ms = new MailSender();
                 try {
                     su.insert(u);
+                    Thread.sleep(2000);
+                    ms.send(email.getText(),nom.getText());
                 } catch (NoSuchAlgorithmException ex) {
                     Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                }   catch (InterruptedException ex) {
+                        Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
                 alert.setHeaderText(null);
@@ -116,6 +150,8 @@ public class CreateCompteController implements Initializable {
                 alert.setContentText("Mail invalid");
                 alert.show();
             }
+            }
+            
 
         });
         retour.setOnAction(event -> {
@@ -133,7 +169,12 @@ public class CreateCompteController implements Initializable {
     }
     byte[] userimage = null;
     double x, y = 0;
-    String pathimage = "";
+    String pathimage;
+    String filename;
+    String stringfinal;
+    File source;
+    File dest;
+    
 
     private void makeDragable() {
 
@@ -167,17 +208,27 @@ public class CreateCompteController implements Initializable {
     @FXML
     private void browseaction(ActionEvent event) throws FileNotFoundException {
         FileChooser fc = new FileChooser();
+        
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
-        List<File> f = fc.showOpenMultipleDialog(null);
-        String x = "/";
-        for (File file : f) {
-
-            x = file.getAbsolutePath();
-
+        File SelectedFile = fc.showOpenDialog(null);
+        if (SelectedFile != null)
+        {
+            pathimage = SelectedFile.toString();
+            int index= pathimage.lastIndexOf('\\');
+            if (index>0)
+            {
+                filename = pathimage.substring(index+1);
+            }
+             source = new File(pathimage);
+             dest = new File(System.getProperty("user.dir")+"\\src\\com\\esprit\\img\\" + filename);
+//            System.out.println(dest);
+//            System.out.println(source);
+            stringfinal="/com/esprit/img/" + filename;
+            //..\img\google.png
+                    //C:\Users\splin\Documents\NetBeansProjects\FanArt\\com\esprit\img
+            
+            
         }
-        //Image image = new Image(new FileInputStream(f.);
-
-        pathimage = x;
 
     }
 

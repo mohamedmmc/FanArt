@@ -29,13 +29,7 @@
       </TableView>
       <VBox layoutX="14.0" layoutY="62.0" prefHeight="369.0" prefWidth="291.0" spacing="10.0" style="-fx-background-color: #26283d; -fx-border-radius: 50px;">
          <children>
-            <ImageView fx:id="image" fitHeight="113.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/guestuser.png" />
-               </image>
-               <VBox.margin>
-                  <Insets left="75.0" />
-               </VBox.margin></ImageView>
+            <ImageView fx:id="imagee" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="nomlabel" mouseTransparent="true" prefHeight="41.0" prefWidth="255.0" textFill="WHITE">
                <VBox.margin>
                   <Insets />
@@ -85,7 +79,7 @@
          </opaqueInsets>
       </VBox>
       <Label fx:id="path" layoutX="139.0" layoutY="17.0" />
-      <HBox layoutX="242.0" layoutY="465.0" prefHeight="71.0" prefWidth="433.0" spacing="80.0" style="-fx-background-color: #26283d;">
+      <HBox layoutX="245.0" layoutY="491.0" prefHeight="71.0" prefWidth="433.0" spacing="80.0" style="-fx-background-color: #26283d;">
          <children>
             <Button mnemonicParsing="false" onAction="#modifier" prefHeight="31.0" prefWidth="116.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Modifier" />
             <Button mnemonicParsing="false" onAction="#supprimer" prefHeight="31.0" prefWidth="116.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Supprimer" />

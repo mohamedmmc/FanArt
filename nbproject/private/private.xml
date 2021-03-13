@@ -4,10 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/ranya/Documents/NetBeansProjects/FanArt/src/com/esprit/controller/AjouterSalleController.java</file>
-            <file>file:/C:/Users/ranya/Documents/NetBeansProjects/FanArt/src/com/esprit/controller/AcceuilController.java</file>
+            <file>file:/C:/Users/ranya/Documents/NetBeansProjects/FanArt/src/com/esprit/controller/ModifierSalleController.java</file>
             <file>file:/C:/Users/ranya/Documents/NetBeansProjects/FanArt/src/com/esprit/test/FanArt.java</file>
-            <file>file:/C:/Users/ranya/Documents/NetBeansProjects/FanArt/src/com/esprit/controller/InfoReservationController.java</file>
+            <file>file:/C:/Users/ranya/Documents/NetBeansProjects/FanArt/src/com/esprit/controller/ListeSallesController.java</file>
             <file>file:/C:/Users/ranya/Documents/NetBeansProjects/FanArt/src/com/esprit/controller/ReservationSalleController.java</file>
+            <file>file:/C:/Users/ranya/Documents/NetBeansProjects/FanArt/src/com/esprit/controller/InfoSalleController.java</file>
         </group>
     </open-files>
 </project-private>

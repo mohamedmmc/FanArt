@@ -90,11 +90,9 @@ public class AcceuilController implements Initializable {
         System.out.println(song);
 
         if (song != null) {
-    // there is a selection -> delete
-    
         int n = JOptionPane.showConfirmDialog(null, "Vous voulez vraiment supprimer l'élément ? " , "SVP select", JOptionPane.YES_NO_OPTION);
-        if (n==0) { 
-            
+        
+        if (n==0) {  
         PreparedStatement statement = con.prepareStatement("DELETE FROM salle WHERE idsalle = ?");
         tab.getItems().remove(song);
         statement.setInt(1, song.getIdsalle());
@@ -105,7 +103,7 @@ public class AcceuilController implements Initializable {
   }
     
     
-//------------------------------------------- Bouton ajouter salle-----------------------------------------------------  
+//------------------------------------------- Bouton ajouter salle--------------------------------------------------------------------------
          
     @FXML
      void addsalle(ActionEvent event) {
@@ -118,16 +116,15 @@ public class AcceuilController implements Initializable {
         stage.show();
         } catch(Exception e) {
         e.printStackTrace();
-         }
+        }
     }
      
      
      
-  //---------------------------- Plus d'information
+  //---------------------------- Bouton plus d'information ----------------------------------------------------------------------------------
      
        @FXML
     void information(ActionEvent event) throws SQLException {
-
         
     }   
     
@@ -135,17 +132,39 @@ public class AcceuilController implements Initializable {
     
 // -------------------------------------------------Bouton modifier salle ----------------------------------------------------------
     @FXML
-    void modifiersalle(ActionEvent event) {
+    void modifiersalle(ActionEvent event) throws SQLException, IOException {
+        
+        Connection con ;
+        Connexion cnx = new Connexion();
+        con = cnx.getConnection();
+
+        String s="",nbr="",desc="";
+        ModelTable song = tab.getSelectionModel().getSelectedItem();
+       
+        ResultSet rs;
+        PreparedStatement ps = con.prepareStatement("select * FROM salle  WHERE numsalle="+song.getNumsalle() );
+
+         rs=ps.executeQuery();
+         while(rs.next())
+         {
+          s=rs.getString("numsalle");
+          nbr = rs.getString("nbreplace");
+          desc = rs.getString("description");
+         }
+         
         try {
-        Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/ModifierSalle.fxml"));
-        Scene scene = new Scene(page1);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/ModifierSalle.fxml"));
+        Parent root =loader.load();
+        ModifierSalleController info = loader.getController();
+        info.ShowInformation(s, nbr, desc);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
+        stage.show();
         stage.show();
         } catch(Exception e) {
-         e.printStackTrace();
-        } 
-    }
+          e.printStackTrace();
+        }
+     }
             
     private void handleButtonAction(ActionEvent event) {
     System.out.println("You clicked me!");
@@ -154,7 +173,7 @@ public class AcceuilController implements Initializable {
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         try {
+        try {
          Connection con ;
          Connexion cnx = new Connexion();
          con = cnx.getConnection();
@@ -163,9 +182,9 @@ public class AcceuilController implements Initializable {
           while (rs.next())  {
               ob.add(new ModelTable(rs.getInt("idsalle"), rs.getString("numsalle"), rs.getString("nbreplace"),rs.getString("disponibilite"),rs.getString("date")));
              }
-             } catch (Exception ex) {
-             Logger.getLogger(AcceuilController.class.getName()).log(Level.SEVERE, null, ex);
-             }
+        } catch (Exception ex) {
+        Logger.getLogger(AcceuilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
          
             idsalle.setCellValueFactory(new PropertyValueFactory<>("idsalle"));
             numsalle.setCellValueFactory(new PropertyValueFactory<>("numsalle"));

@@ -66,9 +66,21 @@ public class InfoSalleController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-             } catch(Exception e) {
-              e.printStackTrace();
-             }
+            } catch(Exception e) {
+             e.printStackTrace();
+            }
+    }
+    
+    public void ShowInformation(String a, String b, String c)
+    {
+        numsalle.setText(a);
+        nbreplace.setText(b);
+        desc.setText(c);
+        
+        numsalle.setDisable(true);
+        nbreplace.setDisable(true);
+        desc.setDisable(true);
+
     }
     
 }

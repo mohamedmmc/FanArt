@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
@@ -32,16 +33,14 @@ public class ModifierSalleController implements Initializable {
     PreparedStatement ps ;
     ResultSet rs;
     
-    /**
-     * Initializes the controller class.
-     */
-    
-    
     @FXML
     private TextField numsalle;
 
     @FXML
     private TextField place;
+    
+    @FXML
+    private TextArea desc;
 
     @FXML
     private Button parcourrir;
@@ -55,33 +54,39 @@ public class ModifierSalleController implements Initializable {
     @FXML
     private Button retour;
     
-    
+    String num;
+       
     @FXML
     void modifiersalle(ActionEvent event) throws SQLException {
+       
         Connection con ;
         Connexion cnx = new Connexion();
         con = cnx.getConnection();
          
-        String num=numsalle.getText();
-        String nbreplace=place.getText();
-        String sql="Select idsalle from salle where numsalle = ?";
-        String query= "UPDATE salle SET numsalle =?, nbreplace=?";
-       
+        String a=numsalle.getText();
+        String nbrplace=place.getText();
+        String descr=desc.getText();
+
+        String query= "UPDATE salle SET numsalle=?, nbreplace=?,description=? where numsalle="+num;
+        
         try{
         ps =con.prepareStatement(query);
-        ps.setString(1, num);
-        ps.setString(2, nbreplace);
-        ps.execute();
+        ps.setString(1, a);
+        ps.setString(2, nbrplace);
+        ps.setString(3, descr);
+
+        ps.executeUpdate();
         
-        JOptionPane.showMessageDialog(null,"Bien");
+        JOptionPane.showMessageDialog(null,"La mise a jour a été bien effectuée ..");
         
         } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, ex);
         }
     }
      
-      @FXML
-       void retour2(ActionEvent event) {
+    @FXML
+    void retour2(ActionEvent event) {
+       
        try {
        Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/Acceuil.fxml"));
             Scene scene = new Scene(page1);
@@ -92,13 +97,23 @@ public class ModifierSalleController implements Initializable {
              e.printStackTrace();
           }
        }
-            
-      @FXML
-      void Annuler2(ActionEvent event) throws SQLException {
+                
+    @FXML
+    void Annuler2(ActionEvent event) throws SQLException {
            
         numsalle.setText("");
         place.setText("");
-}
+        desc.setText("");
+    }
+    
+    public void ShowInformation(String a, String b, String c)  {
+        
+        numsalle.setText(a);
+        place.setText(b);
+        desc.setText(c);
+
+        num=a;
+    }
      
     @Override
     public void initialize(URL url, ResourceBundle rb) {

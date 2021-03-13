@@ -17,9 +17,9 @@ import javafx.stage.Stage;
  */
 public class FanArt extends Application {
     
-    @Override
+    @Override               
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/ListeSalles.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/Bienvenue.fxml"));
         
         Scene scene = new Scene(root);
         

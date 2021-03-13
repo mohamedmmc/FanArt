@@ -4,32 +4,30 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.ListeSallesController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #C1A409;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.ListeSallesController">
    <children>
-      <TableView fx:id="tab" layoutX="189.0" layoutY="121.0" prefHeight="200.0" prefWidth="345.0">
+      <TableView fx:id="tab" layoutX="117.0" layoutY="117.0" prefHeight="210.0" prefWidth="401.0">
         <columns>
-          <TableColumn fx:id="numsalle" prefWidth="97.66668701171875" text="Numéro salle" />
-          <TableColumn fx:id="nbreplace" prefWidth="116.3333740234375" text="Nombre de places" />
-            <TableColumn fx:id="dispo" minWidth="0.0" prefWidth="126.66668701171875" text="Disponibilité" />
+          <TableColumn fx:id="numsalle" prefWidth="128.6666259765625" text="Numéro salle" />
+          <TableColumn fx:id="nbreplace" prefWidth="131.6666259765625" text="Nombre de places" />
+            <TableColumn fx:id="dispo" minWidth="0.0" prefWidth="139.0" text="Disponibilité" />
         </columns>
       </TableView>
       <Button fx:id="reserver" layoutX="462.0" layoutY="70.0" mnemonicParsing="false" onAction="#reservation" text="Réserver une salle">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <Button fx:id="info" layoutX="421.0" layoutY="342.0" mnemonicParsing="false" onAction="#information" text="Plus d'information">
+      <Button fx:id="info" layoutX="396.0" layoutY="345.0" mnemonicParsing="false" onAction="#information" text="Plus d'information">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <Label layoutX="156.0" layoutY="35.0" text="La liste des salles" textFill="#f6f3f3">
+      <Label layoutX="52.0" layoutY="32.0" text="La liste des salles" textFill="#0b0b0b">
          <font>
-            <Font name="Copperplate Gothic Bold" size="24.0" />
+            <Font name="Copperplate Gothic Bold" size="26.0" />
          </font>
       </Label>
-      <ImageView fitHeight="400.0" fitWidth="156.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

@@ -3,6 +3,8 @@ package com.esprit.controller;
 
 import com.esprit.test.Connexion;
 import com.esprit.controller.ModelTable2;
+import com.sun.deploy.uitoolkit.impl.fx.ui.FXAboutDialog;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,7 +41,7 @@ public class ListeSallesController implements Initializable {
      * Initializes the controller class.
      */
     
-     @FXML
+    @FXML
     private Button reserver;
 
     @FXML
@@ -58,43 +60,47 @@ public class ListeSallesController implements Initializable {
     private TableView<ModelTable2> tab;
     
     ObservableList<ModelTable2> ob2 =FXCollections.observableArrayList();
+    
          
-           
-        @FXML
-     void information(ActionEvent event) throws SQLException {
+//----------------------------------- Bouton plus information pour la salle -------------------------------------------------------------           
+    @FXML
+    void information(ActionEvent event) throws SQLException, IOException {
         
-         Connection con ;
-        Connexion cnx = new Connexion();
-        con = cnx.getConnection();
+       Connection con ;
+       Connexion cnx = new Connexion();
+       con = cnx.getConnection();
 
-        
-        String s,nbr,desc;
+        String s="",nbr="",desc="";
         ModelTable2 song = tab.getSelectionModel().getSelectedItem();
         System.out.println(song);
         ResultSet rs;
 
-        
-    // there is a selection -> delete
-    
-       
-            
         PreparedStatement ps = con.prepareStatement("select * FROM salle  WHERE numsalle="+song.getNumsalle() );
 
          rs=ps.executeQuery();
-         while(rs.next())
-         {
+         while(rs.next()){
             
-          s=rs.getString("numsalle");
-             nbr = rs.getString("nbreplace");
-             desc = rs.getString("description");
-
+         s=rs.getString("numsalle");
+         nbr = rs.getString("nbreplace");
+         desc = rs.getString("description");
          }
-
+         
+        try{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/InfoSalle.fxml"));
+        Parent root =loader.load();
+        InfoSalleController info = loader.getController();
+        info.ShowInformation(s, nbr, desc);
        
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         
-       
+        stage.setScene(new Scene(root));
+        stage.show();
+        } catch(Exception e) {
+         e.printStackTrace();
+        }
     }
     
+//----------------------------Bouton reservation salle -----------------------------------------------------------------------------------
     
     @FXML
     void reservation(ActionEvent event) {
@@ -104,9 +110,9 @@ public class ListeSallesController implements Initializable {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-             } catch(Exception e) {
-              e.printStackTrace();
-             }
+            } catch(Exception e) {
+             e.printStackTrace();
+            }
     }
     
     
@@ -115,17 +121,17 @@ public class ListeSallesController implements Initializable {
         // TODO
         
         try {
-         Connection con ;
-         Connexion cnx = new Connexion();
-         con = cnx.getConnection();
+        Connection con ;
+        Connexion cnx = new Connexion();
+        con = cnx.getConnection();
              
-         ResultSet rs=con.createStatement().executeQuery("select * from salle");
-          while (rs.next())  {
-              ob2.add(new ModelTable2(rs.getString("numsalle"), rs.getString("nbreplace"),rs.getString("disponibilite")));
-             }
-             } catch (Exception ex) {
-             Logger.getLogger(AcceuilController.class.getName()).log(Level.SEVERE, null, ex);
-             }
+        ResultSet rs=con.createStatement().executeQuery("select * from salle");
+        while (rs.next())  {
+           ob2.add(new ModelTable2(rs.getString("numsalle"), rs.getString("nbreplace"),rs.getString("disponibilite")));
+        }
+        } catch (Exception ex) {
+        Logger.getLogger(AcceuilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
          
             numsalle.setCellValueFactory(new PropertyValueFactory<>("numsalle"));
             nbreplace.setCellValueFactory(new PropertyValueFactory<>("nbreplace"));

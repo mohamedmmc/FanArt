@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="698.0" prefWidth="941.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.CreateCompteController">
+<AnchorPane fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="946.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.CreateCompteController">
    <children>
-      <HBox layoutX="72.0" layoutY="561.0" prefHeight="128.0" prefWidth="729.0" spacing="80.0">
+      <HBox layoutX="254.0" layoutY="563.0" prefHeight="78.0" prefWidth="438.0" spacing="80.0">
          <children>
             <Button fx:id="retour" mnemonicParsing="false" prefHeight="32.0" prefWidth="97.0" style="-fx-background-color: null; -fx-text-fill: white; -fx-border-color: white;" text="Annuler">
                <HBox.margin>
@@ -28,10 +28,10 @@
             </Button>
          </children>
          <padding>
-            <Insets left="250.0" top="50.0" />
+            <Insets left="70.0" top="20.0" />
          </padding>
       </HBox>
-      <VBox layoutX="271.0" layoutY="58.0" prefHeight="519.0" prefWidth="419.0" spacing="25.0">
+      <VBox layoutX="254.0" layoutY="14.0" prefHeight="549.0" prefWidth="438.0" spacing="25.0">
          <children>
             <HBox prefWidth="383.0" style="-fx-border-color: white; -fx-background-radius: 0;">
                <children>
@@ -53,9 +53,9 @@
                   <PasswordField id="mdp" fx:id="mdp" prefHeight="32.0" prefWidth="331.0" promptText="Mot de passe" style="-fx-background-color: transparent; -fx-prompt-text-fill: #dedede; -fx-text-fill: white;" />
                </children>
             </HBox>
-            <HBox prefHeight="31.0" prefWidth="380.0" style="-fx-border-color: white;">
+            <HBox prefHeight="31.0" prefWidth="380.0" style="-fx-border-color: white; -fx-background-radius: 0;">
                <children>
-                  <PasswordField fx:id="mdp2" promptText="Repeter mot de passe" style="-fx-background-color: transparent; -fx-prompt-text-fill: #decade; -fx-text-fill: white;" />
+                  <PasswordField fx:id="mdp2" promptText="Repeter mot de passe" style="-fx-background-color: transparent; -fx-prompt-text-fill: #dedede; -fx-text-fill: white;" />
                </children>
             </HBox>
             <HBox style="-fx-border-color: white; -fx-background-radius: 0;">
@@ -63,24 +63,57 @@
                   <TextField id="numtel" fx:id="numtel" prefHeight="32.0" promptText="Numéro de téléphone" style="-fx-background-color: transparent; -fx-prompt-text-fill: #dedede; -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <HBox prefHeight="62.0" prefWidth="374.0" spacing="80.0">
+            <HBox prefHeight="62.0" prefWidth="427.0" spacing="40.0">
                <children>
-                  <Label style="-fx-border-color: white;" text="Photo de profil" textFill="#eeeeee" />
-                  <Button fx:id="browse" mnemonicParsing="false" onAction="#browseaction" text="Parcourir" />
+                  <Label prefHeight="32.0" prefWidth="133.0" style="-fx-border-color: white;" text="Photo de profil" textFill="#eeeeee">
+                     <padding>
+                        <Insets bottom="4.83" left="4.83" right="4.83" top="4.83" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets top="25.0" />
+                     </HBox.margin></Label>
+                  <Button fx:id="browse" mnemonicParsing="false" onAction="#browseaction" prefHeight="32.0" prefWidth="106.0" text="Parcourir">
+                     <HBox.margin>
+                        <Insets left="10.0" top="25.0" />
+                     </HBox.margin></Button>
+                  <ImageView fx:id="pdp" fitHeight="94.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: white;">
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../img/guestuser.png" />
+                     </image>
+                  </ImageView>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="45.0">
+            <HBox prefHeight="59.0" prefWidth="418.0" spacing="45.0">
                <children>
-                  <Label prefHeight="21.0" prefWidth="107.0" style="-fx-border-color: white;" text="Type" textFill="#eeeeee" />
-                  <ComboBox fx:id="type" prefWidth="150.0" promptText="Choisir" />
+                  <Label prefHeight="26.0" prefWidth="135.0" style="-fx-border-color: white;" text="Type" textFill="#eeeeee">
+                     <padding>
+                        <Insets bottom="4.83" left="4.83" right="4.83" top="4.83" />
+                     </padding></Label>
+                  <ComboBox fx:id="type" prefWidth="150.0" promptText="Choisir">
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin></ComboBox>
                </children>
             </HBox>
          </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
       </VBox>
-      <ImageView fx:id="cross" fitHeight="59.0" fitWidth="59.0" layoutX="843.0" layoutY="16.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="cross" fitHeight="59.0" fitWidth="59.0" layoutX="859.0" layoutY="22.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/x.png" />
          </image>
       </ImageView>
+      <Label fx:id="noml" layoutX="713.0" layoutY="43.0" style="-fx-text-fill: red;" />
+      <Label fx:id="photol" layoutX="713.0" layoutY="425.0" style="-fx-text-fill: red;" />
+      <Label fx:id="tell" layoutX="713.0" layoutY="338.0" style="-fx-text-fill: red;" />
+      <Label fx:id="mdprl" layoutX="713.0" layoutY="279.0" style="-fx-text-fill: red;" />
+      <Label fx:id="mdpl" layoutX="713.0" layoutY="222.0" style="-fx-text-fill: red;" />
+      <Label fx:id="emaill" layoutX="713.0" layoutY="161.0" style="-fx-text-fill: red;" />
+      <Label fx:id="prenoml" layoutX="713.0" layoutY="101.0" style="-fx-text-fill: red;" />
    </children>
 </AnchorPane>

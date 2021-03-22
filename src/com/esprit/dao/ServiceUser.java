@@ -51,7 +51,24 @@ public class ServiceUser {
 
     }
 
-    public void insert(User u) throws NoSuchAlgorithmException {
+    public Integer Existance(User u) throws SQLException {
+        int a = 0;
+        String reqq = "select email,numtel from user where email='" + u.getEmail() + "' OR numtel='" + u.getNumtel() + "'";
+        ResultSet srs = ste.executeQuery(reqq);
+        while (srs.next()) {
+            if (u.getEmail().equals(srs.getString("email"))) {
+                a = 1;
+                return a;
+            } else if (u.getNumtel() == srs.getInt("numtel")) {
+                a = 2;
+                return a;
+            }
+        }
+
+        return a;
+    }
+
+    public void insert(User u) throws NoSuchAlgorithmException, SQLException {
         //String a = u.getMdp();
         //System.out.println(u.getPhoto());
         String Hashed = generatedHash(u.getMdp(), "SHA-256");
@@ -63,10 +80,13 @@ public class ServiceUser {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
 
-    public Boolean verify(String email, String mdp) throws SQLException, NoSuchAlgorithmException {
-        String req = "select email,mdp from user where email='" + email + "'";
+    }
+    
+    
+
+    public Integer verify(String email, String mdp) throws SQLException, NoSuchAlgorithmException {
+        String req = "select id,email,mdp from user where email='" + email + "'";
         ResultSet rs = ste.executeQuery(req);
         String hashed2;
         boolean mailtrue = false, mdptrue = false;
@@ -76,14 +96,14 @@ public class ServiceUser {
                 hashed2 = generatedHash(mdp, "SHA-256");
                 if (rs.getString("mdp").equals(hashed2)) {
                     mdptrue = true;
-                    return true;
+                    return rs.getInt("id");
                 }
             }
         }
         if (mailtrue == false || mdptrue == false) {
-            return false;
+            return 0;
         }
-        return false;
+        return 0;
     }
 
     public Boolean verifymdp(String mdp, String a) {
@@ -149,9 +169,10 @@ public class ServiceUser {
         ste.executeUpdate(query);
 
     }
+
     public ObservableList<User> getUserListfiltered(String k) throws SQLException {
         ObservableList<User> eventsList = FXCollections.observableArrayList();
-        String query = "Select nom,prenom,email,numtel,type  from user where nom like '"+k+"%'";
+        String query = "Select nom,prenom,email,numtel,type  from user where nom like '" + k + "%'";
         //ResultSet rs;
         rs = ste.executeQuery(query);
         User user;
@@ -163,35 +184,38 @@ public class ServiceUser {
         return eventsList;
 
     }
-     public void chercher(String k) throws SQLException{
-        String req = "Select nom,prenom,email,numtel,type from user where nom like '"+k+"%' ";
+
+    public void chercher(String k) throws SQLException {
+        String req = "Select nom,prenom,email,numtel,type from user where nom like '" + k + "%' ";
         ResultSet rs = ste.executeQuery(req);
         rs = ste.executeQuery(req);
-        
-        
+
     }
-    public  User findBymail(String S){
+
+    public User findBymail(int S) {
         User u = new User();
-        String req = "Select * from user where email ='"+S+"' ";
+        String req = "Select * from user where id ='" + S + "' ";
         try {
             pst = cnx.prepareStatement(req);
             rs = pst.executeQuery();
-            while (rs.next()) {                
-                
+            while (rs.next()) {
+
                 u.setNom(rs.getString("nom"));
                 u.setPrenom(rs.getString("prenom"));
                 u.setMdp(rs.getString("mdp"));
                 u.setEmail(rs.getString("email"));
                 u.setNumtel(rs.getInt("numtel"));
                 u.setPhoto(rs.getString("photo"));
+                u.setId(rs.getInt("id"));
             }
         } catch (Exception e) {
         }
         return u;
-        
+
     }
-     public void ModifierUser(User u, String mail){
-        String sql = "UPDATE user SET `nom`=?,`prenom`=?,`mdp`=?,`email`=?,`numtel`=? WHERE email='"+ mail+"'";
+
+    public void ModifierUser(User u, int id) {
+        String sql = "UPDATE user SET `nom`=?,`prenom`=?,`mdp`=?,`email`=?,`numtel`=? WHERE id='" + id + "'";
         PreparedStatement ste;
         //System.out.println(mail);
         try {
@@ -210,7 +234,7 @@ public class ServiceUser {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
 }

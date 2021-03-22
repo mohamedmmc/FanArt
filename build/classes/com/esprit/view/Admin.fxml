@@ -28,7 +28,7 @@
             <TableColumn fx:id="type" editable="false" prefWidth="104.0" text="Type" />
         </columns>
       </TableView>
-      <VBox layoutX="31.0" layoutY="96.0" prefHeight="369.0" prefWidth="291.0" spacing="10.0" style="-fx-background-color: #26283d; -fx-border-radius: 50px;">
+      <VBox fx:id="vue" layoutX="31.0" layoutY="96.0" prefHeight="369.0" prefWidth="291.0" spacing="10.0" style="-fx-background-color: #26283d; -fx-border-radius: 50px;">
          <children>
             <ImageView fx:id="imagee" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <VBox.margin>
@@ -82,7 +82,6 @@
             <Insets />
          </opaqueInsets>
       </VBox>
-      <Label fx:id="path" layoutX="139.0" layoutY="17.0" />
       <HBox layoutX="333.0" layoutY="534.0" prefHeight="71.0" prefWidth="214.0" spacing="80.0" style="-fx-background-color: #26283d;">
          <children>
             <Button mnemonicParsing="false" onAction="#supprimer" prefHeight="33.0" prefWidth="114.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white;" text="Supprimer" />

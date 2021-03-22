@@ -15,7 +15,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.esprit.utilis.Session;
 import java.security.NoSuchAlgorithmException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -45,7 +44,8 @@ import javafx.stage.Stage;
 public class InterfaceController implements Initializable {
 
     User u;
-    private String current;
+    String oldmail;
+    private int current;
 
     @FXML
     private AnchorPane parent;
@@ -76,7 +76,7 @@ public class InterfaceController implements Initializable {
             ServiceUser su = new ServiceUser();
             u = su.findBymail(current);
             //System.out.println(current);
-            emailLabel.setText(current);
+            //emailLabel.setText(current);
         });
 
     }
@@ -137,12 +137,15 @@ public class InterfaceController implements Initializable {
             mdpfieldv.setPromptText("Tapper le nouveau mot de passe");
             emailfield.setText(u.getEmail());
             numfield.setText(num);
+            
+            oldmail = emailfield.getText();
+            
         });
 
     }
 
-    public void initData(String mail) {
-        current = mail;
+    public void initData(int id) {
+        current = id;
 
     }
 
@@ -163,26 +166,28 @@ public class InterfaceController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Numéro invalide !");
             alert.show();
-        } else {
-            System.out.println(u.getMdp());
-            System.out.println(mdpfield.getText());
-            u.setEmail(emailfield.getText());
-            if (su.verify(emailfield.getText(), mdpfield.getText())) {
+        } 
+        else {
+            
+            //u.setEmail(emailfield.getText());
+            if (su.verify(oldmail, mdpfield.getText())!=0) {
                 String Hashed = generatedHash(mdpfieldv.getText(), "SHA-256");
                 User u = new User(nomfield.getText(), prenomfield.getText(), Hashed, emailfield.getText(), num);
                 su.ModifierUser(u, current);
-                System.out.println(current);
+                
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
                 alert.setHeaderText(null);
                 alert.setContentText("Profil modifié avec succés!");
                 alert.show();
+                mdpfield.clear();
+                mdpfieldv.clear();
             }
             else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Information Dialog");
                 alert.setHeaderText(null);
-                alert.setContentText("Profil introuvable !");
+                alert.setContentText("Echec de la modification");
                 alert.show();
             }
 

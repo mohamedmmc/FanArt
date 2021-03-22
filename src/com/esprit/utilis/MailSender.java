@@ -6,6 +6,7 @@
 package com.esprit.utilis;
 
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -22,7 +23,7 @@ public class MailSender {
         final String username = "fanart3a18@gmail.com";
         final String password = "3A18java123";
         
-        public void send (String email, String name){
+        public void send (String email, String name) throws InterruptedException{
             
 
         Properties prop = new Properties();

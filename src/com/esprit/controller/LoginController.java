@@ -8,7 +8,6 @@ package com.esprit.controller;
 import com.esprit.dao.ServiceUser;
 import com.esprit.entity.User;
 import static com.esprit.entity.User.validate;
-import com.esprit.utilis.Session;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -38,6 +37,7 @@ import javafx.stage.Stage;
  */
 public class LoginController implements Initializable {
 
+    private static String session;
     private String current;
 
     @FXML
@@ -59,7 +59,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         makeDragable();
 
         creationCompte.setOnAction(event -> {
@@ -126,8 +126,7 @@ public class LoginController implements Initializable {
     private void verify(ActionEvent event) throws SQLException, NoSuchAlgorithmException {
         ServiceUser sp = new ServiceUser();
         User u = new User();
-
-        //sp.verify(email.getText(), mdp.getText());
+        
         if (email.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Login vide");
@@ -142,18 +141,19 @@ public class LoginController implements Initializable {
             alert.show();
         } else {
             if (validate(email.getText())) {
-                if (sp.verify(email.getText(), mdp.getText())) {
+                if (sp.verify(email.getText(), mdp.getText())!=0) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
                     alert.setContentText("Connexion réussie");
+                    
                     alert.show();
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/interface.fxml"));
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         stage.setScene(new Scene(loader.load()));
                         InterfaceController ic = loader.getController();
-                        ic.initData(email.getText());
+                        ic.initData(sp.verify(email.getText(), mdp.getText()));
                         //System.out.println(email.getText());
                         stage.show();
                     } catch (IOException ex) {
@@ -166,6 +166,12 @@ public class LoginController implements Initializable {
                     alert.setContentText("Mot de passe ou login incorrect");
                     alert.show();
                 }
+            }else
+            {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Email incorrect");
+                    alert.show();
             }
         }
     }

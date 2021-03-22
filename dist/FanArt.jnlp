@@ -8,11 +8,15 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="FanArt.jar" size="6535935" download="eager" />
+    <jar href="FanArt.jar" size="12947950" download="eager" />
     <jar href="lib\activation.jar" size="55147" download="eager" />
     <jar href="lib\commons-io-2.8.0.jar" size="285424" download="eager" />
     <jar href="lib\mail.jar" size="462098" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
+    <jar href="lib\twilio-8.9.0-jar-with-dependencies.jar" size="8358951" download="eager" />
+    <jar href="lib\twilio-8.9.0-javadoc.jar" size="14381263" download="eager" />
+    <jar href="lib\twilio-8.9.0-sources.jar" size="2819858" download="eager" />
+    <jar href="lib\twilio-8.9.0.jar" size="4206748" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="FanArt" >
     <param name="requiredFXVersion" value="8.0+"/>

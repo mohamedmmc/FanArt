@@ -157,8 +157,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "photo=" + photo + '}';
+        return "User{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mdp=" + mdp + ", email=" + email + ", numtel=" + numtel + ", photo=" + photo + ", type=" + type + '}';
     }
+
+ 
 
 
 

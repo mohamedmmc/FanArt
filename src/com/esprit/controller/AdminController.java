@@ -9,14 +9,15 @@ import com.esprit.dao.ServiceUser;
 import com.esprit.entity.User;
 import java.io.IOException;
 import java.net.URL;
-import javax.mail.*;  
-import javax.mail.internet.*;  
-import javax.activation.*;  
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,6 +38,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -45,6 +47,7 @@ import javafx.stage.Stage;
  * @author splin
  */
 public class AdminController implements Initializable {
+    
 
     @FXML
     private TableView<User> userTab;
@@ -76,11 +79,11 @@ public class AdminController implements Initializable {
     private AnchorPane parent;
     double x = 0, y = 0;
     @FXML
-    private Label path;
-    @FXML
     private ImageView imagee;
     @FXML
     private TextField chercher;
+    @FXML
+    private VBox vue;
 
     /**
      * Initializes the controller class.
@@ -88,58 +91,58 @@ public class AdminController implements Initializable {
     @Override
 
     public void initialize(URL url, ResourceBundle rb) {
-        makeDragable();
-        
+        Platform.runLater(() -> {
+            makeDragable();
+            
 
-        ServiceUser su = new ServiceUser();
-        //Image im = new Image(getClass().getResourceAsStream("/com/esprit/img/guestuser.png"));
-        imagee.setFitHeight(150);
-        imagee.setPreserveRatio(true);
-        
+            ServiceUser su = new ServiceUser();
+            //Image im = new Image(getClass().getResourceAsStream("/com/esprit/img/guestuser.png"));
+            imagee.setFitHeight(150);
+            imagee.setPreserveRatio(true);
 
-        userTab.setOnMouseClicked((event) -> {
-            Image img = new Image(getClass().getResourceAsStream(su.displayAllList()
-                    .get(userTab.getSelectionModel().getSelectedIndex())
-                    .getPhoto()));
-            imagee.setImage(img);
-            //System.out.println(String.valueOf(su.displayAllList().get(userTab.getSelectionModel().getSelectedIndex()).getNom()));
-            nomlabel.setText(su.displayAllList()
-                    .get(userTab.getSelectionModel().getSelectedIndex())
-                    .getNom());
-            prenomlabel.setText(su.displayAllList()
-                    .get(userTab.getSelectionModel().getSelectedIndex())
-                    .getPrenom());
-            emaillabel.setText(su.displayAllList()
-                    .get(userTab.getSelectionModel().getSelectedIndex())
-                    .getEmail());
-            typelabel.setText(su.displayAllList()
-                    .get(userTab.getSelectionModel().getSelectedIndex())
-                    .getType());
-            numerolabel.setText(String.valueOf(su.displayAllList()
-                    .get(userTab.getSelectionModel().getSelectedIndex())
-                    .getNumtel()));
-            path.setText(String.valueOf(su.displayAllList()
-                    .get(userTab.getSelectionModel().getSelectedIndex())
-                    .getPhoto()));
+            userTab.setOnMouseClicked((event) -> {
+                //vue.getChildren().remove(imagee);
 
-            /* ImageView f = new ImageView();
+                Image img = new Image(getClass().getResourceAsStream(su.displayAllList()
+                        .get(userTab.getSelectionModel().getSelectedIndex())
+                        .getPhoto()));
+                imagee.setImage(img);
+                //System.out.println(String.valueOf(su.displayAllList().get(userTab.getSelectionModel().getSelectedIndex()).getNom()));
+                nomlabel.setText(su.displayAllList()
+                        .get(userTab.getSelectionModel().getSelectedIndex())
+                        .getNom());
+                prenomlabel.setText(su.displayAllList()
+                        .get(userTab.getSelectionModel().getSelectedIndex())
+                        .getPrenom());
+                emaillabel.setText(su.displayAllList()
+                        .get(userTab.getSelectionModel().getSelectedIndex())
+                        .getEmail());
+                typelabel.setText(su.displayAllList()
+                        .get(userTab.getSelectionModel().getSelectedIndex())
+                        .getType());
+                numerolabel.setText(String.valueOf(su.displayAllList()
+                        .get(userTab.getSelectionModel().getSelectedIndex())
+                        .getNumtel()));
+
+                /* ImageView f = new ImageView();
             f.setImage(img);
             profilpane.getChildren().add(f);*/
+            });
+            try {
+                // TODO
+
+                ObservableList<User> list = su.getUserList();
+                nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
+                prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+                email.setCellValueFactory(new PropertyValueFactory<>("email"));
+                numerotel.setCellValueFactory(new PropertyValueFactory<>("numtel"));
+                type.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+                userTab.setItems(list);
+            } catch (SQLException ex) {
+
+            }
         });
-        try {
-            // TODO
-
-            ObservableList<User> list = su.getUserList();
-            nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
-            prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-            email.setCellValueFactory(new PropertyValueFactory<>("email"));
-            numerotel.setCellValueFactory(new PropertyValueFactory<>("numtel"));
-            type.setCellValueFactory(new PropertyValueFactory<>("type"));
-
-            userTab.setItems(list);
-        } catch (SQLException ex) {
-
-        }
     }
 
     @FXML
@@ -194,7 +197,7 @@ public class AdminController implements Initializable {
     private void supprimer(ActionEvent event) {
         Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
         alert2.setTitle("Confirmation");
-        alert2.setHeaderText("Voulez vous vraiment supprimer cet utilisateur ?");
+        alert2.setHeaderText("Voulez vous vraiment supprimer cet utilisateur "+nomlabel.getText()+" "+prenomlabel.getText() +"?");
         Optional<ButtonType> result = alert2.showAndWait();
         if (result.get() == ButtonType.OK) {
             ServiceUser su = new ServiceUser();
@@ -219,7 +222,6 @@ public class AdminController implements Initializable {
         }
 
     }
-
 
     @FXML
     private void chercher(KeyEvent event) throws SQLException {

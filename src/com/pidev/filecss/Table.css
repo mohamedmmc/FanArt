@@ -1,0 +1,38 @@
+btn_valider {
+    -bottom-border-color: black;
+    -top-border-color: linear-gradient(from 0% 0% to 0% 100%, #38528B 10%, black 10%);
+    -outer-shadow-color: rgba(0, 0, 0, 0.85);    
+    -inner-shadow-color: rgba(255, 255, 255, 0.33);
+    -text-shadow-color: black;
+    -inner-fill-color: #4061A7;
+    -visible-side-color: #1F3052;
+    -fx-pref-width: -1;
+    -fx-pref-height: -1;
+    -fx-background-color: -bottom-border-color, -visible-side-color;
+    -fx-background-insets: 0px 0px -7px 0px, 0px 0px -6px 0px;
+    -fx-background-radius: 6px, 5px;
+    -fx-effect: dropshadow(three-pass-box, -outer-shadow-color, 5, 0, 0, 2);
+}
+.btn_valider:hover {
+    -inner-fill-color: derive(#4061A7, 20%);
+}
+.btn_valider:pressed {
+    -inner-fill-color: derive(#4061A7, -20%);
+    -fx-padding: 5px 0px 0px 0px;    
+    -fx-background-insets: 10px 0px -2px 0px, 11px 0px -1px 0px;
+}
+.btn_valider .top {
+    -fx-pref-width: -1;
+    -fx-pref-height: -1;
+    -fx-padding: 3px 10px 7px 10px;
+    -fx-effect: innershadow(three-pass-box, -inner-shadow-color, 10, 0, 0, 0);    
+    -fx-background-color: -top-border-color, -inner-fill-color;
+    -fx-background-insets: 0px, 1px;
+    -fx-background-radius: 5px, 4px;
+}
+.btn_valider .label {
+    -fx-text-fill: white;
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bolder;
+    -fx-effect: dropshadow(three-pass-box, -text-shadow-color, 2, 0, 0, -1);
+}

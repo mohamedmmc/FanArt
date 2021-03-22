@@ -39,7 +39,7 @@ public class Main extends Application {
         try {
             
         
-        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/FXMLAffichageProduit.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/Menu.fxml"));
         
         Scene scene = new Scene(root);
         

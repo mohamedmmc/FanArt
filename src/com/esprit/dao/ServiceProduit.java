@@ -90,6 +90,26 @@ public class ServiceProduit {
         }
         return list;
     }
+    public List<Produit> displayList() {
+        String req="select * from produit";
+        List<Produit> list=new ArrayList<Produit>();           
+        try {
+            rs=ste.executeQuery(req);
+            while(rs.next()){
+                Produit p=new Produit();
+                p.setId(rs.getInt(1));
+                p.setTitre(rs.getString("titre"));
+                p.setDescription(rs.getString("description"));
+                p.setImage(rs.getString("image"));
+                p.setPrix(rs.getFloat("prix"));
+                list.add(p);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceProduit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 
      public Produit displayById(int id) {
            String req="select * from produit where id_produit ="+id;

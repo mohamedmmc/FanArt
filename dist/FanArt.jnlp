@@ -8,7 +8,9 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="FanArt.jar" size="596066" download="eager" />
+    <jar href="FanArt.jar" size="1829682" download="eager" />
+    <jar href="lib\commons-io-2.8.0-test-sources.jar" size="312190" download="eager" />
+    <jar href="lib\commons-io-2.8.0.jar" size="285424" download="eager" />
     <jar href="lib\fontawesomefx-commons-9.1.2.jar" size="24064" download="eager" />
     <jar href="lib\fontawesomefx-fontawesome-4.7.0-9.1.2.jar" size="137226" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />

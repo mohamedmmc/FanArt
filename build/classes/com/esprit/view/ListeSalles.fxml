@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #C1A409;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.ListeSallesController">
+   <children>
+      <TableView fx:id="tab" layoutX="117.0" layoutY="117.0" prefHeight="210.0" prefWidth="401.0">
+        <columns>
+          <TableColumn fx:id="numsalle" prefWidth="128.6666259765625" text="Numéro salle" />
+          <TableColumn fx:id="nbreplace" prefWidth="131.6666259765625" text="Nombre de places" />
+            <TableColumn fx:id="dispo" minWidth="0.0" prefWidth="139.0" text="Disponibilité" />
+        </columns>
+      </TableView>
+      <Button fx:id="reserver" layoutX="462.0" layoutY="70.0" mnemonicParsing="false" onAction="#reservation" text="Réserver une salle">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="info" layoutX="396.0" layoutY="345.0" mnemonicParsing="false" onAction="#information" text="Plus d'information">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Label layoutX="52.0" layoutY="32.0" text="La liste des salles" textFill="#0b0b0b">
+         <font>
+            <Font name="Copperplate Gothic Bold" size="26.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

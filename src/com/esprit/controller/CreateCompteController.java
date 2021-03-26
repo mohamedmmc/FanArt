@@ -6,10 +6,15 @@
 package com.esprit.controller;
 
 import com.esprit.dao.ServiceUser;
+import com.esprit.dao.Session;
 import com.esprit.entity.User;
 import static com.esprit.entity.User.validate;
 import com.esprit.utilis.MailSender;
 import com.esprit.utilis.Sms;
+import com.esprit.utilis.WebCamGui;
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,6 +51,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
 
@@ -185,8 +191,7 @@ public class CreateCompteController implements Initializable {
                             alert.setHeaderText(null);
                             alert.setContentText("Mail déjà existant");
                             alert.show();
-                        }
-                        else if (su.Existance(u) == 2) {
+                        } else if (su.Existance(u) == 2) {
                             Alert alert = new Alert(Alert.AlertType.WARNING);
                             alert.setHeaderText(null);
                             alert.setContentText("Numéro déjà existant");
@@ -209,6 +214,16 @@ public class CreateCompteController implements Initializable {
                                         alert.setContentText("Profil crée avec succés!");
                                         alert.show();
                                         mail = true;
+                                        try {
+
+                                            Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/Login.fxml"));
+                                            Scene scene = new Scene(page1);
+                                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                            stage.setScene(scene);
+                                            stage.show();
+                                        } catch (IOException ex) {
+                                            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
                                         try {
                                             FileUtils.copyFile(source, dest);
                                         } catch (Exception e) {
@@ -293,37 +308,60 @@ public class CreateCompteController implements Initializable {
     @FXML
     private void exit(MouseEvent event) {
         Stage stage = (Stage) cross.getScene().getWindow();
+        Session.setFile(filename);
         stage.close();
     }
 
     @FXML
     private void browseaction(ActionEvent event) throws FileNotFoundException {
-        FileChooser fc = new FileChooser();
-
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
-        File SelectedFile = fc.showOpenDialog(null);
-        if (SelectedFile != null) {
-            pathimage = SelectedFile.toString();
-            //System.out.println(pathimage);
+        FileChooser f = new FileChooser();
+        String img;
+        f.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
+        File fc = f.showOpenDialog(null);
+        if (f != null) {
+            //System.out.println(fc.getName());
+            img = fc.getAbsoluteFile().toURI().toString();
+            Image i = new Image(img);
+            pdp.setImage(i);
+            pathimage = fc.toString();
+            //System.out.println(imageviewfxid);
             int index = pathimage.lastIndexOf('\\');
             if (index > 0) {
                 filename = pathimage.substring(index + 1);
             }
             source = new File(pathimage);
             dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
-//            System.out.println(dest);
-//            System.out.println(source);
-            stringfinal = "/com/esprit/img/" + filename;
-            Image image = new Image(stringfinal);
+        }
+        pdp.setFitHeight(94);
+        pdp.setFitWidth(94);
+        //..\img\google.png
+        //C:\Users\splin\Documents\NetBeansProjects\FanArt\\com\esprit\img
+
+    }
+
+    @FXML
+    private void cam(ActionEvent event) throws InterruptedException {
+        /*Webcam webcam = Webcam.getDefault();
+        webcam.setViewSize(WebcamResolution.VGA.getSize());
+        
+        WebcamPanel webcampanel = new WebcamPanel(webcam);
+        webcampanel.setImageSizeDisplayed(true);
+        JFrame frame = new  JFrame();
+        frame.add(webcampanel);
+        frame.setLocationRelativeTo(null);
+        frame.pack();
+        //frame.
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);*/
+
+        WebCamGui.main(new String[0]);
+
+        /* Image image = new Image(Session.getFile());
             
+
             pdp.setImage(image);
             pdp.setFitHeight(94);
-            pdp.setFitWidth(94);
-            //..\img\google.png
-            //C:\Users\splin\Documents\NetBeansProjects\FanArt\\com\esprit\img
-
-        }
-
+            pdp.setFitWidth(94);*/
     }
 
 }

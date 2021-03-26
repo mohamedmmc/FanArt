@@ -72,10 +72,18 @@
                      <HBox.margin>
                         <Insets top="25.0" />
                      </HBox.margin></Label>
-                  <Button fx:id="browse" mnemonicParsing="false" onAction="#browseaction" prefHeight="32.0" prefWidth="106.0" text="Parcourir">
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="browse" mnemonicParsing="false" onAction="#browseaction" prefHeight="32.0" prefWidth="106.0" text="Parcourir" />
+                        <Button mnemonicParsing="false" onAction="#cam" prefHeight="32.0" prefWidth="106.0" text="Utiliser Cam" />
+                     </children>
                      <HBox.margin>
-                        <Insets left="10.0" top="25.0" />
-                     </HBox.margin></Button>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
                   <ImageView fx:id="pdp" fitHeight="94.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: white;">
                      <HBox.margin>
                         <Insets left="30.0" />

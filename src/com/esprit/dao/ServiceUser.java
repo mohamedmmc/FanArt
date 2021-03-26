@@ -7,7 +7,7 @@ package com.esprit.dao;
 
 import com.esprit.entity.User;
 import static com.esprit.utilis.HashCode.generatedHash;
-import com.esprit.utilis.MyDB;
+import com.esprit.utilis.ConnexionSingleton;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,7 +43,7 @@ public class ServiceUser {
 
     public ServiceUser() {
         try {
-            cnx = MyDB.getInstance().getCnx();
+            cnx = ConnexionSingleton.getInstance().getCnx();
             ste = (Statement) cnx.createStatement();
         } catch (SQLException e) {
 

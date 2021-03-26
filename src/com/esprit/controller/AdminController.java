@@ -124,9 +124,6 @@ public class AdminController implements Initializable {
                         .get(userTab.getSelectionModel().getSelectedIndex())
                         .getNumtel()));
 
-                /* ImageView f = new ImageView();
-            f.setImage(img);
-            profilpane.getChildren().add(f);*/
             });
             try {
                 // TODO

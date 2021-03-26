@@ -6,8 +6,14 @@
 package com.esprit.controller;
 
 import com.esprit.dao.ServiceUser;
+import com.esprit.dao.Session;
 import com.esprit.entity.User;
 import static com.esprit.entity.User.validate;
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Version;
+import com.restfb.scope.FacebookPermissions;
+import com.restfb.scope.ScopeBuilder;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -30,6 +36,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import static org.openqa.grid.common.SeleniumProtocol.WebDriver;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
  *
@@ -38,7 +47,7 @@ import javafx.stage.Stage;
 public class LoginController implements Initializable {
 
     private static String session;
-    private String current;
+   // private String current;
 
     @FXML
     AnchorPane parent;
@@ -149,12 +158,10 @@ public class LoginController implements Initializable {
                     
                     alert.show();
                     try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/interface.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/Menu.fxml"));
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         stage.setScene(new Scene(loader.load()));
-                        InterfaceController ic = loader.getController();
-                        ic.initData(sp.verify(email.getText(), mdp.getText()));
-                        //System.out.println(email.getText());
+                        Session.setId(sp.verify(email.getText(), mdp.getText()));
                         stage.show();
                     } catch (IOException ex) {
                         Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -176,9 +183,44 @@ public class LoginController implements Initializable {
         }
     }
 
-    public void initData(String mail) {
-        current = mail;
+    @FXML
+    private void fb(ActionEvent event) {
+                String domain = "https://localhost/fblocal/";
+        String appId = "197623945102545";
+        String appidsecret = "577564482e4db4474577db2e570dadb9";
+        ScopeBuilder scopeBuilder = new ScopeBuilder();
+        scopeBuilder.addPermission(FacebookPermissions.EMAIL);
 
+        String authUrl = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id="+appId+"&redirect_uri="+domain+"&scope=email";
+        
+        System.setProperty("webdirver.chrome.driver", "chromedriver.exe");
+        
+        WebDriver driver = new ChromeDriver();
+        driver.get(authUrl);
+        //String accessToken;
+        while(true){
+        
+            if(!driver.getCurrentUrl().contains("facebook.com")){
+            String url = driver.getCurrentUrl();
+            //accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
+            FacebookClient client = new DefaultFacebookClient(Version.LATEST);
+               
+            String loginDialogUrlString = client.getLoginDialogUrl(appId, domain, scopeBuilder);
+  
+            System.out.println(loginDialogUrlString);
+            //accessToken ="EAAHZAuVpnjpoBAKUx3smusRvTUZAR7BaBt0vngXgEkcwx3puzwSZCLiK7B8ZBY0hZBSyyRhUzat52cv9v4mVPGpdvlB3jwHZBXBUPdlBTI9Oo3UVtTIQuCePOWCMd4xZCmYtampZAITATCj3ZCvrUhQJznC2R8ZAWykCfkbHnTYHaT2WrdB2XmZCzAMg6uAXoZAaHmZB9KZBTjqH6Ppv8R8SMS3q6mOhnhCx0ZBSqZAUiGEw5wi3xqetsuE7QyEB";
+            //System.out.println(accessToken);
+            
+            
+             User user = client.fetchObject("me",User.class);
+                
+                System.out.println(user.getEmail());
+                
+            
+            }
+        
+        }
     }
+
 
 }

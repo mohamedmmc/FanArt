@@ -6,6 +6,7 @@
 package com.esprit.controller;
 
 import com.esprit.dao.ServiceUser;
+import com.esprit.dao.Session;
 import com.esprit.entity.User;
 import static com.esprit.utilis.HashCode.generatedHash;
 import java.io.IOException;
@@ -71,13 +72,8 @@ public class InterfaceController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
-            initData(current);
-            ServiceUser su = new ServiceUser();
-            u = su.findBymail(current);
-            //System.out.println(current);
-            //emailLabel.setText(current);
-        });
+        
+        System.out.println(Session.getId());
 
     }
 
@@ -95,6 +91,7 @@ public class InterfaceController implements Initializable {
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(scene);
                 stage.show();
+                Session.setId(0);
             } catch (IOException ex) {
                 Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -106,12 +103,11 @@ public class InterfaceController implements Initializable {
 
     @FXML
     private void modifcompte(ActionEvent event) {
-        //userInfoContainer.getChildren().removeAll(nomfield);
         Platform.runLater(() -> {
             ServiceUser su = new ServiceUser();
-            initData(current);
+            //initData(current);
 
-            u = su.findBymail(current);
+            u = su.findBymail(Session.getId());
             /*VBox hboxInfo1 = new VBox();
             userInfoContainer.getChildren().addAll(hboxInfo1);
             TextField nametxt = new TextField(u.getNom());
@@ -130,24 +126,20 @@ public class InterfaceController implements Initializable {
             hboxInfo1.getChildren().addAll(numeroteltxt);*/
             int a = u.getNumtel();
             String num = String.valueOf(a);
-           // System.out.println(u.getNom());
+            // System.out.println(u.getNom());
             nomfield.setText(u.getNom());
             prenomfield.setText(u.getPrenom());
             mdpfield.setPromptText("Tapper votre ancien mot de passe");
             mdpfieldv.setPromptText("Tapper le nouveau mot de passe");
             emailfield.setText(u.getEmail());
             numfield.setText(num);
-            
+
             oldmail = emailfield.getText();
-            
+
         });
 
     }
 
-    public void initData(int id) {
-        current = id;
-
-    }
 
     @FXML
     private void appliquer(ActionEvent event) throws SQLException, NoSuchAlgorithmException {
@@ -166,24 +158,30 @@ public class InterfaceController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Numéro invalide !");
             alert.show();
-        } 
-        else {
-            
-            //u.setEmail(emailfield.getText());
-            if (su.verify(oldmail, mdpfield.getText())!=0) {
-                String Hashed = generatedHash(mdpfieldv.getText(), "SHA-256");
-                User u = new User(nomfield.getText(), prenomfield.getText(), Hashed, emailfield.getText(), num);
-                su.ModifierUser(u, current);
-                
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information Dialog");
-                alert.setHeaderText(null);
-                alert.setContentText("Profil modifié avec succés!");
-                alert.show();
-                mdpfield.clear();
-                mdpfieldv.clear();
-            }
-            else{
+        } else {
+
+            if (su.verify(oldmail, mdpfield.getText()) != 0 && mdpfieldv.getText().isEmpty()) {
+                if (!mdpfield.getText().isEmpty() && mdpfieldv.getText().isEmpty()) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Veuillez indiquer votre nouveau mot de passe");
+                    alert.show();
+                } else {
+                    String Hashed = generatedHash(mdpfieldv.getText(), "SHA-256");
+                    User u = new User(nomfield.getText(), prenomfield.getText(), Hashed, emailfield.getText(), num);
+                    su.ModifierUser(u, Session.getId());
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Profil modifié avec succés!");
+                    alert.show();
+                    mdpfield.clear();
+                    mdpfieldv.clear();
+                }
+
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Information Dialog");
                 alert.setHeaderText(null);

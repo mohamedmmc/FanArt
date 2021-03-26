@@ -110,7 +110,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="196.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Login with Facebook" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#fb" prefHeight="25.0" prefWidth="196.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Login with Facebook" HBox.hgrow="ALWAYS" />
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/facebook.png" />

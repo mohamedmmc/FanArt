@@ -16,7 +16,7 @@ import com.twilio.rest.verify.v2.service.VerificationCheck;
  */
 public class Sms {
     public static final String ACCOUNT_SID = "AC6753c270700b6fea070be1b85dfc3c6e";
-    public static final String AUTH_TOKEN = "e8c851a2342adfb621efb8f33fc3986c";
+    public static final String AUTH_TOKEN = "2e49a7720c447cba37ae7d69c8694362";
     
     public void otpsend(String num){
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);

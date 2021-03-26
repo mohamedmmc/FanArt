@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="611.0" prefWidth="627.0" style="-fx-background-color: #C1A409;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.ReservationSalleController">
+   <children>
+      <Label layoutX="116.0" layoutY="313.0" text="Choisir une  date" textFill="#100f0f">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font></Label>
+      <Label layoutX="119.0" layoutY="385.0" text="Heure" textFill="#100f0f">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font></Label>
+      <Label layoutX="116.0" layoutY="459.0" text="Artiste" textFill="#100f0f">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font></Label>
+      <ComboBox fx:id="artiste" layoutX="335.0" layoutY="460.0" prefHeight="25.0" prefWidth="206.0" />
+      <Button fx:id="confirme" layoutX="470.0" layoutY="540.0" mnemonicParsing="false" onAction="#confirmer" text="Confirmer">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+      <Button fx:id="reset" layoutX="350.0" layoutY="541.0" mnemonicParsing="false" onAction="#annuler" text="Annuler">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+      <Button fx:id="retour2" layoutX="144.0" layoutY="543.0" mnemonicParsing="false" onAction="#retour" text="&lt;" />
+      <DatePicker fx:id="date" layoutX="333.0" layoutY="314.0" prefHeight="25.0" prefWidth="206.0" promptText="AAAA-MM-JJ" />
+      <TextField fx:id="hour" layoutX="333.0" layoutY="386.0" onAction="#heure" prefHeight="25.0" prefWidth="206.0" promptText="xx:xx" />
+      <Label layoutX="113.0" layoutY="127.0" text="Numéro salle" textFill="#100f0f">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="numsalle" layoutX="325.0" layoutY="128.0" onAction="#numsalle" prefHeight="25.0" prefWidth="204.0" />
+      <Label layoutX="85.0" layoutY="44.0" text="Reserver une salle ">
+         <font>
+            <Font name="Copperplate Gothic Bold" size="26.0" />
+         </font>
+      </Label>
+      <Label layoutX="109.0" layoutY="200.0" text="Réservation">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

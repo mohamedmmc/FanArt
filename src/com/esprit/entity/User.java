@@ -14,12 +14,65 @@ import java.util.regex.Pattern;
  */
 public class User {
 
+    public User(String nom, String prenom, String email, int numtel, String type) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.numtel = numtel;
+        this.type = type;
+    }
+
     private int id;
     private String nom;
     private String prenom;
     private String mdp;
     private String email;
     private int numtel;
+
+    public User(long l, String jennifer, String jenniferdomaincom) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public User(String photo) {
+        this.photo = photo;
+    }
+
+    public User(String nom, String prenom, String mdp, String email, int numtel, String photo, String type) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mdp = mdp;
+        this.email = email;
+        this.numtel = numtel;
+        this.photo = photo;
+        this.type = type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public User(String nom, String prenom, String email, int numtel, String photo, String type) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.numtel = numtel;
+        this.photo = photo;
+        this.type = type;
+    }
+    private String photo;
+    private String type;
 
     public User(String nom, String prenom, String mdp, String email, int numtel) {
         this.nom = nom;
@@ -101,10 +154,15 @@ public class User {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
     }
+    
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mdp=" + mdp + ", email=" + email + ", numtel=" + numtel + '}';
+        return "User{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mdp=" + mdp + ", email=" + email + ", numtel=" + numtel + ", photo=" + photo + ", type=" + type + '}';
     }
+
+ 
+
+
 
 }

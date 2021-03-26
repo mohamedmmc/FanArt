@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="519.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.StatistiqueController">
+   <children>
+      <BarChart fx:id="barchart" layoutX="169.0" layoutY="27.0" prefHeight="477.0" prefWidth="332.0" title="Taux de reservation par rapport au evenement" titleSide="BOTTOM">
+        <xAxis>
+          <CategoryAxis label="Evenement" side="BOTTOM" fx:id="xchar" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="ychart" label="Taux de participation" side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <PieChart fx:id="piechart" layoutX="574.0" layoutY="167.0" prefHeight="335.0" prefWidth="371.0" title="Nombre d'artist par rapport au specialité" titleSide="BOTTOM" />
+      <Pane layoutX="-2.0" prefHeight="521.0" prefWidth="178.0">
+         <children>
+            <Button fx:id="btn_acceuil" layoutX="23.0" layoutY="158.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="121.0" style="-fx-background-color: #13dce3; -fx-background-radius: 10;" text="Acceuil" />
+            <ImageView fitHeight="121.0" fitWidth="166.0" layoutX="23.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/profile.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btn_list" layoutX="23.0" layoutY="236.0" mnemonicParsing="false" onMouseClicked="#changescene" prefHeight="40.0" prefWidth="121.0" style="-fx-background-color: #13dce3; -fx-background-radius: 10;" text="List des Evenement" />
+            <Button fx:id="btn_add" layoutX="23.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#changescene" prefHeight="40.0" prefWidth="121.0" style="-fx-background-color: #13dce3; -fx-background-radius: 10;" text="Ajouter Evenement" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

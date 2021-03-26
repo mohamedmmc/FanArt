@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.TestController">
+   <children>
+  <AnchorPane layoutX="213.0" layoutY="225.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      <TabPane layoutY="-2.0" prefHeight="405.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Evenement">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="cmb1" layoutX="14.0" layoutY="65.0" prefHeight="25.0" prefWidth="247.0" />
+                        <Label layoutX="14.0" layoutY="23.0" prefHeight="35.0" prefWidth="274.0" text="Selectionnez l'événement">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="111.0" prefHeight="17.0" prefWidth="175.0" text="Reclamation">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="rec1" layoutX="14.0" layoutY="146.0" prefHeight="169.0" prefWidth="253.0" wrapText="true" />
+                        <Button fx:id="recev" layoutX="6.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#addeve" prefHeight="25.0" prefWidth="131.0" text="Envoyer reclamation" />
+                        <ListView fx:id="listpro1" layoutX="380.0" layoutY="106.0" onMouseClicked="#dsipeve" prefHeight="225.0" prefWidth="200.0" />
+                        <Label layoutX="380.0" layoutY="14.0" prefHeight="35.0" prefWidth="228.0" text="événement reclamé">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="sea1" layoutX="380.0" layoutY="65.0" prefHeight="25.0" prefWidth="172.0" promptText="Cherchez événement" />
+                        <Button fx:id="modev" disable="true" layoutX="151.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#modieve" prefHeight="25.0" prefWidth="131.0" text="Modifier" />
+                        <Button fx:id="supeve" disable="true" layoutX="407.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#deleve" prefHeight="25.0" prefWidth="131.0" text="supprimer" />
+                     </children>
+                  </AnchorPane>
+               </content>
+          </Tab>
+          <Tab text="Produit">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ComboBox fx:id="cmb" layoutX="14.0" layoutY="65.0" prefHeight="25.0" prefWidth="247.0" />
+                        <Label layoutX="14.0" layoutY="23.0" prefHeight="35.0" prefWidth="274.0" text="Selectionnez le produit">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="111.0" prefHeight="17.0" prefWidth="175.0" text="Reclamation">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="rec" layoutX="14.0" layoutY="146.0" prefHeight="169.0" prefWidth="253.0" wrapText="true" />
+                        <Button fx:id="recprodd" layoutX="6.0" layoutY="331.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="131.0" text="Envoyer reclamation" />
+                        <ListView fx:id="listpro" layoutX="380.0" layoutY="106.0" onMouseClicked="#Display" prefHeight="225.0" prefWidth="200.0" />
+                        <Label layoutX="380.0" layoutY="14.0" prefHeight="17.0" prefWidth="169.0" text="Produit reclamé">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="sea" layoutX="379.0" layoutY="65.0" prefHeight="25.0" prefWidth="172.0" promptText="cherchez produit" />
+                        <Button fx:id="modprodd" disable="true" layoutX="406.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#del" prefHeight="25.0" prefWidth="131.0" text="Supprimer" />
+                        <Button fx:id="modprodd1" disable="true" layoutX="157.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#modi" prefHeight="25.0" prefWidth="131.0" text="modifier" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

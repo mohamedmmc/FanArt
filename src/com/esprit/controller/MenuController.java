@@ -105,10 +105,6 @@ public class MenuController implements Initializable {
         LoadPage("/com/esprit/view/FXMLproduis");
     }
 
-    @FXML
-    private void Loadajout(ActionEvent event) {
-    LoadPage("/com/esprit/view/FXMLAffichageProduit");
-    }
 
     @FXML
     private void loadprofil(ActionEvent event) {
@@ -159,6 +155,11 @@ public class MenuController implements Initializable {
     @FXML
     private void panier(MouseEvent event) {
         LoadPage("/com/esprit/view/FXMLpanier");
+    }
+
+    @FXML
+    private void Reclamation(ActionEvent event) {
+        LoadPage("/com/esprit/view/Rec");
     }
     
 

@@ -32,7 +32,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="Artistes" mnemonicParsing="false" onAction="#Loadajout" prefHeight="90.0" prefWidth="145.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Artistes" textFill="WHITE">
+            <Button fx:id="Artistes" mnemonicParsing="false" onAction="#Reclamation" prefHeight="90.0" prefWidth="145.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Reclamation" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>

@@ -213,6 +213,22 @@ public class ServiceUser {
         return u;
 
     }
+    
+    public String findmail(int S) {
+        String em="";
+        String req = "Select email from user where id ='" + S + "' ";
+        try {
+            pst = cnx.prepareStatement(req);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+            em = (rs.getString("email"));
+
+            }
+        } catch (Exception e) {
+        }
+        return em;
+
+    }
 
     public void ModifierUser(User u, int id) {
         String sql = "UPDATE user SET `nom`=?,`prenom`=?,`mdp`=?,`email`=?,`numtel`=? WHERE id='" + id + "'";

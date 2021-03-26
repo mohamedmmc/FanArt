@@ -84,6 +84,7 @@ public class HomeEventController implements Initializable {
     String stringfinal;
     File source;
     File dest;
+    String chaine2="C:\\xampp\\htdocs\\img\\events.jpg";
     
 
     /**

@@ -10,8 +10,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 
 
@@ -22,18 +22,30 @@ import javafx.stage.Stage;
  */
 public class LocalisationController implements Initializable {
 
+    String htLink ="https://www.google.tn/maps/place/Cin%C3%A9ma+Le+Palace/@35.830537,10.640642,18.6z/data=!4m5!3m4!1s0x13027574e1204b8d:0x9234659b9bd6ee8d!8m2!3d35.8306049!4d10.6405374?hl=fr";
+    
+    WebEngine engine ;
     @FXML
-    private StackPane stackpane;
-
+    private Pane pane;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        WebView webview = new WebView();
+        webview.minWidth(1920);
+        webview.prefWidth(1920);
+        webview.minHeight(1080);
+        webview.prefHeight(1080);
        
-      
-       
+        engine = webview.getEngine();
+        String content =
+    "Hello World!";
+       engine.loadContent(content, "text/html");
+        pane.getChildren().add(webview);
+
+
     }    
     
 }

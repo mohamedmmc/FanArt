@@ -83,9 +83,7 @@ public class ListEventController implements Initializable {
             for (Iterator it = list.iterator(); it.hasNext();) {
                 Evenement e = (Evenement) it.next();
 
-                FXMLLoader fxmlloader = new FXMLLoader();
-
-                fxmlloader.setLocation(getClass().getResource("/com/pidev/view/Event.fxml"));
+              
 
                 VBox testbox = new VBox();
                 testbox.setPadding(new Insets(15, 20, 10, 10));
@@ -103,10 +101,10 @@ public class ListEventController implements Initializable {
                 Text titre = new Text();
                 titre.setFill(Color.WHITE);
                 Text discription = new Text();
-                Text local = new Text();
+                Button local = new Button();
                 Text prix = new Text();
                 discription.setFill(Color.WHITE);
-                local.setFill(Color.WHITE);
+                
                 prix.setFill(Color.WHITE);
                 testbox.setAlignment(Pos.CENTER);
                 Button btn = new Button("Participer");
@@ -119,6 +117,8 @@ public class ListEventController implements Initializable {
                 prix.setText(String.valueOf(e.getPrix() + "DT"));
                 discription.setText(e.getDescription());
                 local.setText(e.getLocall());
+                local.setId(String.valueOf(e.getId_evenement()));
+                
                 titre.setText(e.getTitre());
                 Button btn_supp = new Button("Supprimer");
                 //testbox.setVgrow(im, Priority.ALWAYS);
@@ -157,6 +157,20 @@ public class ListEventController implements Initializable {
 
                     }
                 });
+                local.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                         try {
+                Parent root = FXMLLoader.load(getClass().getResource("/com/pidev/view/Localisation.fxml"));
+                Stage window = (Stage) local.getScene().getWindow();
+                window.setScene(new Scene(root));
+                
+
+            } catch (IOException ex) {
+                Logger.getLogger(HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                    }
+                });
                 btn_supp.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent e1) {
@@ -190,7 +204,7 @@ public class ListEventController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(ListEventController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         btn_stat.setOnAction((ActionEvent event1) -> {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("/com/pidev/view/Statistique.fxml"));

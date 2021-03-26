@@ -5,11 +5,22 @@
  */
 package com.esprit.entity;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author splin
  */
 public class User {
+
+    public User(String nom, String prenom, String email, int numtel, String type) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.numtel = numtel;
+        this.type = type;
+    }
 
     private int id;
     private String nom;
@@ -17,6 +28,51 @@ public class User {
     private String mdp;
     private String email;
     private int numtel;
+
+    public User(long l, String jennifer, String jenniferdomaincom) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public User(String photo) {
+        this.photo = photo;
+    }
+
+    public User(String nom, String prenom, String mdp, String email, int numtel, String photo, String type) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mdp = mdp;
+        this.email = email;
+        this.numtel = numtel;
+        this.photo = photo;
+        this.type = type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public User(String nom, String prenom, String email, int numtel, String photo, String type) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.numtel = numtel;
+        this.photo = photo;
+        this.type = type;
+    }
+    private String photo;
+    private String type;
 
     public User(String nom, String prenom, String mdp, String email, int numtel) {
         this.nom = nom;
@@ -91,9 +147,21 @@ public class User {
         this.numtel = numtel;
     }
 
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX
+            = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+    public static boolean validate(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.find();
+    }
+
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mdp=" + mdp + ", email=" + email + ", numtel=" + numtel + '}';
+        return "User{" + "id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mdp=" + mdp + ", email=" + email + ", numtel=" + numtel + ", photo=" + photo + ", type=" + type + '}';
     }
+
+ 
+
+
 
 }

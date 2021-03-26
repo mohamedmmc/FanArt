@@ -18,6 +18,11 @@ public class Panier_elem {
 
     public Panier_elem() {
     }
+
+    public Panier_elem(int id_produit, int quantite) {
+        this.id_produit = id_produit;
+        this.quantite = quantite;
+    }
     
 
     public Panier_elem(int id_panier, int id_produit, int quantite) {

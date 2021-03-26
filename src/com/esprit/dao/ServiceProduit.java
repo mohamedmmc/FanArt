@@ -29,7 +29,7 @@ public class ServiceProduit {
     Statement ste;
     private ResultSet rs;
 
-     private ServiceProduit() {
+     public ServiceProduit() {
         ConnexionSingleton cs=ConnexionSingleton.getInstance();
         try {
             ste=cs.getCnx().createStatement();

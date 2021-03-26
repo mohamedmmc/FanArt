@@ -10,16 +10,19 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" fx:id="parent" prefHeight="452.0" prefWidth="593.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.LoginController">
+<AnchorPane id="AnchorPane" fx:id="parent" prefHeight="640.0" prefWidth="946.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.LoginController">
    <children>
-      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2b2a4c;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: trans;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="442.0" prefWidth="228.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER" prefHeight="629.0" prefWidth="601.0" spacing="20.0" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fitHeight="113.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/logo.png" />
                      </image>
+                     <VBox.margin>
+                        <Insets bottom="100.0" />
+                     </VBox.margin>
                   </ImageView>
                   <HBox style="-fx-border-color: white; -fx-background-radius: 0;">
                      <VBox.margin>
@@ -27,52 +30,65 @@
                      </VBox.margin>
                      <children>
                         <TextField fx:id="email" prefHeight="32.0" promptText="Email" style="-fx-background-color: transparent; -fx-prompt-text-fill: #dedede; -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" prefHeight="32.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/user.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="32.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                   <HBox style="-fx-border-color: white; -fx-background-radius: 0;">
                      <children>
                         <PasswordField fx:id="mdp" prefHeight="32.0" promptText="Password" style="-fx-background-color: transparent; -fx-prompt-text-fill: #dedede; -fx-text-fill: white;" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" prefHeight="32.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../img/key.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="32.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
                      </children>
                      <VBox.margin>
                         <Insets left="50.0" right="50.0" top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="54.0" prefWidth="329.0">
+                  <HBox prefHeight="54.0" prefWidth="329.0" spacing="40.0">
                      <children>
-                        <Button fx:id="connexion" mnemonicParsing="false" onAction="#verify" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: none; -fx-border-color: white; -fx-prompt-text-fill: #dedede; -fx-text-fill: white;" text="Se connecter">
+                        <Button fx:id="connexion" mnemonicParsing="false" onAction="#verify" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: none; -fx-border-color: white; -fx-prompt-text-fill: #dedede; -fx-text-fill: white;" text="Se connecter">
                            <HBox.margin>
-                              <Insets left="50.0" right="30.0" top="15.0" />
+                              <Insets />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="creationCompte" lineSpacing="50.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="94.0" snapToPixel="false" style="-fx-background-color: none; -fx-border-color: white; -fx-prompt-text-fill: #dedede; -fx-text-fill: white;" text="Créer compte">
+                        <Button fx:id="creationCompte" lineSpacing="50.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="140.0" snapToPixel="false" style="-fx-background-color: none; -fx-border-color: white; -fx-prompt-text-fill: #dedede; -fx-text-fill: white;" text="Créer compte">
                            <HBox.margin>
-                              <Insets left="60.0" right="30.0" top="15.0" />
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="admin" lineSpacing="50.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="140.0" snapToPixel="false" style="-fx-background-color: none; -fx-border-color: white; -fx-prompt-text-fill: #dedede; -fx-text-fill: white;" text="Admin">
+                           <HBox.margin>
+                              <Insets />
                            </HBox.margin>
                         </Button>
                      </children>
+                     <padding>
+                        <Insets left="75.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
                   </HBox>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="442.0" prefWidth="224.0" style="-fx-background-color: #26283d;">
+            <VBox alignment="CENTER" fillWidth="false" prefHeight="630.0" prefWidth="310.0" spacing="20.0" style="-fx-background-color: #26283d;">
                <children>
+                  <VBox prefHeight="159.0" prefWidth="227.0" spacing="20.0">
+                     <children>
+                        <ImageView fx:id="cross" fitHeight="59.0" fitWidth="59.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/x.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets left="200.0" />
+                           </VBox.margin>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets bottom="30.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="80.0" />
+                     </VBox.margin>
+                  </VBox>
                   <HBox style="-fx-background-color: #2b2a4c;">
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" />
@@ -122,14 +138,12 @@
                      </VBox.margin>
                   </HBox>
                </children>
+               <padding>
+                  <Insets bottom="150.0" />
+               </padding>
             </VBox>
          </children>
       </HBox>
-      <ImageView fx:id="cross" fitHeight="27.0" fitWidth="36.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="570.0">
-         <image>
-            <Image url="@../img/x.png" />
-         </image>
-      </ImageView>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

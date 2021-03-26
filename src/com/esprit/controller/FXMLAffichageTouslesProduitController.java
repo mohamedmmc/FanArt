@@ -25,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -38,6 +39,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -66,6 +68,7 @@ public class FXMLAffichageTouslesProduitController implements Initializable {
     private TableColumn<Produit, Image> imagefxid;
     private Button addfxid;
     int index=-1;
+    double xx,y;
     @FXML
     private ImageView imageviewfxid;
     @FXML
@@ -84,6 +87,8 @@ public class FXMLAffichageTouslesProduitController implements Initializable {
     String stringfinal;
     File source;
     File dest;
+    @FXML
+    private AnchorPane parent;
 
     /**
      * Initializes the controller class.
@@ -92,8 +97,31 @@ public class FXMLAffichageTouslesProduitController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         updatetable();
+        makeDragable();
         
     } 
+    private void makeDragable() {
+
+        parent.setOnMousePressed(((event) -> {
+            xx = event.getSceneX();
+            y = event.getSceneY();
+        }));
+        parent.setOnMouseDragged(((event) -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setX(event.getScreenX() - xx);
+            stage.setY(event.getScreenY() - y);
+            stage.setOpacity(0.8f);
+        }));
+        parent.setOnDragDone(((event) -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setOpacity(1.0f);
+        }));
+        parent.setOnMouseReleased(((event) -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setOpacity(1.0f);
+        }));
+
+    }
     public void updatetable()
     {
      ListData l =new ListData();

@@ -11,8 +11,10 @@
  * and open the template in the editor.
  */
 package com.esprit.controller;
+import com.esprit.dao.Session;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,9 +24,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -33,6 +39,7 @@ import javafx.scene.layout.BorderPane;
  */
 public class MenuController implements Initializable {
 
+    double x,y;
     @FXML
     private Button Accueil;
     @FXML
@@ -55,7 +62,7 @@ public class MenuController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        makeDragable();
     }    
 
     private void LoadPage(String page) {
@@ -68,6 +75,28 @@ public class MenuController implements Initializable {
         bp.setCenter(root);
         
     }
+    private void makeDragable() {
+
+        bp.setOnMousePressed(((event) -> {
+            x = event.getSceneX();
+            y = event.getSceneY();
+        }));
+        bp.setOnMouseDragged(((event) -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setX(event.getScreenX() - x);
+            stage.setY(event.getScreenY() - y);
+            stage.setOpacity(0.8f);
+        }));
+        bp.setOnDragDone(((event) -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setOpacity(1.0f);
+        }));
+        bp.setOnMouseReleased(((event) -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setOpacity(1.0f);
+        }));
+
+    }
      @FXML
     private void LoadProduit(ActionEvent event) {
         LoadPage("/com/esprit/view/FXMLproduis");
@@ -76,6 +105,43 @@ public class MenuController implements Initializable {
     @FXML
     private void Loadajout(ActionEvent event) {
     LoadPage("/com/esprit/view/FXMLAffichageProduit");
+    }
+
+    @FXML
+    private void loadprofil(ActionEvent event) {
+        LoadPage("/com/esprit/view/interface");
+    }
+
+    @FXML
+    private void retour(ActionEvent event) {
+        Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
+        alert2.setTitle("Confirmation");
+        alert2.setHeaderText("Voulez vous vraiment vous déconnecter ?");
+        Optional<ButtonType> result = alert2.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            try {
+
+                Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/Login.fxml"));
+                Scene scene = new Scene(page1);
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+                Session.setId(0);
+            } catch (IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            alert2.close();
+        }
+    }
+
+    @FXML
+    private void panier(ActionEvent event) {
+
+          LoadPage("/com/esprit/view/FXMLpanier");
+        //parent.setCenter(root);
+        //bp.setCenter(root);
     }
     
 

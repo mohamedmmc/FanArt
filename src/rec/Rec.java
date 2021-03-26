@@ -31,7 +31,7 @@ public class Rec extends Application {
     public void start(Stage stage) throws Exception {
         
         
-        Parent root = FXMLLoader.load(getClass().getResource("/rec/view/log.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/rec/view/admin.fxml"));
         
         Scene scene = new Scene(root);
         

@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Rec.jar" size="25720" download="eager" />
+    <jar href="Rec.jar" size="25798" download="eager" />
     <jar href="lib\activation.jar" size="55147" download="eager" />
     <jar href="lib\fakeSMTP-2.0.jar" size="1848214" download="eager" />
     <jar href="lib\mail.jar" size="462098" download="eager" />

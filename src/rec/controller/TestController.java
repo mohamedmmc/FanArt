@@ -162,8 +162,8 @@ public class TestController implements Initializable {
         
         rs=st.executeQuery(req);
         while (rs.next())
-        {  String y = rs.getString("date_fin");
-         DateFormat format = new SimpleDateFormat("MMMM/d/yyyy");
+        {  String y = rs.getString("date");
+         DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
          Date datecom = format.parse(y);
          int x= date.compareTo(datecom);
          if (x>0)
@@ -328,10 +328,11 @@ public class TestController implements Initializable {
         
         if (rs.next())
             
-            if (rs.getString("status").equals("pending") )
+            if (rs.getString("status").equals("repondu") )
         {
             rec.setEditable(false);
             modprodd.setDisable(true);
+            modprodd1.setDisable(false);
              String add1= rs.getString("nomprod");
          cmb.getSelectionModel().select(add1);
          
@@ -384,19 +385,24 @@ public class TestController implements Initializable {
                     }
       
           else  if(event.getClickCount() == 2) 
-          { modprodd.setDisable(true);
+          { 
          recprodd.setDisable(false);
          cmb.setDisable(false);
          cmb.valueProperty().set(null);
          rec.clear();
-         modprodd1.setDisable(true);
+     
+         modprodd.setDisable(true);
+         rec.textProperty().addListener(new ChangeListener<String>() {
+                  @Override
+        public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+                    modprodd.setDisable(true);}});}
     
     }
     
     }
     
     
-    }
+        
     
             
                     
@@ -488,11 +494,14 @@ public class TestController implements Initializable {
         alert.show();
         
                 rec.clear();
-        updatec();
+      
         cmb.valueProperty().set(null);
         cmb.setDisable(false);
         
         recprodd.setDisable(false);
+        modprodd.setDisable(true);
+        modprodd1.setDisable(true);
+        
          
          
           

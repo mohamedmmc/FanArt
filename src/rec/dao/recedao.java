@@ -91,4 +91,53 @@ public  class recedao implements ldao<recevent> {
         }
         
     }
+       
+       public ObservableList<recevent> displayAll() {
+        String req="select * from recevent";
+        ObservableList<recevent> list=FXCollections.observableArrayList();       
+        
+        try {
+            rs=st.executeQuery(req);
+            while(rs.next()){
+                recevent p=new recevent();
+                
+                p.seteventnom(rs.getString("nomevent"));
+                p.setemail(rs.getString("email"));
+                p.setrec(rs.getString("reclevent"));
+                p.setsta(rs.getString("reclevent"));
+                
+                list.add(p);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(recedao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+       
+              public List<recevent> displayAllList() {
+        String req="select * from recevent";
+        List<recevent> list=new ArrayList<>();
+        
+        try {
+            rs=st.executeQuery(req);
+            while(rs.next()){
+                recevent p=new recevent();
+                 
+                p.seteventnom(rs.getString("nomevent"));
+                p.setemail(rs.getString("email"));
+                p.setrec(rs.getString("reclevent"));
+                p.setsta(rs.getString("reclevent"));
+                list.add(p);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(recedao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+       
+       
+       
+
 }

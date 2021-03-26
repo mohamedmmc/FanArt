@@ -9,8 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="586.0" prefWidth="998.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="rec.view.AdminController">
+<AnchorPane id="AnchorPane" prefHeight="586.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rec.controller.AdminController">
    <children>
       <TabPane layoutX="-1.0" layoutY="-3.0" prefHeight="586.0" prefWidth="998.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -24,7 +23,6 @@
                             <TableColumn fx:id="eemail" prefWidth="75.0" text="email" />
                               <TableColumn fx:id="eracl" prefWidth="75.0" text="reclamation" />
                               <TableColumn fx:id="esta" prefWidth="75.0" text="status" />
-                              <TableColumn fx:id="eid" prefWidth="75.0" text="id" />
                           </columns>
                         </TableView>
                         <TextField fx:id="ema" editable="false" layoutX="14.0" layoutY="57.0" prefHeight="25.0" prefWidth="175.0" />

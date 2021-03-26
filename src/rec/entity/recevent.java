@@ -57,6 +57,14 @@ public class recevent {
     public void seteventnom(String nom) {
         this.eventnom = new SimpleStringProperty(nom);
     }
+    
+    public String getsta() {
+        return status.get();
+    }
+
+    public void setsta(String status) {
+        this.status = new SimpleStringProperty(status);
+    }
 
     public String getemail() {
         return email.get();
@@ -69,6 +77,14 @@ public class recevent {
     }
     public SimpleStringProperty getrecProperty(){
         return rec;
+    }
+        public SimpleIntegerProperty getidProperty(){
+        return id;
+    }
+
+    
+     public SimpleStringProperty getstaProperty(){
+        return status;
     }
    
     public void setemail(String em) {

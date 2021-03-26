@@ -6,12 +6,14 @@
 package rec.controller;
 
 
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+
 import rec.utils.DB;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,10 +29,16 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javax.swing.DefaultListModel;
 import rec.dao.recpdao;
+import rec.dao.recedao;
 import rec.entity.recprod;
+import rec.entity.recevent;
 import rec.Rec;
 import java.util.Date;
 import java.util.Properties;
+import java.util.stream.IntStream;
+import javafx.beans.value.ChangeListener;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.MouseEvent;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -40,7 +48,10 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.transformation.FilteredList;
+import javafx.scene.input.MouseButton;
 /**
  * FXML Controller class
  *
@@ -61,9 +72,25 @@ public class TestController implements Initializable {
     @FXML
     private Button recprodd;
     @FXML
-    private ListView<Integer> listpro;
+    private ListView<String> listpro;
     @FXML
-    private TextField lprech;
+    private TextArea rec1;
+    @FXML
+    private Button recev;
+    @FXML
+    private ListView<String> listpro1;
+    @FXML
+    private Button modev;
+    @FXML
+    private Button modprodd;
+    @FXML
+    private Button modprodd1;
+    @FXML
+    private TextField sea;
+    @FXML
+    private TextField sea1;
+    @FXML
+    private Button supeve;
 
     /**
      * Initializes the controller class.
@@ -77,8 +104,14 @@ public class TestController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
         }
-         update();
-           Fillist();
+         updatec();
+         Fillist();
+         updateev();
+         Fillisteve();
+         
+           
+        
+
            
             recprodd.setOnAction(event -> {
             
@@ -91,18 +124,21 @@ public class TestController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText("Personne insérée avec succés!");
         alert.show();
+        updatec();
         SendEmail();
+          cmb.valueProperty().set(null);
+         rec.clear();
                    Fillist();
+                   
 
        
         });
-
         
-         
-    }    
-    private void update(){
-       
-        String req = "select * from produit";
+              } 
+             
+    private void updatec(){
+    
+        String req = "select * from produit p left join recprod rp on p.nom = rp.nomprod and rp.email= '"+Rec.usrr+"' WHERE rp.nomprod IS NULL ";
     try {
         
         rs=st.executeQuery(req);
@@ -118,10 +154,38 @@ public class TestController implements Initializable {
     }
     
     }
+        private void updateev(){
+           DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy ");
+           Date date = new Date();
+        String req = "select * from evenement p left join recevent rp on p.titre = rp.nomevent and rp.email= '"+Rec.usrr+"'   WHERE rp.nomevent IS NULL ";
+    try {
+        
+        rs=st.executeQuery(req);
+        while (rs.next())
+        {  String y = rs.getString("date_fin");
+         DateFormat format = new SimpleDateFormat("MMMM/d/yyyy");
+         Date datecom = format.parse(y);
+         int x= date.compareTo(datecom);
+         if (x>0)
+         {
+        
+           cmb1.getItems().add(rs.getString("titre"));
+        }}
+        
+}
+    catch (Exception ex)
+    { 
+        Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    }
     
      private void Fillist(){
-         ObservableList<Integer> m =FXCollections.observableArrayList(
+         ObservableList<String> m =FXCollections.observableArrayList(
           );;
+          
+      FilteredList<String> filteredData = new FilteredList<>(m, s -> true);
+         
        
         String req = "select * from recprod where email = '"+Rec.usrr+"' ";
     try {
@@ -129,19 +193,84 @@ public class TestController implements Initializable {
         rs=st.executeQuery(req);
         while (rs.next())
         {
-           int nom = rs.getInt("recpid");
+           String nom = rs.getString("nomprod");
              
            m.add(nom);
         }
         listpro.setItems(m);
+        
+        
         
 }   
     catch (Exception ex)
     { 
         Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
     }
+     
+           
+           
+          
+       
+         String tmp = sea.getText();
+         
+         sea.textProperty().addListener(obs->{
+        String filter = sea.getText(); 
+        if(filter == null || filter.length() == 0) {
+            filteredData.setPredicate(s -> true);
+        }
+        else {
+            filteredData.setPredicate(s -> s.contains(filter));
+            listpro.setItems(filteredData);
+            
+        }
     
+    });}
+     
+     private void Fillisteve(){
+         ObservableList<String> m =FXCollections.observableArrayList(
+          );;
+          
+      FilteredList<String> filteredData = new FilteredList<>(m, s -> true);
+         
+       
+        String req = "select * from recevent where email = '"+Rec.usrr+"' ";
+    try {
+        
+        rs=st.executeQuery(req);
+        while (rs.next())
+        {
+           String nom = rs.getString("nomevent");
+             
+           m.add(nom);
+        }
+        listpro1.setItems(m);
+        
+        
+        
+}   
+    catch (Exception ex)
+    { 
+        Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
     }
+     
+           
+           
+          
+       
+         String tmp = sea1.getText();
+         
+         sea1.textProperty().addListener(obs->{
+        String filter = sea1.getText(); 
+        if(filter == null || filter.length() == 0) {
+            filteredData.setPredicate(s -> true);
+        }
+        else {
+            filteredData.setPredicate(s -> s.contains(filter));
+            listpro1.setItems(filteredData);
+            
+        }
+    
+    });}
      
      public void SendEmail()
 {
@@ -184,4 +313,415 @@ public class TestController implements Initializable {
     }
   }
 
-}}
+}
+
+    @FXML
+    private void Display(MouseEvent event) {
+      if(event.getButton().equals(MouseButton.PRIMARY)){  
+          if(event.getClickCount() == 1){
+                
+        String tmp = listpro.getSelectionModel().getSelectedItem();
+         String req = "select * from recprod where nomprod= '"+tmp+"'";
+    try {
+        
+        rs=st.executeQuery(req);
+        
+        if (rs.next())
+            
+            if (rs.getString("status").equals("pending") )
+        {
+            rec.setEditable(false);
+            modprodd.setDisable(true);
+             String add1= rs.getString("nomprod");
+         cmb.getSelectionModel().select(add1);
+         
+         cmb.setDisable(true);
+         
+         String add2 = rs.getString("reclprod");
+         rec.setText(add2);
+        }
+        else
+        { 
+            modprodd.setDisable(false);
+            recprodd.setDisable(true);
+          String add1= rs.getString("nomprod");
+         cmb.getSelectionModel().select(add1);
+         
+         cmb.setDisable(true);
+         
+         String add2 = rs.getString("reclprod");
+         rec.setText(add2);
+         
+          rec.textProperty().addListener(new ChangeListener<String>() {
+        @Override
+        public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+                    modprodd1.setDisable(false);
+                    
+        
+         
+         
+          
+          
+          
+          
+          
+        
+        
+    
+         
+                 
+        }
+        
+        
+});}}
+      
+    catch (Exception ex)
+    { 
+        Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+                    
+                    
+                    }
+      
+          else  if(event.getClickCount() == 2) 
+          { modprodd.setDisable(true);
+         recprodd.setDisable(false);
+         cmb.setDisable(false);
+         cmb.valueProperty().set(null);
+         rec.clear();
+         modprodd1.setDisable(true);
+    
+    }
+    
+    }
+    
+    
+    }
+    
+            
+                    
+
+                    
+          
+          
+          
+          
+        
+        
+    
+         
+                 
+        
+        
+        
+
+   
+
+    @FXML
+    
+    private void del(MouseEvent event) {
+        String tmp = listpro.getSelectionModel().getSelectedItem();
+         String req = "select * from recprod where nomprod= '"+tmp+"'";
+    try {
+        
+        rs=st.executeQuery(req);
+        
+        if (rs.next())
+        {
+          int id = rs.getInt("recpid");
+         recprod p = new recprod(id);
+            recpdao pdao = recpdao.getInstance();
+            pdao.delete(p);
+        Fillist();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("deleted");
+        alert.show();
+        rec.clear();
+        updatec();
+        cmb.valueProperty().set(null);
+        cmb.setDisable(false);
+        recprodd.setDisable(false);
+         
+         
+          
+          
+          
+          
+          
+        
+        
+    
+         
+                 
+        }
+        
+        
+}
+    catch (Exception ex)
+    { 
+        Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+
+    @FXML
+    private void modi(MouseEvent event) {
+        
+         String tmp = listpro.getSelectionModel().getSelectedItem();
+         String req = "select * from recprod where nomprod= '"+tmp+"'";
+    try {
+        
+        rs=st.executeQuery(req);
+        
+        if (rs.next())
+        {
+          int id = rs.getInt("recpid");
+         recprod p = new recprod(id);
+            recpdao pdao = recpdao.getInstance();
+            pdao.update(p,rec.getText());
+        Fillist();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("modi");
+        alert.show();
+        
+                rec.clear();
+        updatec();
+        cmb.valueProperty().set(null);
+        cmb.setDisable(false);
+        
+        recprodd.setDisable(false);
+         
+         
+          
+          
+          
+          
+          
+        
+        
+    
+         
+                 
+        }
+        
+        
+}
+    catch (Exception ex)
+    { 
+        Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+
+    @FXML
+    private void addeve(MouseEvent event) {
+        
+        recevent p = new recevent(cmb1.getValue(), Rec.usrr , rec1.getText());
+            recedao pdao = recedao.getInstance();
+            pdao.insert(p);
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("Personne insérée avec succés!");
+        alert.show();
+      
+         Fillisteve();
+        SendEmail();
+        updateev();
+          cmb1.valueProperty().set(null);
+         rec1.clear();
+             
+    }
+
+    @FXML
+    private void modieve(MouseEvent event) {
+        String tmp = listpro1.getSelectionModel().getSelectedItem();
+         String req = "select * from recevent where nomevent= '"+tmp+"'";
+    try {
+        
+        rs=st.executeQuery(req);
+        
+        if (rs.next())
+        {  
+            rec1.setEditable(false);
+          int id = rs.getInt("receid");
+         recevent p = new recevent(id);
+         recedao pdao = recedao.getInstance();
+         pdao.update(p,rec1.getText());
+        Fillist();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("modi");
+        alert.show();
+        
+                rec1.clear();
+        updateev();
+        cmb1.valueProperty().set(null);
+        cmb1.setDisable(false);
+        modev.setDisable(true);
+        recev.setDisable(false);
+         
+         
+          
+          
+          
+          
+        }
+        
+        
+    
+         
+                 
+        }
+        
+        
+
+    catch (Exception ex)
+    { 
+        Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    }
+
+    @FXML
+    private void deleve(MouseEvent event) {
+        
+        String tmp = listpro1.getSelectionModel().getSelectedItem();
+         String req = "select * from recevent where nomevent= '"+tmp+"'";
+    try {
+        
+        rs=st.executeQuery(req);
+        
+        if (rs.next())
+        {
+          int id = rs.getInt("receid");
+         recevent p = new recevent(id);
+            recedao pdao = recedao.getInstance();
+            pdao.delete(p);
+        Fillist();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("deleted");
+        alert.show();
+        rec1.clear();
+        updateev();
+                 Fillisteve();
+
+        cmb1.valueProperty().set(null);
+        cmb1.setDisable(false);
+        recev.setDisable(false);
+         
+         
+          
+          
+          
+          
+          
+        
+        
+    
+         
+                 
+        }
+        
+        
+}
+    catch (Exception ex)
+    { 
+        Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+
+    @FXML
+    private void dsipeve(MouseEvent event) {
+        if(event.getButton().equals(MouseButton.PRIMARY)){  
+          if(event.getClickCount() == 1){
+                
+        String tmp = listpro1.getSelectionModel().getSelectedItem();
+         String req = "select * from recevent where nomevent= '"+tmp+"'";
+    try {
+        
+        rs=st.executeQuery(req);
+        
+        if (rs.next()){
+            if (rs.getString("status").equals("repondu") )
+        {
+            rec1.setEditable(false);
+            modev.setDisable(true);
+            recev.setDisable(true);
+            String add1= rs.getString("nomevent");
+         cmb1.getSelectionModel().select(add1);
+         
+         cmb1.setDisable(true);
+         
+         String add2 = rs.getString("reclevent");
+         rec1.setText(add2);
+        }
+            
+            else if (rs.getString("status").equals("pending")){
+            
+        { recev.setDisable(true);
+        supeve.setDisable(false);
+          String add1= rs.getString("nomevent");
+         cmb1.getSelectionModel().select(add1);
+         
+         cmb1.setDisable(true);
+         
+         String add2 = rs.getString("reclevent");
+         rec1.setText(add2);
+         
+          rec1.textProperty().addListener(new ChangeListener<String>() {
+        @Override
+        public void changed(final ObservableValue<? extends String> observable, final String oldValue, final String newValue) {
+                    modev.setDisable(false);
+                    
+        
+         
+         
+          
+          
+          
+          
+          
+        
+        
+    
+         
+                 
+        }
+        
+        
+});}}}}
+      
+    catch (Exception ex)
+    { 
+        Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+    }
+                    
+                    
+                    }
+      
+          else  if(event.getClickCount() == 2) 
+          { supeve.setDisable(true);
+         recev.setDisable(false);
+         cmb1.setDisable(false);
+         cmb1.valueProperty().set(null);
+         rec1.clear();
+         modev.setDisable(true);
+    
+    }
+    
+    }
+    }
+}
+    
+        
+   
+    
+    
+

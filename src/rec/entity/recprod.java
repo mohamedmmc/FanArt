@@ -31,6 +31,20 @@ public class recprod {
         this.rec = new SimpleStringProperty(rec);
         
     }
+    
+     public recprod( int id ) {
+        
+        this.id = new SimpleIntegerProperty(id);
+      
+        
+    }
+     
+     public recprod( String rec ) {
+        
+      this.rec = new SimpleStringProperty(rec);
+      
+        
+    }
 
     
     public int getId() {

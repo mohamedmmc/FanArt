@@ -26,12 +26,19 @@ public class recevent {
     }
 
     
-    public recevent(int id, String eventnom, String email, String rec, String status) {
-        this.id = new SimpleIntegerProperty(id);
+    public recevent( String eventnom, String email, String rec) {
+        
         this.eventnom = new SimpleStringProperty(eventnom);
         this.email = new SimpleStringProperty(email);
         this.rec = new SimpleStringProperty(rec);
-        this.status = new SimpleStringProperty(status);
+        
+    }
+    
+    public recevent( int id ) {
+        
+        this.id = new SimpleIntegerProperty(id);
+      
+        
     }
 
     

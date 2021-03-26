@@ -32,16 +32,14 @@
                            </font>
                         </Label>
                         <TextArea fx:id="rec1" layoutX="14.0" layoutY="146.0" prefHeight="169.0" prefWidth="253.0" wrapText="true" />
-                        <Button fx:id="recev" layoutX="6.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#addeve" prefHeight="25.0" prefWidth="131.0" text="Envoyer reclamation" />
-                        <ListView fx:id="listpro1" layoutX="380.0" layoutY="106.0" onMouseClicked="#dsipeve" prefHeight="225.0" prefWidth="200.0" />
-                        <Label layoutX="380.0" layoutY="14.0" prefHeight="35.0" prefWidth="228.0" text="événement reclamé">
+                        <Button fx:id="recprodd1" layoutX="38.0" layoutY="330.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Envoyer reclamation" />
+                        <ListView fx:id="listpro1" layoutX="386.0" layoutY="111.0" prefHeight="225.0" prefWidth="200.0" />
+                        <Label layoutX="380.0" layoutY="-3.0" prefHeight="17.0" prefWidth="169.0" text="Produit reclamé">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="sea1" layoutX="380.0" layoutY="65.0" prefHeight="25.0" prefWidth="172.0" promptText="Cherchez événement" />
-                        <Button fx:id="modev" disable="true" layoutX="151.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#modieve" prefHeight="25.0" prefWidth="131.0" text="Modifier" />
-                        <Button fx:id="supeve" disable="true" layoutX="407.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#deleve" prefHeight="25.0" prefWidth="131.0" text="supprimer" />
+                        <TextField fx:id="lprech1" layoutX="386.0" layoutY="65.0" prefHeight="25.0" prefWidth="172.0" promptText="Rechercher événement" />
                      </children>
                   </AnchorPane>
                </content>
@@ -62,16 +60,15 @@
                            </font>
                         </Label>
                         <TextArea fx:id="rec" layoutX="14.0" layoutY="146.0" prefHeight="169.0" prefWidth="253.0" wrapText="true" />
-                        <Button fx:id="recprodd" layoutX="6.0" layoutY="331.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="131.0" text="Envoyer reclamation" />
-                        <ListView fx:id="listpro" layoutX="380.0" layoutY="106.0" onMouseClicked="#Display" prefHeight="225.0" prefWidth="200.0" />
+                        <Button fx:id="recprodd" layoutX="10.0" layoutY="330.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Envoyer reclamation" />
+                        <ListView fx:id="listpro" layoutX="380.0" layoutY="106.0" onMouseClicked="#display" prefHeight="225.0" prefWidth="200.0" />
                         <Label layoutX="380.0" layoutY="14.0" prefHeight="17.0" prefWidth="169.0" text="Produit reclamé">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="sea" layoutX="379.0" layoutY="65.0" prefHeight="25.0" prefWidth="172.0" promptText="cherchez produit" />
-                        <Button fx:id="modprodd" disable="true" layoutX="406.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#del" prefHeight="25.0" prefWidth="131.0" text="Supprimer" />
-                        <Button fx:id="modprodd1" disable="true" layoutX="157.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#modi" prefHeight="25.0" prefWidth="131.0" text="modifier" />
+                        <TextField fx:id="lprech" layoutX="386.0" layoutY="65.0" prefHeight="25.0" prefWidth="172.0" promptText="Rechercher produit" />
+                        <Button layoutX="163.0" layoutY="330.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="83.0" text="Modifier" />
                      </children>
                   </AnchorPane>
             </content>

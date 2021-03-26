@@ -7,7 +7,7 @@ package rec.dao;
 
 import rec.entity.recprod;
 import rec.utils.DB;
-import rec.view.AjoutRecController;
+import rec.controller.TestController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -56,7 +56,40 @@ public  class recpdao implements ldao<recprod> {
         } catch (SQLException ex) {
             Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }   
+    }
+    
+      public void delete(recprod o) {
+        String req="delete from recprod where recpid="+o.getId();
+       try {
+           
+            st.executeUpdate(req);
+             
+        } catch (SQLException ex) {
+            Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+      
+       public void update(recprod p, String email) {
+       String qry = "UPDATE recprod SET reclprod = '"+email+"' WHERE recpid = "+p.getId();        
+        try {
+            st.executeUpdate(qry);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+       
+       public void search(String p) {
+       String qry = "select * from recprod where reclprod = '"+p+"' ";        
+        try {
+            st.executeUpdate(qry);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
 
     
 

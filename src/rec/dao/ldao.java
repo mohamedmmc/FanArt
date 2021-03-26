@@ -12,8 +12,8 @@ import java.util.List;
  */
 public interface ldao<T> {
     public void insert(T o);
-   /* public void delete(T o);
-    public List<T> displayAll();
+   public void delete(T o);
+   /* public List<T> displayAll();
     public T displayById(int id);
     */
  

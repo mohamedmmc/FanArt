@@ -140,6 +140,22 @@ public class ServicePanier {
         }
         return p;
     }
+    public Panier displayByIdinvalide(int id) {
+        String req = "select * from Panier where id_user ='" + id+"'and validite = 'nonvalide'";
+        Panier p = new Panier();
+        try {
+            rs = ste.executeQuery(req);
+            // while(rs.next()){
+            rs.next();
+            p.setId_panier(rs.getInt(1));
+            p.setId_user(rs.getInt("id_user"));
+            p.setValidite(rs.getString("validite"));
+            //}  
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicePanier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return p;
+    }
 
     public List<Panier> displayAllList() {
         String req = "select * from Panier";

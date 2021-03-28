@@ -14,6 +14,15 @@ import java.io.File;
 public class Session {
     private static String file;
     private static Integer id;
+    private static int prix_total_prduit ;
+
+    public static void setPrix_total_prduit(int prix_total_prduit) {
+        Session.prix_total_prduit = prix_total_prduit;
+    }
+
+    public static int getPrix_total_prduit() {
+        return prix_total_prduit;
+    }
 public static String filename;
     public Session() {
     }

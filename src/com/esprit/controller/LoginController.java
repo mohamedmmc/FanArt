@@ -35,6 +35,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import static org.openqa.grid.common.SeleniumProtocol.WebDriver;
 import org.openqa.selenium.WebDriver;
@@ -52,6 +53,7 @@ public class LoginController implements Initializable {
     @FXML
     AnchorPane parent;
     double x = 0, y = 0;
+    
 
     @FXML
     private TextField email;
@@ -68,7 +70,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        Session.setId(0);
         makeDragable();
 
         creationCompte.setOnAction(event -> {
@@ -155,7 +157,7 @@ public class LoginController implements Initializable {
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
                     alert.setContentText("Connexion réussie");
-                    
+                    Session.filename="";
                     alert.show();
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/Menu.fxml"));
@@ -220,6 +222,16 @@ public class LoginController implements Initializable {
             }
         
         }
+    }
+
+    @FXML
+    private void mdpoublie(MouseEvent event) throws IOException {
+                Parent part = FXMLLoader.load(getClass().getResource("/com/esprit/view/ChangementMDP.fxml"));
+                Stage stage = new Stage();
+                stage.initModality(Modality.WINDOW_MODAL);
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.show();
     }
 
 

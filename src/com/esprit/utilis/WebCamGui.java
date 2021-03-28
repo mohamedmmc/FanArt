@@ -125,6 +125,7 @@ public class WebCamGui extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date = new Date();
+        Session.filename ="/com/esprit/img/" + format.format(date)+".png";
         BufferedImage bImage = (BufferedImage) image;
         Session.setFile(System.getProperty("user.dir")+"\\src\\com\\esprit\\img\\"+format.format(date)+".png");
         //System.out.println(Session.getFile());

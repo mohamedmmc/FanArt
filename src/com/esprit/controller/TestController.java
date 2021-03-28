@@ -178,7 +178,7 @@ public class TestController implements Initializable {
         
         rs=st.executeQuery(req);
         while (rs.next())
-        {  String y = rs.getString("date");
+        {  String y = rs.getString("date_fin");
          DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
          Date datecom = format.parse(y);
          int x= date.compareTo(datecom);

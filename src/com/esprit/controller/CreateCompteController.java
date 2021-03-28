@@ -63,6 +63,7 @@ import org.apache.commons.io.FileUtils;
 public class CreateCompteController implements Initializable {
 
     String filename = "";
+    
 
     @FXML
     private AnchorPane parent;
@@ -109,7 +110,7 @@ public class CreateCompteController implements Initializable {
     @FXML
     private Label photol;
     @FXML
-    private ImageView pdp;
+    public ImageView pdp;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -137,7 +138,7 @@ public class CreateCompteController implements Initializable {
             } else {
                 noml.setText("");
             }
-            if (filename.isEmpty()) {
+            if (Session.filename.isEmpty()) {
                 photol.setText("Photo obligatoire !");
             } else {
                 photol.setText("");
@@ -159,7 +160,7 @@ public class CreateCompteController implements Initializable {
             } else {
                 mdprl.setText("");
             }
-            if (email.getText().isEmpty() || prenom.getText().isEmpty() || mdp.getText().isEmpty() || nom.getText().equals("") || filename.isEmpty() || numtel.getText().isEmpty()) {
+            if (email.getText().isEmpty() || prenom.getText().isEmpty() || mdp.getText().isEmpty() || nom.getText().equals("") || Session.filename.isEmpty() || numtel.getText().isEmpty()) {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Attention");
@@ -184,7 +185,7 @@ public class CreateCompteController implements Initializable {
                 if (validate(email.getText())) {
                     String numtell = numtel.getText();
                     int num = Integer.parseInt(numtell);
-                    User u = new User(nom.getText(), prenom.getText(), mdp.getText(), email.getText(), num, stringfinal, type.getValue());
+                    User u = new User(nom.getText(), prenom.getText(), mdp.getText(), email.getText(), num, Session.filename, type.getValue());
                     try {
                         if (su.Existance(u) == 1) {
                             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -329,8 +330,10 @@ public class CreateCompteController implements Initializable {
             if (index > 0) {
                 filename = pathimage.substring(index + 1);
             }
+            
             source = new File(pathimage);
             dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
+            Session.filename="/com/esprit/img/" + filename;
         }
         pdp.setFitHeight(94);
         pdp.setFitWidth(94);
@@ -363,5 +366,7 @@ public class CreateCompteController implements Initializable {
             pdp.setFitHeight(94);
             pdp.setFitWidth(94);*/
     }
+
+
 
 }

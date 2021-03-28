@@ -14,7 +14,7 @@ import java.io.File;
 public class Session {
     private static String file;
     private static Integer id;
-public static String filenae;
+public static String filename;
     public Session() {
     }
 

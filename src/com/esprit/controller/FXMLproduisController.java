@@ -54,7 +54,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Juka
+ * @author splin
  */
 public class FXMLproduisController implements Initializable {
 

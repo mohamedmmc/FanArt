@@ -20,9 +20,11 @@ public class MyDB {
     private static MyDB instance;
     private String url = "jdbc:mysql://localhost:3306/3a18java";
     
+    
     public MyDB() {
         try {
             cnx = (Connection) DriverManager.getConnection(url, "root", "");
+            
             System.out.println("Connexion établie");
         } catch (SQLException ex) {
             System.err.println("Connexion non établie");

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="1103.0" style="-fx-background-color: #14242B;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.MenuController">
+   <left>
+      <VBox prefHeight="400.0" prefWidth="134.0" style="-fx-background-color: #0D1824;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="Accueil" mnemonicParsing="false" prefHeight="90.0" prefWidth="145.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Accueil" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="Evenement1" mnemonicParsing="false" onAction="#salle" prefHeight="90.0" prefWidth="145.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Salle" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="Evenement" mnemonicParsing="false" onAction="#evenementbut" prefHeight="90.0" prefWidth="145.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Evenement" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="Produit" mnemonicParsing="false" onAction="#LoadProduit" prefHeight="90.0" prefWidth="145.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Produits" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="Artistes" mnemonicParsing="false" onAction="#Reclamation" prefHeight="90.0" prefWidth="145.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Reclamation" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="Profil" mnemonicParsing="false" onAction="#loadprofil" prefHeight="125.5" prefWidth="134.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Profil" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="Deconnexion" mnemonicParsing="false" onAction="#retour" prefHeight="125.5" prefWidth="134.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="Deconnexion" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <AnchorPane fx:id="ap" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #14242B;" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <ImageView fitHeight="53.0" fitWidth="63.0" onMouseClicked="#panier" pickOnBounds="true" preserveRatio="true" translateX="500.0" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../img/buy.png" />
+         </image>
+      </ImageView>
+   </top>
+</BorderPane>

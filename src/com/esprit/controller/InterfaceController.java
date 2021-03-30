@@ -12,8 +12,7 @@ import static com.esprit.utilis.HashCode.generatedHash;
 import com.esprit.utilis.Sms;
 import com.esprit.utilis.WebCamGui;
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
+
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -34,22 +33,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.PasswordField;
+
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import org.apache.commons.io.FileUtils;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -119,12 +120,18 @@ public class InterfaceController implements Initializable {
             emailfield.setText(u.getEmail());
             numfield.setText(num);
             Session.filename = u.getPhoto();
-            Image imgg = new Image(Session.filename);
-            //System.out.println(Session.filename);
-            img.setImage(imgg);
-            //oldpass = u.getMdp();
+            
             oldmail = u.getEmail();
+            
+            String imageSource = "http://"+Session.filename; 
+            Image imgg = new Image(imageSource);
+            img.setImage(imgg);
+            //String imageUrl = ;
+            //Image imgg = new Image(Session.filename);
+            //System.out.println(Session.filename);
+            //oldpass = u.getMdp();
             // System.out.println(emailfield.toString());
+           
         });
 
     }

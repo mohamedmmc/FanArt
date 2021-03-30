@@ -11,6 +11,7 @@ import com.esprit.utilis.ConnexionSingleton;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -29,6 +30,17 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javax.swing.JOptionPane;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreProtocolPNames;
+import org.apache.http.util.EntityUtils;
 
 /**
  *
@@ -82,24 +94,23 @@ public class ServiceUser {
         }
 
     }
-    
-    public Integer VerifyNum(Integer num) throws SQLException{
+
+    public Integer VerifyNum(Integer num) throws SQLException {
         String req = "select id,numtel from user where numtel='" + num + "'";
         pst = cnx.prepareStatement(req);
-            rs = pst.executeQuery();
+        rs = pst.executeQuery();
         User u = new User();
-        
+
         while (rs.next()) {
             u.setId(rs.getInt("id"));
             u.setNumtel(rs.getInt("numtel"));
         }
-        if (num==u.getNumtel()){
+        if (num == u.getNumtel()) {
             return u.getId();
-        }
-        else{
+        } else {
             return 0;
         }
-        
+
     }
 
     public Integer verify(String email, String mdp) throws SQLException, NoSuchAlgorithmException {
@@ -209,6 +220,36 @@ public class ServiceUser {
 
     }
 
+    public void sendphp(String che) throws IOException {
+        HttpClient httpclient = new DefaultHttpClient();
+        httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
+
+        HttpPost httppost = new HttpPost("http://localhost:8080/img/upload2.php");
+
+        File file = new File(che);
+
+        MultipartEntity mpEntity = new MultipartEntity();
+        ContentBody cbFile = new FileBody(file, "image/jpeg");
+        //System.out.println(cbFile.getFilename());
+        mpEntity.addPart("userfile", cbFile);
+
+        httppost.setEntity(mpEntity);
+        //System.out.println("executing request " + httppost.getRequestLine());
+        HttpResponse response = httpclient.execute(httppost);
+        HttpEntity resEntity = response.getEntity();
+
+        //System.out.println(response.getStatusLine());
+        if (resEntity != null) {
+            System.out.println(EntityUtils.toString(resEntity));
+        }
+        if (resEntity != null) {
+            resEntity.consumeContent();
+        }
+
+        httpclient.getConnectionManager().shutdown();
+
+    }
+
     public User findBymail(int S) {
         User u = new User();
         String req = "Select * from user where id ='" + S + "' ";
@@ -230,15 +271,15 @@ public class ServiceUser {
         return u;
 
     }
-    
+
     public String findmail(int S) {
-        String em="";
+        String em = "";
         String req = "Select email from user where id ='" + S + "' ";
         try {
             pst = cnx.prepareStatement(req);
             rs = pst.executeQuery();
             while (rs.next()) {
-            em = (rs.getString("email"));
+                em = (rs.getString("email"));
 
             }
         } catch (Exception e) {
@@ -270,7 +311,8 @@ public class ServiceUser {
         }
 
     }
-public void ModifierUserWmdp(User u, int id) {
+
+    public void ModifierUserWmdp(User u, int id) {
         String sql = "UPDATE user SET `nom`=?,`prenom`=?,`email`=?,`numtel`=?,`photo`=? WHERE id='" + id + "'";
         PreparedStatement ste;
         //System.out.println(mail);
@@ -293,7 +335,7 @@ public void ModifierUserWmdp(User u, int id) {
 
     }
 
-public void MotdepasseOublie(String u, int id) {
+    public void MotdepasseOublie(String u, int id) {
         String sql = "UPDATE user SET `mdp`=? WHERE id='" + id + "'";
         PreparedStatement ste;
         //System.out.println(mail);

@@ -66,6 +66,9 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         makeDragable();
+        Accueil.setOnAction((e) -> {
+            LoadPage("/com/esprit/view/FXMLAffichageProduit");
+        });
     }    
 
     public void LoadPage(String page) {

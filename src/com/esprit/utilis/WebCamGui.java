@@ -1,5 +1,6 @@
 package com.esprit.utilis;
 
+import com.esprit.controller.CreateCompteController;
 import com.esprit.dao.Session;
 import com.github.sarxos.webcam.Webcam;
 import java.awt.Dimension;
@@ -125,12 +126,11 @@ public class WebCamGui extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
         Date date = new Date();
-        Session.filename ="/com/esprit/img/" + format.format(date)+".png";
+        Session.filename ="localhost:8080/img/"+ format.format(date)+".png";
         BufferedImage bImage = (BufferedImage) image;
-        Session.setFile(System.getProperty("user.dir")+"\\src\\com\\esprit\\img\\"+format.format(date)+".png");
-        //System.out.println(Session.getFile());
+        Session.pathfile= "D:\\"+format.format(date)+".png";
         try {
-            ImageIO.write(bImage, "png", new File (System.getProperty("user.dir")+"\\src\\com\\esprit\\img\\"+format.format(date)+".png"));
+            ImageIO.write(bImage, "png", new File ("D:\\"+format.format(date)+".png"));
         } catch (IOException ex) {
             Logger.getLogger(WebCamGui.class.getName()).log(Level.SEVERE, null, ex);
         }

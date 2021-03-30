@@ -7,6 +7,7 @@ package com.esprit.controller;
 
 import com.esprit.dao.ServiceUser;
 import com.esprit.dao.Session;
+import static com.esprit.dao.Session.pathfile;
 import com.esprit.entity.User;
 import static com.esprit.entity.User.validate;
 import com.esprit.utilis.MailSender;
@@ -54,6 +55,17 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreProtocolPNames;
+import org.apache.http.util.EntityUtils;
 
 /**
  * FXML Controller class
@@ -63,7 +75,7 @@ import org.apache.commons.io.FileUtils;
 public class CreateCompteController implements Initializable {
 
     String filename = "";
-    
+    String tosend;
 
     @FXML
     private AnchorPane parent;
@@ -114,6 +126,13 @@ public class CreateCompteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (!Session.filename.isEmpty()){
+            
+            Image i = new Image(Session.filename);
+            pdp.setImage(i);
+            System.out.println(Session.filename);
+        }
+        System.out.println(Session.filename);
         makeDragable();
         type.getItems().removeAll(type.getItems());
         type.getItems().addAll("Client", "Artiste");
@@ -138,7 +157,8 @@ public class CreateCompteController implements Initializable {
             } else {
                 noml.setText("");
             }
-            if (Session.filename.isEmpty()) {
+            
+            if (Session.filename  ==null){
                 photol.setText("Photo obligatoire !");
             } else {
                 photol.setText("");
@@ -160,7 +180,7 @@ public class CreateCompteController implements Initializable {
             } else {
                 mdprl.setText("");
             }
-            if (email.getText().isEmpty() || prenom.getText().isEmpty() || mdp.getText().isEmpty() || nom.getText().equals("") || Session.filename.isEmpty() || numtel.getText().isEmpty()) {
+            if (email.getText().isEmpty() || prenom.getText().isEmpty() || mdp.getText().isEmpty() || nom.getText().equals("") || Session.filename ==null || numtel.getText().isEmpty()) {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Attention");
@@ -210,6 +230,7 @@ public class CreateCompteController implements Initializable {
 
                                     if (sms.otpverify(numtel.getText(), result.get())) {
                                         su.insert(u);
+                                        su.sendphp(pathfile);
                                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                         alert.setHeaderText(null);
                                         alert.setContentText("Profil crée avec succés!");
@@ -224,11 +245,6 @@ public class CreateCompteController implements Initializable {
                                             stage.show();
                                         } catch (IOException ex) {
                                             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
-                                        try {
-                                            FileUtils.copyFile(source, dest);
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
                                         }
                                     } else if (!numtel.getText().equals(result.get())) {
                                         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -246,6 +262,8 @@ public class CreateCompteController implements Initializable {
                                     ms.send(email.getText(), nom.getText());
                                 }
                             } catch (NoSuchAlgorithmException | InterruptedException | SQLException ex) {
+                                Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (IOException ex) {
                                 Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
@@ -314,14 +332,17 @@ public class CreateCompteController implements Initializable {
     }
 
     @FXML
-    private void browseaction(ActionEvent event) throws FileNotFoundException {
+    private void browseaction(ActionEvent event) throws FileNotFoundException, IOException {
         FileChooser f = new FileChooser();
         String img;
+        
         f.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
         File fc = f.showOpenDialog(null);
         if (f != null) {
             //System.out.println(fc.getName());
             img = fc.getAbsoluteFile().toURI().toString();
+            System.out.println(img);
+            System.out.println(fc.getAbsolutePath());
             Image i = new Image(img);
             pdp.setImage(i);
             pathimage = fc.toString();
@@ -331,15 +352,17 @@ public class CreateCompteController implements Initializable {
                 filename = pathimage.substring(index + 1);
             }
             
-            source = new File(pathimage);
-            dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
-            Session.filename="/com/esprit/img/" + filename;
+            //source = new File(pathimage);
+            
+            //dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
+            Session.filename="localhost:8080/img/" + filename;
+            //su.sendphp(fc.getAbsolutePath());
         }
         pdp.setFitHeight(94);
         pdp.setFitWidth(94);
         //..\img\google.png
         //C:\Users\splin\Documents\NetBeansProjects\FanArt\\com\esprit\img
-
+        pathfile = fc.getAbsolutePath();
     }
 
     @FXML
@@ -358,7 +381,11 @@ public class CreateCompteController implements Initializable {
         frame.setVisible(true);*/
 
         WebCamGui.main(new String[0]);
-
+        if(!Session.filename.isEmpty()){
+            Image ig = new Image(Session.filename);
+            pdp.setImage(ig);
+            
+        }
         /* Image image = new Image(Session.getFile());
             
 

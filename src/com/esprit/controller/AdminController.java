@@ -50,6 +50,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import com.esprit.dao.Session;
 
 /**
  * FXML Controller class
@@ -57,8 +58,9 @@ import javax.swing.JOptionPane;
  * @author splin
  */
 public class AdminController implements Initializable {
+
     Connection con;
-    PreparedStatement ps ;
+    PreparedStatement ps;
     ResultSet rs;
 
     @FXML
@@ -126,15 +128,16 @@ public class AdminController implements Initializable {
     @FXML
     private ImageView imgg;
     private String filename;
-    private File source,dest;
+    private File source, dest;
 
-    public String verifier(){
-    if (numsalle.getText().equals("")|| place.getText().equals("") || desc.getText().equals("") )
-       return "true";
+    public String verifier() {
+        if (numsalle.getText().equals("") || place.getText().equals("") || desc.getText().equals("")) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
 
-    else 
-         return "false";
-} 
     /**
      * Initializes the controller class.
      */
@@ -143,7 +146,6 @@ public class AdminController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             makeDragable();
-                        
 
             ServiceUser su = new ServiceUser();
             //Image im = new Image(getClass().getResourceAsStream("/com/esprit/img/guestuser.png"));
@@ -152,11 +154,14 @@ public class AdminController implements Initializable {
 
             userTab.setOnMouseClicked((event) -> {
                 //vue.getChildren().remove(imagee);
-
-                Image img = new Image(getClass().getResourceAsStream(su.displayAllList()
+                String imageSource = "http://" +su.displayAllList().get(userTab.getSelectionModel().getSelectedIndex()).getPhoto();
+                System.out.println(imageSource);
+                Image imgg = new Image(imageSource);
+                imagee.setImage(imgg);
+               /* Image img = new Image(getClass().getResourceAsStream(su.displayAllList()
                         .get(userTab.getSelectionModel().getSelectedIndex())
                         .getPhoto()));
-                imagee.setImage(img);
+                imagee.setImage(img);*/
                 //System.out.println(String.valueOf(su.displayAllList().get(userTab.getSelectionModel().getSelectedIndex()).getNom()));
                 nomlabel.setText(su.displayAllList()
                         .get(userTab.getSelectionModel().getSelectedIndex())
@@ -244,7 +249,7 @@ public class AdminController implements Initializable {
     private void supprimer(ActionEvent event) {
         Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
         alert2.setTitle("Confirmation");
-        alert2.setHeaderText("Voulez vous vraiment supprimer cet utilisateur "+nomlabel.getText()+" "+prenomlabel.getText() +"?");
+        alert2.setHeaderText("Voulez vous vraiment supprimer cet utilisateur " + nomlabel.getText() + " " + prenomlabel.getText() + "?");
         Optional<ButtonType> result = alert2.showAndWait();
         if (result.get() == ButtonType.OK) {
             ServiceUser su = new ServiceUser();
@@ -287,35 +292,34 @@ public class AdminController implements Initializable {
 
     @FXML
     private void add(ActionEvent event) {
-        Connection con ;
+        Connection con;
         Connexion cnx = new Connexion();
         con = cnx.getConnection();
-        
-        String num=numsalle.getText();
-        String nbreplace=place.getText();
-        String descri=desc.getText();
-        
-        
-        String query ="insert into salle (numsalle,nbreplace,description) values (?,?,?)";
-        
-        if (verifier()=="false") { 
-        try {
-        ps =con.prepareStatement(query);
-        ps.setString(1, num);
-        ps.setString(2,nbreplace);
-        ps.setString(3, descri);
-        ps.execute();
-        
-        JOptionPane.showMessageDialog(null,"La salle a bien été ajouté ,vous pouvez en mettre un autre.. ");
-    
-        } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, ex);
+
+        String num = numsalle.getText();
+        String nbreplace = place.getText();
+        String descri = desc.getText();
+
+        String query = "insert into salle (numsalle,nbreplace,description) values (?,?,?)";
+
+        if (verifier() == "false") {
+            try {
+                ps = con.prepareStatement(query);
+                ps.setString(1, num);
+                ps.setString(2, nbreplace);
+                ps.setString(3, descri);
+                ps.execute();
+
+                JOptionPane.showMessageDialog(null, "La salle a bien été ajouté ,vous pouvez en mettre un autre.. ");
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+
+        } else {
+            //ImageIcon img1 = new ImageIcon("C:\\Users\\ranya\\Desktop\\attention.png");
+            JOptionPane.showMessageDialog(null, "Veuillez remplir tout les champs ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
         }
-    
-        } else{
-     //ImageIcon img1 = new ImageIcon("C:\\Users\\ranya\\Desktop\\attention.png");
-    JOptionPane.showMessageDialog(null, "Veuillez remplir tout les champs ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
-}
     }
 
     @FXML
@@ -328,7 +332,7 @@ public class AdminController implements Initializable {
             //System.out.println(fc.getName());
             imggg = fc.getAbsoluteFile().toURI().toString();
             Image i = new Image(imggg);
-            
+
             imgg.setImage(i);
             pathimage = fc.toString();
             //System.out.println(imageviewfxid);

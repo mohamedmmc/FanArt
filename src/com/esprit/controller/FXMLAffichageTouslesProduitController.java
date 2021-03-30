@@ -9,7 +9,7 @@ import com.esprit.dao.ListData;
 import com.esprit.dao.ServiceProduit;
 import com.esprit.dao.Session;
 import com.esprit.entity.Produit;
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
+
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.File;
 import java.io.FileInputStream;

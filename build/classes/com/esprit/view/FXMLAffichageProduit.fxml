@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="parent" prefHeight="550.0" prefWidth="800.0" style="-fx-background-color: #14242B;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.FXMLAffichageTouslesProduitController">
+   <children>
+      <TableView fx:id="listproduitfxid" layoutX="276.0" layoutY="74.0" onMouseClicked="#getSelected" prefHeight="348.0" prefWidth="521.0">
+        <columns>
+          <TableColumn fx:id="id_produitfxid" prefWidth="75.0" style="-fx-alignment: center; -fx-background-color: white;" text="ID Produit" />
+          <TableColumn fx:id="titrefxid" prefWidth="75.0" style="-fx-alignment: center; -fx-background-color: white;" text="Titre" />
+            <TableColumn fx:id="descriptionfxid" prefWidth="91.0" style="-fx-alignment: center; -fx-background-color: white;" text="Description" />
+            <TableColumn fx:id="prixfxid" prefWidth="59.0" style="-fx-alignment: center; -fx-background-color: white;" text="Prix" />
+            <TableColumn fx:id="artistefxid" prefWidth="85.0" style="-fx-alignment: center; -fx-background-color: white;" text="Artiste" />
+            <TableColumn fx:id="imagefxid" prefWidth="135.0" style="-fx-alignment: center; -fx-background-color: white;" text="Image" />
+        </columns>
+      </TableView>
+      <Text fill="WHITE" layoutX="237.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Détails des Produits ">
+         <font>
+            <Font name="Bauhaus 93" size="36.0" />
+         </font></Text>
+      <Button layoutX="477.0" layoutY="462.0" mnemonicParsing="false" onMouseClicked="#deleteRowFromTable" style="-fx-background-color: #0D1824;" text="Supprimer" textFill="WHITE">
+         <font>
+            <Font name="Bodoni MT Bold" size="15.0" />
+         </font></Button>
+      <Button layoutX="387.0" layoutY="462.0" mnemonicParsing="false" onMouseClicked="#Modifier" prefHeight="32.0" prefWidth="78.0" style="-fx-background-color: #0D1824;" text="Modifier" textFill="WHITE">
+         <font>
+            <Font name="Bodoni MT Bold" size="15.0" />
+         </font></Button>
+      <Button fx:id="AjouterProduitFxid" layoutX="293.0" layoutY="462.0" mnemonicParsing="false" onMouseClicked="#Insert" prefHeight="32.0" prefWidth="78.0" style="-fx-background-color: #0D1824;" text="Ajouter" textFill="WHITE">
+         <font>
+            <Font name="Bodoni MT Bold" size="15.0" />
+         </font></Button>
+      <Label layoutX="10.0" layoutY="82.0" text="Titre" textFill="WHITE" />
+      <Label layoutX="8.0" layoutY="126.0" text="Description" textFill="WHITE" />
+      <Label layoutX="10.0" layoutY="242.0" text="Prix" textFill="WHITE" />
+      <Label layoutX="8.0" layoutY="287.0" text="Image" textFill="WHITE" />
+      <Button layoutX="90.0" layoutY="280.0" mnemonicParsing="false" onAction="#UploadImage" style="-fx-background-color: #0D1824;" text="Ajouter image" textFill="WHITE">
+         <font>
+            <Font name="Bodoni MT Bold" size="15.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="imageviewfxid" fitHeight="118.0" fitWidth="156.0" layoutX="88.0" layoutY="321.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/insertionimage.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="fprixfxid" layoutX="88.0" layoutY="238.0" />
+      <TextArea fx:id="fdescriptionfxid" layoutX="88.0" layoutY="120.0" prefHeight="111.0" prefWidth="152.0" />
+      <TextField fx:id="ftitrefxid" layoutX="91.0" layoutY="79.0" />
+      <TextField fx:id="fid_produitfxid" layoutX="591.0" layoutY="466.0" visible="false" />
+   </children>
+</AnchorPane>

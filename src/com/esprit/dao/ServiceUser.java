@@ -83,7 +83,39 @@ public class ServiceUser {
 
     }
     
-    
+    public Integer VerifyNum(Integer num) throws SQLException{
+        String req = "select id,numtel from user where numtel='" + num + "'";
+        pst = cnx.prepareStatement(req);
+            rs = pst.executeQuery();
+        User u = new User();
+        
+        while (rs.next()) {
+            u.setId(rs.getInt("id"));
+            u.setNumtel(rs.getInt("numtel"));
+        }
+        if (num==u.getNumtel()){
+            return u.getId();
+        }
+        else{
+            return 0;
+        }
+        
+    }
+       public Boolean verifytype(Integer id) throws SQLException, NoSuchAlgorithmException {
+        String req = "select * from user where id='" + id + "'";
+         try {
+            rs = ste.executeQuery(req);
+            while (rs.next()) {
+                if ("Artiste".equals(rs.getString(8))) {
+                    return true;
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicePanier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     public Integer verify(String email, String mdp) throws SQLException, NoSuchAlgorithmException {
         String req = "select id,email,mdp from user where email='" + email + "'";
@@ -213,9 +245,26 @@ public class ServiceUser {
         return u;
 
     }
+    
+    
+    public String findmail(int S) {
+        String em="";
+        String req = "Select email from user where id ='" + S + "' ";
+        try {
+            pst = cnx.prepareStatement(req);
+            rs = pst.executeQuery();
+            while (rs.next()) {
+            em = (rs.getString("email"));
+
+            }
+        } catch (Exception e) {
+        }
+        return em;
+
+    }
 
     public void ModifierUser(User u, int id) {
-        String sql = "UPDATE user SET `nom`=?,`prenom`=?,`mdp`=?,`email`=?,`numtel`=? WHERE id='" + id + "'";
+        String sql = "UPDATE user SET `nom`=?,`prenom`=?,`mdp`=?,`email`=?,`numtel`=?,`photo`=? WHERE id='" + id + "'";
         PreparedStatement ste;
         //System.out.println(mail);
         try {
@@ -225,6 +274,48 @@ public class ServiceUser {
             ste.setString(3, u.getMdp());
             ste.setString(4, u.getEmail());
             ste.setInt(5, u.getNumtel());
+            ste.setString(6, u.getPhoto());
+
+            ste.executeUpdate();
+            int rowsUpdated = ste.executeUpdate();
+            if (rowsUpdated > 0) {
+                //System.out.println("La modification de la classe :" + u.getFirst_Name());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+public void ModifierUserWmdp(User u, int id) {
+        String sql = "UPDATE user SET `nom`=?,`prenom`=?,`email`=?,`numtel`=?,`photo`=? WHERE id='" + id + "'";
+        PreparedStatement ste;
+        //System.out.println(mail);
+        try {
+            ste = cnx.prepareStatement(sql);
+            ste.setString(1, u.getNom());
+            ste.setString(2, u.getPrenom());
+            ste.setString(3, u.getEmail());
+            ste.setInt(4, u.getNumtel());
+            ste.setString(5, u.getPhoto());
+
+            ste.executeUpdate();
+            int rowsUpdated = ste.executeUpdate();
+            if (rowsUpdated > 0) {
+                //System.out.println("La modification de la classe :" + u.getFirst_Name());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+public void MotdepasseOublie(String u, int id) {
+        String sql = "UPDATE user SET `mdp`=? WHERE id='" + id + "'";
+        PreparedStatement ste;
+        //System.out.println(mail);
+        try {
+            ste = cnx.prepareStatement(sql);
+            ste.setString(1, u);
 
             ste.executeUpdate();
             int rowsUpdated = ste.executeUpdate();

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -9,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="parent" prefHeight="640.0" prefWidth="946.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.LoginController">
    <children>
@@ -42,6 +44,17 @@
                         <Insets left="50.0" right="50.0" top="10.0" />
                      </VBox.margin>
                   </HBox>
+                  <Label onMouseClicked="#mdpoublie" prefHeight="26.0" prefWidth="242.0" text="Mot de passe oublié ?" textFill="#a11616" translateX="10.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <padding>
+                        <Insets left="40.0" />
+                     </padding>
+                  </Label>
                   <HBox prefHeight="54.0" prefWidth="329.0" spacing="40.0">
                      <children>
                         <Button fx:id="connexion" mnemonicParsing="false" onAction="#verify" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: none; -fx-border-color: white; -fx-prompt-text-fill: #dedede; -fx-text-fill: white;" text="Se connecter">
@@ -64,7 +77,7 @@
                         <Insets left="75.0" />
                      </padding>
                      <VBox.margin>
-                        <Insets top="50.0" />
+                        <Insets />
                      </VBox.margin>
                   </HBox>
                </children>
@@ -110,7 +123,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="196.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Login with Facebook" HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#fb" prefHeight="25.0" prefWidth="196.0" style="-fx-background-color: transparent; -fx-text-fill: white;" text="Login with Facebook" HBox.hgrow="ALWAYS" />
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/facebook.png" />

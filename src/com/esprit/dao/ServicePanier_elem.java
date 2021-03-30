@@ -21,7 +21,7 @@ import javafx.scene.control.Alert;
 
 /**
  *
- * @author Juka
+ * @author splin
  */
 public class ServicePanier_elem {
 

@@ -9,6 +9,11 @@ import com.esprit.dao.ServiceUser;
 import com.esprit.dao.Session;
 import com.esprit.entity.User;
 import static com.esprit.entity.User.validate;
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Version;
+import com.restfb.scope.FacebookPermissions;
+import com.restfb.scope.ScopeBuilder;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -30,7 +35,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import static org.openqa.grid.common.SeleniumProtocol.WebDriver;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
  *
@@ -44,6 +53,7 @@ public class LoginController implements Initializable {
     @FXML
     AnchorPane parent;
     double x = 0, y = 0;
+    
 
     @FXML
     private TextField email;
@@ -60,7 +70,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        Session.setId(0);
         makeDragable();
 
         creationCompte.setOnAction(event -> {
@@ -147,7 +157,7 @@ public class LoginController implements Initializable {
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
                     alert.setContentText("Connexion réussie");
-                    
+                    Session.filename="";
                     alert.show();
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/Menu.fxml"));
@@ -156,7 +166,7 @@ public class LoginController implements Initializable {
                         Session.setId(sp.verify(email.getText(), mdp.getText()));
                         stage.show();
                     } catch (IOException ex) {
-                        Logger.getLogger(MenuController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -173,6 +183,55 @@ public class LoginController implements Initializable {
                     alert.show();
             }
         }
+    }
+
+    @FXML
+    private void fb(ActionEvent event) {
+                String domain = "https://localhost/fblocal/";
+        String appId = "197623945102545";
+        String appidsecret = "577564482e4db4474577db2e570dadb9";
+        ScopeBuilder scopeBuilder = new ScopeBuilder();
+        scopeBuilder.addPermission(FacebookPermissions.EMAIL);
+
+        String authUrl = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id="+appId+"&redirect_uri="+domain+"&scope=email";
+        
+        System.setProperty("webdirver.chrome.driver", "chromedriver.exe");
+        
+        WebDriver driver = new ChromeDriver();
+        driver.get(authUrl);
+        //String accessToken;
+        while(true){
+        
+            if(!driver.getCurrentUrl().contains("facebook.com")){
+            String url = driver.getCurrentUrl();
+            //accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
+            FacebookClient client = new DefaultFacebookClient(Version.LATEST);
+               
+            String loginDialogUrlString = client.getLoginDialogUrl(appId, domain, scopeBuilder);
+  
+            System.out.println(loginDialogUrlString);
+            //accessToken ="EAAHZAuVpnjpoBAKUx3smusRvTUZAR7BaBt0vngXgEkcwx3puzwSZCLiK7B8ZBY0hZBSyyRhUzat52cv9v4mVPGpdvlB3jwHZBXBUPdlBTI9Oo3UVtTIQuCePOWCMd4xZCmYtampZAITATCj3ZCvrUhQJznC2R8ZAWykCfkbHnTYHaT2WrdB2XmZCzAMg6uAXoZAaHmZB9KZBTjqH6Ppv8R8SMS3q6mOhnhCx0ZBSqZAUiGEw5wi3xqetsuE7QyEB";
+            //System.out.println(accessToken);
+            
+            
+             User user = client.fetchObject("me",User.class);
+                
+                System.out.println(user.getEmail());
+                
+            
+            }
+        
+        }
+    }
+
+    @FXML
+    private void mdpoublie(MouseEvent event) throws IOException {
+                Parent part = FXMLLoader.load(getClass().getResource("/com/esprit/view/ChangementMDP.fxml"));
+                Stage stage = new Stage();
+                stage.initModality(Modality.WINDOW_MODAL);
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.show();
     }
 
 

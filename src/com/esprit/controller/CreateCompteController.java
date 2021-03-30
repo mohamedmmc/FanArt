@@ -6,10 +6,15 @@
 package com.esprit.controller;
 
 import com.esprit.dao.ServiceUser;
+import com.esprit.dao.Session;
 import com.esprit.entity.User;
 import static com.esprit.entity.User.validate;
 import com.esprit.utilis.MailSender;
 import com.esprit.utilis.Sms;
+import com.esprit.utilis.WebCamGui;
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,6 +51,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
 
@@ -57,6 +63,7 @@ import org.apache.commons.io.FileUtils;
 public class CreateCompteController implements Initializable {
 
     String filename = "";
+    
 
     @FXML
     private AnchorPane parent;
@@ -103,7 +110,7 @@ public class CreateCompteController implements Initializable {
     @FXML
     private Label photol;
     @FXML
-    private ImageView pdp;
+    public ImageView pdp;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -131,7 +138,7 @@ public class CreateCompteController implements Initializable {
             } else {
                 noml.setText("");
             }
-            if (filename.isEmpty()) {
+            if (Session.filename.isEmpty()) {
                 photol.setText("Photo obligatoire !");
             } else {
                 photol.setText("");
@@ -153,7 +160,7 @@ public class CreateCompteController implements Initializable {
             } else {
                 mdprl.setText("");
             }
-            if (email.getText().isEmpty() || prenom.getText().isEmpty() || mdp.getText().isEmpty() || nom.getText().equals("") || filename.isEmpty() || numtel.getText().isEmpty()) {
+            if (email.getText().isEmpty() || prenom.getText().isEmpty() || mdp.getText().isEmpty() || nom.getText().equals("") || Session.filename.isEmpty() || numtel.getText().isEmpty()) {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Attention");
@@ -178,7 +185,7 @@ public class CreateCompteController implements Initializable {
                 if (validate(email.getText())) {
                     String numtell = numtel.getText();
                     int num = Integer.parseInt(numtell);
-                    User u = new User(nom.getText(), prenom.getText(), mdp.getText(), email.getText(), num, stringfinal, type.getValue());
+                    User u = new User(nom.getText(), prenom.getText(), mdp.getText(), email.getText(), num, Session.filename, type.getValue());
                     try {
                         if (su.Existance(u) == 1) {
                             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -302,37 +309,64 @@ public class CreateCompteController implements Initializable {
     @FXML
     private void exit(MouseEvent event) {
         Stage stage = (Stage) cross.getScene().getWindow();
+        Session.setFile(filename);
         stage.close();
     }
 
     @FXML
     private void browseaction(ActionEvent event) throws FileNotFoundException {
-        FileChooser fc = new FileChooser();
-
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
-        File SelectedFile = fc.showOpenDialog(null);
-        if (SelectedFile != null) {
-            pathimage = SelectedFile.toString();
-            //System.out.println(pathimage);
+        FileChooser f = new FileChooser();
+        String img;
+        f.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
+        File fc = f.showOpenDialog(null);
+        if (f != null) {
+            //System.out.println(fc.getName());
+            img = fc.getAbsoluteFile().toURI().toString();
+            Image i = new Image(img);
+            pdp.setImage(i);
+            pathimage = fc.toString();
+            //System.out.println(imageviewfxid);
             int index = pathimage.lastIndexOf('\\');
             if (index > 0) {
                 filename = pathimage.substring(index + 1);
             }
+            
             source = new File(pathimage);
             dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
-//            System.out.println(dest);
-//            System.out.println(source);
-            stringfinal = "/com/esprit/img/" + filename;
-            Image image = new Image(stringfinal);
+            Session.filename="/com/esprit/img/" + filename;
+        }
+        pdp.setFitHeight(94);
+        pdp.setFitWidth(94);
+        //..\img\google.png
+        //C:\Users\splin\Documents\NetBeansProjects\FanArt\\com\esprit\img
+
+    }
+
+    @FXML
+    private void cam(ActionEvent event) throws InterruptedException {
+        /*Webcam webcam = Webcam.getDefault();
+        webcam.setViewSize(WebcamResolution.VGA.getSize());
+        
+        WebcamPanel webcampanel = new WebcamPanel(webcam);
+        webcampanel.setImageSizeDisplayed(true);
+        JFrame frame = new  JFrame();
+        frame.add(webcampanel);
+        frame.setLocationRelativeTo(null);
+        frame.pack();
+        //frame.
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);*/
+
+        WebCamGui.main(new String[0]);
+
+        /* Image image = new Image(Session.getFile());
+            
 
             pdp.setImage(image);
             pdp.setFitHeight(94);
-            pdp.setFitWidth(94);
-            //..\img\google.png
-            //C:\Users\splin\Documents\NetBeansProjects\FanArt\\com\esprit\img
-
-        }
-
+            pdp.setFitWidth(94);*/
     }
+
+
 
 }

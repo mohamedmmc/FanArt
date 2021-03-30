@@ -28,6 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -35,7 +36,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Juka
+ * @author splin
  */
 public class MenuController implements Initializable {
 
@@ -55,7 +56,9 @@ public class MenuController implements Initializable {
     @FXML
     private AnchorPane ap;
     @FXML
-    private BorderPane bp;
+    public BorderPane bp;
+    @FXML
+    private Button Evenement1;
 
     /**
      * Initializes the controller class.
@@ -65,7 +68,7 @@ public class MenuController implements Initializable {
         makeDragable();
     }    
 
-    private void LoadPage(String page) {
+    public void LoadPage(String page) {
          Parent root=null;
         try {
             root=FXMLLoader.load(getClass().getResource(page+".fxml"));
@@ -102,10 +105,6 @@ public class MenuController implements Initializable {
         LoadPage("/com/esprit/view/FXMLproduis");
     }
 
-    @FXML
-    private void Loadajout(ActionEvent event) {
-    LoadPage("/com/esprit/view/FXMLAffichageProduit");
-    }
 
     @FXML
     private void loadprofil(ActionEvent event) {
@@ -136,12 +135,31 @@ public class MenuController implements Initializable {
         }
     }
 
-    @FXML
-    private void panier(ActionEvent event) {
+    /*private void panier(ActionEvent event) {
 
-          LoadPage("/com/esprit/view/FXMLpanier");
+          
         //parent.setCenter(root);
         //bp.setCenter(root);
+    }*/
+
+    @FXML
+    private void evenementbut(ActionEvent event) {
+        LoadPage("/com/esprit/view/HomeEvent");
+    }
+
+    @FXML
+    private void salle(ActionEvent event) {
+        LoadPage("/com/esprit/view/ListeSalles");
+    }
+
+    @FXML
+    private void panier(MouseEvent event) {
+        LoadPage("/com/esprit/view/FXMLpanier");
+    }
+
+    @FXML
+    private void Reclamation(ActionEvent event) {
+        LoadPage("/com/esprit/view/Rec");
     }
     
 

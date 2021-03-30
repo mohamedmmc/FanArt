@@ -2,37 +2,51 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" fx:id="parent" prefHeight="594.0" prefWidth="874.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.InterfaceController">
+<AnchorPane id="AnchorPane" fx:id="parent" prefHeight="517.0" prefWidth="886.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.InterfaceController">
    <children>
       <Label fx:id="emailLabel" layoutX="208.0" layoutY="27.0" prefHeight="63.0" prefWidth="162.0" textFill="WHITE" />
-      <VBox fx:id="userInfoContainer" layoutX="43.0" layoutY="85.0" prefHeight="425.0" prefWidth="580.0" spacing="30.0">
-         <children>
-            <TextField fx:id="nomfield" />
-            <TextField fx:id="prenomfield" />
-            <PasswordField fx:id="mdpfield" />
-            <PasswordField fx:id="mdpfieldv" />
-            <TextField fx:id="emailfield" />
-            <TextField fx:id="numfield" />
-         </children>
-         <padding>
-            <Insets left="90.0" right="90.0" top="50.0" />
-         </padding>
-      </VBox>
       <VBox layoutX="685.0" layoutY="27.0" prefHeight="111.0" prefWidth="162.0" spacing="20.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#modifcompte" text="Modifier Compte" />
-            <Button mnemonicParsing="false" onAction="#retour" prefHeight="31.0" prefWidth="134.0" text="Se déconnecter" />
-         </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <Button layoutX="290.0" layoutY="529.0" mnemonicParsing="false" onAction="#appliquer" text="Appliquer" />
+      <Button layoutX="223.0" layoutY="421.0" mnemonicParsing="false" onAction="#appliquer" text="Appliquer" />
+      <ImageView fx:id="img" fitHeight="271.0" fitWidth="288.0" layoutX="553.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="734.0" layoutY="376.0" mnemonicParsing="false" onAction="#upload" text="Parcourir" />
+      <Button layoutX="607.0" layoutY="376.0" mnemonicParsing="false" onAction="#cam" text="Camera" />
+      <VBox fx:id="userInfoContainer1" layoutX="12.0" layoutY="33.0" prefHeight="418.0" prefWidth="175.0" spacing="40.0">
+         <children>
+            <Label text="Nom" textFill="#ebe2e2" />
+            <Label text="Prenom" textFill="#ebe2e2" />
+            <Label text="Mot de passe" textFill="#ebe2e2" />
+            <Label text="Nouveau Mot de passe" textFill="#ebe2e2" />
+            <Label text="Email" textFill="#ebe2e2" />
+            <Label text="Numéro de téléphone" textFill="#ebe2e2" />
+         </children>
+         <padding>
+            <Insets left="10.0" right="10.0" top="20.0" />
+         </padding>
+      </VBox>
+      <Label layoutX="342.0" layoutY="426.0" onMouseClicked="#mdpoublie" text="Mot de passe oublié ?" textFill="#a11616" />
+      <CheckBox fx:id="pass_toggle" layoutX="401.0" layoutY="279.0" mnemonicParsing="false" onAction="#togglevisiblePassword" text="Afficher" textFill="WHITE" />
+      <TextField fx:id="nomfield" layoutX="193.0" layoutY="49.0" prefHeight="25.0" prefWidth="191.0" />
+      <TextField fx:id="prenomfield" layoutX="193.0" layoutY="103.0" prefHeight="25.0" prefWidth="191.0" />
+      <PasswordField fx:id="mdpfield" layoutX="193.0" layoutY="160.0" prefHeight="25.0" prefWidth="191.0">
+         <tooltip>
+            <Tooltip text="Pour modifier son mot de passe, il faut obligatoirement entrer un nouveau mot de passe dans le champs suivant !" />
+         </tooltip></PasswordField>
+      <PasswordField fx:id="mdpfieldv" layoutX="193.0" layoutY="217.0" prefHeight="25.0" prefWidth="191.0" />
+      <PasswordField fx:id="emailfield" layoutX="193.0" layoutY="275.0" prefHeight="25.0" prefWidth="191.0" />
+      <TextField fx:id="emailaffiche" layoutX="193.0" layoutY="275.0" prefHeight="25.0" prefWidth="191.0" />
+      <TextField fx:id="numfield" layoutX="193.0" layoutY="334.0" prefHeight="25.0" prefWidth="191.0" />
    </children>
 </AnchorPane>

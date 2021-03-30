@@ -14,12 +14,12 @@ import java.util.regex.Pattern;
  */
 public class User {
 
-    public User(String nom, String prenom, String email, int numtel, String type) {
+    public User(String nom, String prenom, String email, int numtel, String photo) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.numtel = numtel;
-        this.type = type;
+        this.photo = photo;
     }
 
     private int id;
@@ -32,6 +32,17 @@ public class User {
     public User(long l, String jennifer, String jenniferdomaincom) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public User(String nom, String prenom, String mdp, String email, int numtel, String photo) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.mdp = mdp;
+        this.email = email;
+        this.numtel = numtel;
+        this.photo = photo;
+    }
+
+
 
     public String getPhoto() {
         return photo;
@@ -154,6 +165,7 @@ public class User {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
         return matcher.find();
     }
+    
 
     @Override
     public String toString() {

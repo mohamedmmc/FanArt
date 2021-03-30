@@ -5,7 +5,7 @@
  */
 package com.esprit.dao;
 
-import com.esprit.dao.ServiceProduit;
+import com.esprit.dao.EvenementService;
 import com.esprit.dao.StatistiqueService;
 import com.esprit.utilis.ConnexionSingleton;
 import java.sql.Connection;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Ben Gouta Monam
+ * @author splin
  */
 public class StatistiqueService {
     public static StatistiqueService instance ;
@@ -42,7 +42,7 @@ public static StatistiqueService getInstance() throws SQLException{
 /*********************************************************************************************************/
     public LinkedHashMap<String,Integer> Selectstatevent(){
            LinkedHashMap<String,Integer> map = new LinkedHashMap<String,Integer>();
-             String req = "SELECT e.Titre,(SELECT COUNT(*) as taux FROM participant where e.Id_evenement=participant.Id_evenement   ) as taux, (SELECT SUM(Nbr_reservation) FROM participant where e.Id_evenement=participant.Id_evenement   ) as taux_reserve FROM `participant` as p inner join evenement as e on e.Id_evenement=p.Id_evenement GROUP BY Titre";
+             String req = "SELECT e.Titre, (SELECT SUM(Nbr_reservation) FROM participant where e.Id_evenement=participant.Id_evenement   ) as taux_reserve FROM `participant` as p inner join evenement as e on e.Id_evenement=p.Id_evenement GROUP BY Titre limit 6";
              try {
             ResultSet rs = ste.executeQuery(req);
             while (rs.next()) {
@@ -50,7 +50,7 @@ public static StatistiqueService getInstance() throws SQLException{
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceProduit.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EvenementService.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -66,7 +66,7 @@ public static StatistiqueService getInstance() throws SQLException{
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(ServiceProduit.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EvenementService.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         

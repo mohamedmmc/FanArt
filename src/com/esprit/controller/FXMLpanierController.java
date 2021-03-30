@@ -12,6 +12,7 @@ import com.esprit.dao.Session;
 import com.esprit.entity.Panier;
 import com.esprit.entity.Panier_elem;
 import com.esprit.entity.Produit;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,6 +23,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -32,6 +35,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -54,6 +58,7 @@ public class FXMLpanierController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         int column = 0;
         int row = 1;
+        int prixtotal=0;
         ServicePanier panier =new ServicePanier();
         int idpanier=panier.verif(Session.getId());
         List list = new ArrayList<>(getList(idpanier));
@@ -70,20 +75,16 @@ public class FXMLpanierController implements Initializable {
             ServiceProduit serviceproduit =new ServiceProduit();
             Produit produit =new Produit();
             produit = serviceproduit.displayById(panier_elem.getId_produit()); 
-            
             FXMLLoader fxmlloader = new FXMLLoader();
             fxmlloader.setLocation(getClass().getResource("/com/esprit/view/FXMLpanier.fxml"));
-            
             VBox testbox = new VBox();
             testbox.setPadding(new Insets(30, 20, 30, 30));
             testbox.setStyle("-fx-background-color: #14242B");
-            ImageView im =new ImageView("/com/esprit/img/insertionimage.png");
-/*            URL imageURL = getClass().getResource(produit.getImage());
-            System.out.println(imageURL);
-            Image image = new Image(imageURL.toExternalForm());
+            String imageURL = produit.getImage();
+            Image image = new Image(imageURL);
             ImageView im = new ImageView(image);
             im.setFitHeight(150);
-            im.setPreserveRatio(true);*/
+            im.setPreserveRatio(true);
             Text titre = new Text();
             titre.setFill(Color.WHITE);
             Text description = new Text();
@@ -94,8 +95,6 @@ public class FXMLpanierController implements Initializable {
             prix.setFill(Color.WHITE);
             Text quantite = new Text();
             quantite.setFill(Color.WHITE);
-            /*Button btn = new Button("Ajouter au panier");
-            btn.setId("btn_aap" + produit.getId());*/
             prix.setText(String.valueOf(produit.getPrix() + "DT"));
             description.setText(produit.getDescription());
             artiste.setText(String.valueOf(produit.getArtiste()));
@@ -110,7 +109,9 @@ public class FXMLpanierController implements Initializable {
             }
             gpfxid.add(testbox, column++, row);
             GridPane.setMargin(testbox, new Insets(10));
+            prixtotal+=panier_elem.getQuantite()*produit.getPrix();
         }
+            Session.setPrix_total_prduit(prixtotal);
     }
     }
      private List<Panier_elem> getList(int idpanier) {
@@ -118,30 +119,16 @@ public class FXMLpanierController implements Initializable {
         ServicePanier_elem servicepanier_elem = ServicePanier_elem.getInstance();
         //list = servicepanier_elem.displayList();
         list = servicepanier_elem.displayListById(idpanier);
-        return list;
-
-      
-
-        
-        
-        
+        return list;  
     }
 
     @FXML
-    private void payer(ActionEvent event) {
-        ServicePanier servicepanier =new ServicePanier();
-        Panier panier=new Panier();
-        panier=servicepanier.displayById(Session.getId());
-        servicepanier.updatevalidite(panier);
-         Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("commande");
-            alert.setHeaderText(null);
-            alert.setContentText("commande passer avec succée");
-            alert.show();
-        
-        
-        
-        
+    private void payer(ActionEvent event) throws IOException {
+        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("/com/esprit/view/paymentproduit.fxml"));
+                            Parent root = (Parent) fxmlloader.load();
+                            Stage stage = new Stage();
+                            stage.setScene(new Scene(root));
+                            stage.show();
     }
     
     

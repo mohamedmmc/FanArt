@@ -35,7 +35,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Ben Gouta Monam
+ * @author splin
  */
 public class StatistiqueController implements Initializable {
 
@@ -59,77 +59,70 @@ public class StatistiqueController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-          
+
         try {
             // TODO
             StatistiqueService es;
             es = StatistiqueService.getInstance();
-            LinkedHashMap<String,Integer> map=es.Selectstatevent();
-           LinkedHashMap<String,Integer> map1=es.SelectArtist();
+            LinkedHashMap<String, Integer> map = es.Selectstatevent();
+            LinkedHashMap<String, Integer> map1 = es.SelectArtist();
 
-            
-            
-             XYChart.Series set1=new XYChart.Series<>();
-            for(Map.Entry<String,Integer> entry : map.entrySet()){
-                set1.getData().add(new XYChart.Data(entry.getKey(),entry.getValue()));
-                
+            XYChart.Series set1 = new XYChart.Series<>();
+            for (Map.Entry<String, Integer> entry : map.entrySet()) {
+                set1.getData().add(new XYChart.Data(entry.getKey(), entry.getValue()));
+
             }
-           
-            
-        
+
             barchart.getData().addAll(set1);
-            
-            
-            ObservableList<PieChart.Data> piechartData =FXCollections.observableArrayList() ;
-             for(Map.Entry<String,Integer> entry : map1.entrySet()){
-              piechartData.add(new PieChart.Data(entry.getKey(),entry.getValue()));
-                
+
+            ObservableList<PieChart.Data> piechartData = FXCollections.observableArrayList();
+            for (Map.Entry<String, Integer> entry : map1.entrySet()) {
+                piechartData.add(new PieChart.Data(entry.getKey(), entry.getValue()));
+
             }
-            
-          piechart.setClockwise(true);
-          piechart.setLegendSide(Side.TOP);
+
+            piechart.setClockwise(true);
+            piechart.setLegendSide(Side.TOP);
             piechart.setData(piechartData);
             piechart.setStartAngle(90);
         } catch (SQLException ex) {
             Logger.getLogger(StatistiqueController.class.getName()).log(Level.SEVERE, null, ex);
         }
-         btn_list.setOnAction((ActionEvent event1) -> {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/com/pidev/view/ListEvent.fxml"));
-                    Stage window = (Stage) btn_list.getScene().getWindow();
-                    window.setScene(new Scene(root));
-                    
-                } catch (IOException ex) {
-                    Logger.getLogger(StatistiqueController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-            btn_add.setOnAction((ActionEvent event1) -> {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/HomeEvent.fxml"));
-                    Stage window = (Stage) btn_add.getScene().getWindow();
-                    window.setScene(new Scene(root));
-                    
-                } catch (IOException ex) {
-                    Logger.getLogger(StatistiqueController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-            btn_acceuil.setOnAction((ActionEvent event1) -> {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/com/pidev/view/Menu.fxml"));
-                    Stage window = (Stage) btn_acceuil.getScene().getWindow();
-                    window.setScene(new Scene(root));
-                    
-                } catch (IOException ex) {
-                    Logger.getLogger(StatistiqueController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-       
-        
-        
-    }    
+        btn_list.setOnAction((ActionEvent event1) -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/ListEvent.fxml"));
+                Stage window = (Stage) btn_list.getScene().getWindow();
+                window.setScene(new Scene(root));
+
+            } catch (IOException ex) {
+                Logger.getLogger(HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        btn_add.setOnAction((ActionEvent event1) -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/HomeEvent.fxml"));
+                Stage window = (Stage) btn_add.getScene().getWindow();
+                window.setScene(new Scene(root));
+
+            } catch (IOException ex) {
+                Logger.getLogger(HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        btn_acceuil.setOnAction((ActionEvent event1) -> {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/Menu.fxml"));
+                Stage window = (Stage) btn_acceuil.getScene().getWindow();
+                window.setScene(new Scene(root));
+
+            } catch (IOException ex) {
+                Logger.getLogger(HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+    }
 
     @FXML
     private void changescene(MouseEvent event) {
     }
-    
+
 }

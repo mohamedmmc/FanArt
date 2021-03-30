@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.esprit.controller;
+package com.esprit.dao;
 
 import com.esprit.dao.ServiceProduit;
 import com.esprit.entity.Produit;

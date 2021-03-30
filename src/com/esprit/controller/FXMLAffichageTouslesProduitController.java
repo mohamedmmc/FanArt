@@ -5,7 +5,9 @@
  */
 package com.esprit.controller;
 
+import com.esprit.dao.ListData;
 import com.esprit.dao.ServiceProduit;
+import com.esprit.dao.Session;
 import com.esprit.entity.Produit;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -20,6 +22,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -95,10 +98,12 @@ public class FXMLAffichageTouslesProduitController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Platform.runLater(() -> {
+            
+        
         updatetable();
         makeDragable();
-        
+        });
     } 
     private void makeDragable() {
 
@@ -177,13 +182,34 @@ public class FXMLAffichageTouslesProduitController implements Initializable {
 
     @FXML
     private void UploadImage(ActionEvent event) throws FileNotFoundException {
-       FileChooser fc = new FileChooser();
+        FileChooser f = new FileChooser();
+        String img;
+        f.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
+        File fc = f.showOpenDialog(null);
+        if (f != null) {
+            //System.out.println(fc.getName());
+            img = fc.getAbsoluteFile().toURI().toString();
+            Image i = new Image(img);
+            imageviewfxid.setImage(i);
+            pathimage = fc.toString();
+            //System.out.println(imageviewfxid);
+            int index= pathimage.lastIndexOf('\\');
+            if (index>0)
+            {
+                filename = pathimage.substring(index+1);
+            }
+            source = new File(pathimage);
+             dest = new File(System.getProperty("user.dir")+"\\src\\com\\esprit\\img\\" + filename);
+             stringfinal="/com/esprit/img/" + filename;
+        }
+       /*FileChooser fc = new FileChooser();
         
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
         File SelectedFile = fc.showOpenDialog(null);
         if (SelectedFile != null)
         {
             pathimage = SelectedFile.toString();
+            //System.out.println(pathimage);
             int index= pathimage.lastIndexOf('\\');
             if (index>0)
             {
@@ -194,11 +220,14 @@ public class FXMLAffichageTouslesProduitController implements Initializable {
 //            System.out.println(dest);
 //            System.out.println(source);
             stringfinal="/com/esprit/img/" + filename;
+            Image image = new Image(stringfinal);
+            imageviewfxid.setImage(image);
+            
             //..\img\google.png
                     //C:\Users\splin\Documents\NetBeansProjects\FanArt\\com\esprit\img
             
             
-        }
+        }*/
     }
 
     @FXML
@@ -215,8 +244,7 @@ public class FXMLAffichageTouslesProduitController implements Initializable {
                 alert.setContentText("Tout les champs sont obligatoires !");
                 alert.show();
             }
-        
-        Produit p = new Produit(ftitrefxid.getText(),11, fdescriptionfxid.getText(),stringfinal, Float.parseFloat(fprixfxid.getText()));
+        Produit p = new Produit(ftitrefxid.getText(),Session.getId(), fdescriptionfxid.getText(),stringfinal, Float.parseFloat(fprixfxid.getText()));
             ServiceProduit pdao = ServiceProduit.getInstance();
             pdao.Insert(p);
             updatetable();

@@ -7,8 +7,13 @@ package com.esprit.controller;
 
 import com.esprit.dao.ServiceUser;
 import com.esprit.entity.User;
+import com.esprit.utilis.Connexion;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
@@ -27,10 +32,12 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -39,7 +46,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -47,7 +57,9 @@ import javafx.stage.Stage;
  * @author splin
  */
 public class AdminController implements Initializable {
-    
+    Connection con;
+    PreparedStatement ps ;
+    ResultSet rs;
 
     @FXML
     private TableView<User> userTab;
@@ -84,7 +96,45 @@ public class AdminController implements Initializable {
     private TextField chercher;
     @FXML
     private VBox vue;
+    @FXML
+    private AnchorPane parentt;
+    @FXML
+    private TextField numsalle;
+    @FXML
+    private TextField place;
+    @FXML
+    private Button parcourrir;
+    @FXML
+    private Button annuler;
+    @FXML
+    private Button ajout;
+    @FXML
+    private TextArea desc;
+    @FXML
+    private TextField numsalle1;
+    @FXML
+    private TextField place1;
+    @FXML
+    private Button parcourrir1;
+    @FXML
+    private Button annuler1;
+    @FXML
+    private Button ajout1;
+    @FXML
+    private TextArea desc1;
+    private String pathimage;
+    @FXML
+    private ImageView imgg;
+    private String filename;
+    private File source,dest;
 
+    public String verifier(){
+    if (numsalle.getText().equals("")|| place.getText().equals("") || desc.getText().equals("") )
+       return "true";
+
+    else 
+         return "false";
+} 
     /**
      * Initializes the controller class.
      */
@@ -93,7 +143,7 @@ public class AdminController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
             makeDragable();
-            
+                        
 
             ServiceUser su = new ServiceUser();
             //Image im = new Image(getClass().getResourceAsStream("/com/esprit/img/guestuser.png"));
@@ -150,21 +200,21 @@ public class AdminController implements Initializable {
 
     private void makeDragable() {
 
-        parent.setOnMousePressed(((event) -> {
+        parentt.setOnMousePressed(((event) -> {
             x = event.getSceneX();
             y = event.getSceneY();
         }));
-        parent.setOnMouseDragged(((event) -> {
+        parentt.setOnMouseDragged(((event) -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setX(event.getScreenX() - x);
             stage.setY(event.getScreenY() - y);
             stage.setOpacity(0.8f);
         }));
-        parent.setOnDragDone(((event) -> {
+        parentt.setOnDragDone(((event) -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setOpacity(1.0f);
         }));
-        parent.setOnMouseReleased(((event) -> {
+        parentt.setOnMouseReleased(((event) -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setOpacity(1.0f);
         }));
@@ -226,5 +276,70 @@ public class AdminController implements Initializable {
         su.chercher(chercher.getText());
         //tableau.setItems(su.getUserList());
         userTab.setItems(su.getUserListfiltered(chercher.getText()));
+    }
+
+    @FXML
+    private void Annuler(ActionEvent event) {
+        numsalle.setText("");
+        place.setText("");
+        desc.setText("");
+    }
+
+    @FXML
+    private void add(ActionEvent event) {
+        Connection con ;
+        Connexion cnx = new Connexion();
+        con = cnx.getConnection();
+        
+        String num=numsalle.getText();
+        String nbreplace=place.getText();
+        String descri=desc.getText();
+        
+        
+        String query ="insert into salle (numsalle,nbreplace,description) values (?,?,?)";
+        
+        if (verifier()=="false") { 
+        try {
+        ps =con.prepareStatement(query);
+        ps.setString(1, num);
+        ps.setString(2,nbreplace);
+        ps.setString(3, descri);
+        ps.execute();
+        
+        JOptionPane.showMessageDialog(null,"La salle a bien été ajouté ,vous pouvez en mettre un autre.. ");
+    
+        } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, ex);
+        }
+    
+        } else{
+     //ImageIcon img1 = new ImageIcon("C:\\Users\\ranya\\Desktop\\attention.png");
+    JOptionPane.showMessageDialog(null, "Veuillez remplir tout les champs ! ", "Information", JOptionPane.INFORMATION_MESSAGE);
+}
+    }
+
+    @FXML
+    private void ajoutImg(ActionEvent event) {
+        FileChooser f = new FileChooser();
+        String imggg;
+        f.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
+        File fc = f.showOpenDialog(null);
+        if (f != null) {
+            //System.out.println(fc.getName());
+            imggg = fc.getAbsoluteFile().toURI().toString();
+            Image i = new Image(imggg);
+            
+            imgg.setImage(i);
+            pathimage = fc.toString();
+            //System.out.println(imageviewfxid);
+            int index = pathimage.lastIndexOf('\\');
+            if (index > 0) {
+                filename = pathimage.substring(index + 1);
+            }
+            source = new File(pathimage);
+            dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
+        }
+        imgg.setFitHeight(94);
+        imgg.setFitWidth(94);
     }
 }

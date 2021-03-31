@@ -5,14 +5,13 @@
  */
 package com.esprit.dao;
 
-import java.io.File;
-
 /**
  *
  * @author splin
  */
 public class Session {
     private static String file;
+    public static String pathfile;
     private static Integer id;
     private static int prix_total_prduit ;
 
@@ -23,7 +22,7 @@ public class Session {
     public static int getPrix_total_prduit() {
         return prix_total_prduit;
     }
-public static String filename;
+public static String filename="";
     public Session() {
     }
 

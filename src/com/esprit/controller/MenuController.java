@@ -161,6 +161,11 @@ public class MenuController implements Initializable {
     private void Reclamation(ActionEvent event) {
         LoadPage("/com/esprit/view/Rec");
     }
+
+    @FXML
+    private void LoadAccueil(ActionEvent event) {
+         LoadPage("/com/esprit/view/FXMLAffichageProduit");
+    }
     
 
   

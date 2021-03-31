@@ -4,21 +4,18 @@
  * and open the template in the editor.
  */
 package com.esprit.controller;
-
+import static com.esprit.dao.Session.pathfile;
 import com.esprit.dao.ListData;
 import com.esprit.dao.ServiceProduit;
 import com.esprit.dao.Session;
 import com.esprit.entity.Produit;
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import com.esprit.utilis.UploadFile;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,14 +23,10 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -45,7 +38,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -184,59 +176,27 @@ public class FXMLAffichageTouslesProduitController implements Initializable {
     private void UploadImage(ActionEvent event) throws FileNotFoundException {
         FileChooser f = new FileChooser();
         String img;
+        
         f.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
         File fc = f.showOpenDialog(null);
         if (f != null) {
-            //System.out.println(fc.getName());
             img = fc.getAbsoluteFile().toURI().toString();
             Image i = new Image(img);
             imageviewfxid.setImage(i);
             pathimage = fc.toString();
-            //System.out.println(imageviewfxid);
-            int index= pathimage.lastIndexOf('\\');
-            if (index>0)
-            {
-                filename = pathimage.substring(index+1);
+            int index = pathimage.lastIndexOf('\\');
+            if (index > 0) {
+                filename = pathimage.substring(index + 1);
             }
-            source = new File(pathimage);
-             dest = new File(System.getProperty("user.dir")+"\\src\\com\\esprit\\img\\" + filename);
-             stringfinal="/com/esprit/img/" + filename;
+            Session.filename="localhost:80/img/" + filename;
         }
-       /*FileChooser fc = new FileChooser();
-        
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
-        File SelectedFile = fc.showOpenDialog(null);
-        if (SelectedFile != null)
-        {
-            pathimage = SelectedFile.toString();
-            //System.out.println(pathimage);
-            int index= pathimage.lastIndexOf('\\');
-            if (index>0)
-            {
-                filename = pathimage.substring(index+1);
-            }
-             source = new File(pathimage);
-             dest = new File(System.getProperty("user.dir")+"\\src\\com\\esprit\\img\\" + filename);
-//            System.out.println(dest);
-//            System.out.println(source);
-            stringfinal="/com/esprit/img/" + filename;
-            Image image = new Image(stringfinal);
-            imageviewfxid.setImage(image);
-            
-            //..\img\google.png
-                    //C:\Users\splin\Documents\NetBeansProjects\FanArt\\com\esprit\img
-            
-            
-        }*/
-    }
+        imageviewfxid.setFitHeight(94);
+        imageviewfxid.setFitWidth(94);
+        pathfile = fc.getAbsolutePath();
+        }
 
     @FXML
-    private void Insert(MouseEvent event) {
-        try {
-                FileUtils.copyFile(source, dest);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    private void Insert(MouseEvent event) throws IOException {
         if (ftitrefxid.getText().isEmpty() || fdescriptionfxid.getText().isEmpty() || fprixfxid.getText().isEmpty() ) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
@@ -244,9 +204,11 @@ public class FXMLAffichageTouslesProduitController implements Initializable {
                 alert.setContentText("Tout les champs sont obligatoires !");
                 alert.show();
             }
-        Produit p = new Produit(ftitrefxid.getText(),Session.getId(), fdescriptionfxid.getText(),stringfinal, Float.parseFloat(fprixfxid.getText()));
+        Produit p = new Produit(ftitrefxid.getText(),Session.getId(), fdescriptionfxid.getText(),Session.filename, Float.parseFloat(fprixfxid.getText()));
             ServiceProduit pdao = ServiceProduit.getInstance();
             pdao.Insert(p);
+            UploadFile uf = new UploadFile();
+            uf.sendphp(pathfile);
             updatetable();
     }
 }

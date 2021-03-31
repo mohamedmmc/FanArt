@@ -13,6 +13,7 @@ import com.esprit.dao.Session;
 import com.esprit.entity.Panier;
 import com.esprit.entity.Panier_elem;
 import com.esprit.entity.Produit;
+import com.esprit.entity.User;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -41,9 +42,17 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -87,15 +96,20 @@ public class FXMLproduisController implements Initializable {
                 makeDragable();
                 int column = 0;
                 int row = 1;
-                
+                spfxid.setFitToHeight(true);
+                spfxid.setFitToWidth(true);
                 List list = new ArrayList<>(getList());
+                Image imageBack=new Image("http://localhost:80/img/4813762.jpg");
                 for (Iterator it = list.iterator(); it.hasNext();) {
                     Produit e = (Produit) it.next();
                     VBox testbox = new VBox();
+                    testbox.setPrefSize(600, 600);
                     testbox.setPadding(new Insets(15, 20, 10, 10));
-                    testbox.setStyle("-fx-background-color: #14242B");
+                    testbox.setStyle("-fx-border-style: dotted;-fx-alignment:center;-fx-border-color: #ff9900;-fx-border-width: 5px;");
+                    testbox.setBackground(new Background(new BackgroundImage(imageBack,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT,BackgroundPosition.DEFAULT,BackgroundSize.DEFAULT)));
+                    testbox.setSpacing(10);
                     String imageURL = e.getImage();
-                    Image image = new Image(imageURL);
+                    Image image = new Image("http://"+imageURL);
                     ImageView im = new ImageView(image);
                     im.setFitHeight(150);
                     im.setPreserveRatio(true);
@@ -107,12 +121,29 @@ public class FXMLproduisController implements Initializable {
                     artiste.setFill(Color.WHITE);
                     Text prix = new Text();
                     prix.setFill(Color.WHITE);
+                    titre.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+                    description.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+                    artiste.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+                    prix.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+                    titre.setStrokeWidth(1);
+                    titre.setStroke(Color.YELLOW);
+                    description.setStrokeWidth(1);
+                    description.setStroke(Color.YELLOW);
+                    artiste.setStrokeWidth(1);
+                    artiste.setStroke(Color.YELLOW);
+                    prix.setStrokeWidth(1);
+                    prix.setStroke(Color.YELLOW);
                     Button btn = new Button("Ajouter au panier");
+                    btn.setStyle( "-fx-background-color: white; -fx-border-color: grey; -fx-border-radius: 5;-fx-font: 22 verdana" );
+                    btn.setMinWidth( 200 );
                     btn.setId("btn_aap" + e.getId());
-                    prix.setText(String.valueOf(e.getPrix() + "DT"));
+                    prix.setText("Prix: "+String.valueOf(e.getPrix() + "DT"));
                     description.setText(e.getDescription());
-                    artiste.setText(String.valueOf(e.getArtiste()));
-                    titre.setText(e.getTitre());
+                    User user = new User();
+                    ServiceUser serviceuser1 =new ServiceUser();
+                    user=serviceuser1.findBymail(e.getArtiste());
+                    artiste.setText("Artsite: "+String.valueOf(user.getNom()+" "+user.getPrenom()));
+                    titre.setText("Titre: "+e.getTitre());
                     testbox.getChildren().addAll(im, titre, description, artiste, prix, btn);
                     btn.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
@@ -164,7 +195,7 @@ public class FXMLproduisController implements Initializable {
                             window.setScene(new Scene(root));*/
                         }
                     });
-                    if (column == 3) {
+                    if (column == 2) {
                         
                         column = 0;
                         ++row;

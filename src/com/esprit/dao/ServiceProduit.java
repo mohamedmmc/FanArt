@@ -91,10 +91,11 @@ public class ServiceProduit {
             rs=ste.executeQuery(req);
             while(rs.next()){
                 Produit p=new Produit();
-                p.setId(rs.getInt(1));
+                p.setId(rs.getInt("id_produit"));
                 p.setTitre(rs.getString("titre"));
                 p.setDescription(rs.getString("description"));
                 p.setImage(rs.getString("image"));
+                p.setArtiste(rs.getInt("id_user"));
                 p.setPrix(rs.getFloat("prix"));
                 list.add(p);
             }
@@ -111,10 +112,11 @@ public class ServiceProduit {
             rs=ste.executeQuery(req);
             while(rs.next()){
                 Produit p=new Produit();
-                p.setId(rs.getInt(1));
+                p.setId(rs.getInt("id_produit"));
                 p.setTitre(rs.getString("titre"));
                 p.setDescription(rs.getString("description"));
                 p.setImage(rs.getString("image"));
+                p.setArtiste(rs.getInt("id_user"));
                 p.setPrix(rs.getFloat("prix"));
                 list.add(p);
             }
@@ -131,10 +133,11 @@ public class ServiceProduit {
             rs=ste.executeQuery(req);
             while(rs.next()){
                 Produit p=new Produit();
-                p.setId(rs.getInt(1));
+                p.setId(rs.getInt("id_produit"));
                 p.setTitre(rs.getString("titre"));
                 p.setDescription(rs.getString("description"));
                 p.setImage(rs.getString("image"));
+                p.setArtiste(rs.getInt("id_user"));
                 p.setPrix(rs.getFloat("prix"));
                 list.add(p);
             }

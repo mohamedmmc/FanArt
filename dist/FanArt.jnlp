@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="FanArt.jar" size="17774189" download="eager" />
+    <jar href="FanArt.jar" size="17785331" download="eager" />
     <jar href="lib\activation.jar" size="55147" download="eager" />
     <jar href="lib\ant-javafx.jar" size="1491488" download="eager" />
     <jar href="lib\authy-java-1.5.1-javadoc.jar" size="188613" download="eager" />
@@ -18,13 +18,12 @@
     <jar href="lib\batik-ext-1.6-1.jar" size="76687" download="eager" />
     <jar href="lib\batik-gui-util-1.6-1.jar" size="138228" download="eager" />
     <jar href="lib\batik-util-1.6-1.jar" size="81508" download="eager" />
-    <jar href="lib\bcpkix-jdk15on-1.67.jar" size="887810" download="eager" />
-    <jar href="lib\bcprov-jdk15on-1.67.jar" size="5961136" download="eager" />
     <jar href="lib\braintree-java-3.7.0.jar" size="494410" download="eager" />
     <jar href="lib\bridj-0.7.0.jar" size="935929" download="eager" />
     <jar href="lib\client-combined-3.141.59-sources.jar" size="529743" download="eager" />
     <jar href="lib\client-combined-3.141.59.jar" size="1527879" download="eager" />
     <jar href="lib\commons-cli-1.4.jar" size="53820" download="eager" />
+    <jar href="lib\commons-codec-1.11.jar" size="335042" download="eager" />
     <jar href="lib\commons-codec-1.13.jar" size="344339" download="eager" />
     <jar href="lib\commons-fileupload-1.4-javadoc.jar" size="318975" download="eager" />
     <jar href="lib\commons-fileupload-1.4-sources.jar" size="90663" download="eager" />
@@ -36,26 +35,32 @@
     <jar href="lib\commons-io-2.8.0-test-sources.jar" size="312190" download="eager" />
     <jar href="lib\commons-io-2.8.0-tests.jar" size="513616" download="eager" />
     <jar href="lib\commons-io-2.8.0.jar" size="285424" download="eager" />
+    <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />
     <jar href="lib\dt.jar" size="163047" download="eager" />
     <jar href="lib\facebook4j-core-2.4.13.jar" size="538159" download="eager" />
+    <jar href="lib\fluent-hc-4.5.13.jar" size="31547" download="eager" />
     <jar href="lib\fontawesomefx-8.1.jar" size="179086" download="eager" />
     <jar href="lib\fontawesomefx-commons-9.1.2.jar" size="24064" download="eager" />
     <jar href="lib\fontawesomefx-fontawesome-4.7.0-9.1.2.jar" size="137226" download="eager" />
     <jar href="lib\globalpayments-sdk-6.1.74-SNAPSHOT.jar" size="966325" download="eager" />
     <jar href="lib\gson-2.8.6.jar" size="240255" download="eager" />
     <jar href="lib\httpclient-4.5.13.jar" size="780321" download="eager" />
+    <jar href="lib\httpclient-cache-4.5.13.jar" size="164090" download="eager" />
+    <jar href="lib\httpclient-osgi-4.5.13.jar" size="1370788" download="eager" />
+    <jar href="lib\httpclient-win-4.5.13.jar" size="17850" download="eager" />
     <jar href="lib\httpclient5-5.0.3.jar" size="775798" download="eager" />
     <jar href="lib\httpclient5-cache-5.0.3.jar" size="259199" download="eager" />
     <jar href="lib\httpclient5-fluent-5.0.3.jar" size="24047" download="eager" />
     <jar href="lib\httpclient5-testing-5.0.3.jar" size="38022" download="eager" />
     <jar href="lib\httpclient5-win-5.0.3.jar" size="15576" download="eager" />
+    <jar href="lib\httpcore-4.4.13.jar" size="328593" download="eager" />
     <jar href="lib\httpcore5-5.0.2.jar" size="809733" download="eager" />
     <jar href="lib\httpcore5-h2-5.0.2.jar" size="225863" download="eager" />
     <jar href="lib\httpcore5-reactive-5.0.2.jar" size="21544" download="eager" />
     <jar href="lib\httpcore5-testing-5.0.2.jar" size="145492" download="eager" />
+    <jar href="lib\httpmime-4.5.13.jar" size="41790" download="eager" />
     <jar href="lib\io-7.0.0.jar" size="627553" download="eager" />
     <jar href="lib\io-7.0.3.jar" size="662499" download="eager" />
-    <jar href="lib\io-7.1.14.jar" size="821682" download="eager" />
     <jar href="lib\itext-1.3.1.jar" size="1553403" download="eager" />
     <jar href="lib\itextpdf-5.1.0.jar" size="1614453" download="eager" />
     <jar href="lib\itextpdf-5.3.5.jar" size="1852860" download="eager" />
@@ -72,15 +77,15 @@
     <jar href="lib\javafx-mx.jar" size="36044" download="eager" />
     <jar href="lib\jconsole.jar" size="407728" download="eager" />
     <jar href="lib\jfoenix-8.0.2.jar" size="2442326" download="eager" />
+    <jar href="lib\jna-4.5.2.jar" size="1484022" download="eager" />
     <jar href="lib\jna-5.2.0.jar" size="1488769" download="eager" />
+    <jar href="lib\jna-platform-4.5.2.jar" size="2327597" download="eager" />
     <jar href="lib\jna-platform-5.2.0.jar" size="2527218" download="eager" />
     <jar href="lib\jstl-1.1.0.jar" size="16923" download="eager" />
     <jar href="lib\kernel-7.0.0.jar" size="967008" download="eager" />
     <jar href="lib\kernel-7.0.3.jar" size="1040587" download="eager" />
-    <jar href="lib\kernel-7.1.14.jar" size="1220542" download="eager" />
     <jar href="lib\layout-7.0.0.jar" size="220351" download="eager" />
     <jar href="lib\layout-7.0.3.jar" size="344851" download="eager" />
-    <jar href="lib\layout-7.1.14.jar" size="506961" download="eager" />
     <jar href="lib\mail.jar" size="462098" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.23-bin.jar" size="834126" download="eager" />
     <jar href="lib\opencv-2.4.13-0.jar" size="26617433" download="eager" />
@@ -98,7 +103,6 @@
     <jar href="lib\slf4j-api-1.7.13.jar" size="33088" download="eager" />
     <jar href="lib\slf4j-api-1.7.2.jar" size="26083" download="eager" />
     <jar href="lib\slf4j-api-1.7.25.jar" size="41203" download="eager" />
-    <jar href="lib\slf4j-api-1.7.30.jar" size="41472" download="eager" />
     <jar href="lib\stripe-java-20.31.0.jar" size="3672729" download="eager" />
     <jar href="lib\stripe-java-20.42.0.jar" size="3858298" download="eager" />
     <jar href="lib\tomahawk-1.1.14.jar" size="4094654" download="eager" />

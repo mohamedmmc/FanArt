@@ -72,6 +72,20 @@ public class ServicePanier_elem {
             }
         }
     }
+    public void delete(int idpanier,int idproduit) throws SQLException {
+        {
+            String req = "delete from Panier_elem  where id_produit='" + idproduit + "'and id_panier='" + idpanier+"'";
+            try {
+
+                ste.executeUpdate(req);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ServicePanier_elem.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("idpanier"+idpanier);
+                System.out.println("idproduit"+idproduit);
+            }
+        }
+    }
 
     public ObservableList<Panier_elem> displayAll() {
         String req = "select * from Panier_elem";
@@ -207,6 +221,14 @@ public class ServicePanier_elem {
 
     public void modifQuantite(int quantite, int id_produit, int id_panier) {
         String req = "update panier_elem set quantite= quantite+'" + quantite + "'  where id_produit='" + id_produit + "'and id_panier='" + id_panier+"'";
+        try {
+            ste.executeUpdate(req);
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicePanier_elem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     public void modifQuantitepanier(int quantite, int id_produit, int id_panier) {
+        String req = "update panier_elem set quantite= '" + quantite + "'  where id_produit='" + id_produit + "'and id_panier='" + id_panier+"'";
         try {
             ste.executeUpdate(req);
         } catch (SQLException ex) {

@@ -5,12 +5,9 @@
  */
 package com.esprit.view;
 
-import com.esprit.controller.HomeEventController;
-import com.esprit.dao.ParticiperService;
 import com.esprit.dao.ServicePanier;
 import com.esprit.dao.ServiceUser;
 import com.esprit.dao.Session;
-import com.esprit.entity.ListData;
 import com.esprit.entity.Panier;
 import com.esprit.entity.User;
 import com.esprit.utilis.MailSender;
@@ -24,12 +21,9 @@ import com.stripe.model.Customer;
 import com.stripe.model.Token;
 import java.awt.SystemTray;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -70,7 +64,7 @@ public class PaymentproduitController implements Initializable {
 
         try {
             Stripe.apiKey = "sk_test_51IYHfGBQ0LLhBexiKiPzJjHM7f7z3koVIrDiiEr4hfUu35iV558XKAIZIiY3Xbm9tkF6zCn0fEjTXRpt4aIYmpww00p9s6z11h";
-            Customer a = Customer.retrieve("cus_JAdxOt3MYaPCuU");
+            Customer a = Customer.retrieve("cus_JDFzWx2FzcItg4");
             /*CustomerListParams params =CustomerListParams.builder().build();
             CustomerCollection customers =
   Customer.list(params);
@@ -113,8 +107,8 @@ public class PaymentproduitController implements Initializable {
             alert.setContentText("commande passer avec succée");
             alert.show();
             Map<String, Object> chargeParam = new HashMap<>();
-            chargeParam.put("amount", 3.00);
-            chargeParam.put("currency", "usd");
+            chargeParam.put("amount",Session.getPrix_total_prduit()*100 );
+            chargeParam.put("currency", "eur");
             chargeParam.put("source", token.getId());
             if (SystemTray.isSupported()) {
                 // TrayIconDemo td = new TrayIconDemo();

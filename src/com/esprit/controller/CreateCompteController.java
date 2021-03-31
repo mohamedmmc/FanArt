@@ -36,6 +36,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import java.security.MessageDigest;
 import java.util.Optional;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -97,6 +98,7 @@ public class CreateCompteController implements Initializable {
     private ImageView cross;
     ServiceUser su = new ServiceUser();
     MailSender ms = new MailSender();
+    Boolean test = false;
     /**
      * Initializes the controller class.
      */
@@ -126,12 +128,12 @@ public class CreateCompteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (!Session.filename.isEmpty()){
-            
-            Image i = new Image(Session.filename);
+        while(!Session.pathfile.equals("")){
+              Image i = new Image(Session.pathfile);
             pdp.setImage(i);
-            System.out.println(Session.filename);
+            System.out.println(Session.pathfile);
         }
+        
         System.out.println(Session.filename);
         makeDragable();
         type.getItems().removeAll(type.getItems());
@@ -261,9 +263,7 @@ public class CreateCompteController implements Initializable {
                                 if (mail) {
                                     ms.send(email.getText(), nom.getText());
                                 }
-                            } catch (NoSuchAlgorithmException | InterruptedException | SQLException ex) {
-                                Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (IOException ex) {
+                            } catch (NoSuchAlgorithmException | InterruptedException | SQLException | IOException ex) {
                                 Logger.getLogger(CreateCompteController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
@@ -342,7 +342,7 @@ public class CreateCompteController implements Initializable {
             //System.out.println(fc.getName());
             img = fc.getAbsoluteFile().toURI().toString();
             System.out.println(img);
-            System.out.println(fc.getAbsolutePath());
+            //System.out.println(fc.getAbsolutePath());
             Image i = new Image(img);
             pdp.setImage(i);
             pathimage = fc.toString();
@@ -381,11 +381,13 @@ public class CreateCompteController implements Initializable {
         frame.setVisible(true);*/
 
         WebCamGui.main(new String[0]);
+        System.out.println(Session.pathfile);
         if(!Session.filename.isEmpty()){
-            Image ig = new Image(Session.filename);
+            Image ig = new Image(Session.pathfile);
             pdp.setImage(ig);
             
         }
+        
         /* Image image = new Image(Session.getFile());
             
 

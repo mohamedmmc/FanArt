@@ -158,7 +158,7 @@ public class AdminController implements Initializable {
                 System.out.println(imageSource);
                 Image imgg = new Image(imageSource);
                 imagee.setImage(imgg);
-               /* Image img = new Image(getClass().getResourceAsStream(su.displayAllList()
+               /*Image img = new Image(getClass().getResourceAsStream(su.displayAllList()
                         .get(userTab.getSelectionModel().getSelectedIndex())
                         .getPhoto()));
                 imagee.setImage(img);*/

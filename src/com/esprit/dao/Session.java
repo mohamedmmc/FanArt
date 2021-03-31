@@ -12,8 +12,9 @@ import java.io.File;
  * @author splin
  */
 public class Session {
+    public static Integer wrong=0;
     private static String file;
-    public static String pathfile;
+    public static String pathfile="";
     private static Integer id;
     private static int prix_total_prduit ;
 

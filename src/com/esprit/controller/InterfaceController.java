@@ -7,6 +7,7 @@ package com.esprit.controller;
 
 import com.esprit.dao.ServiceUser;
 import com.esprit.dao.Session;
+import static com.esprit.dao.Session.pathfile;
 import com.esprit.entity.User;
 import static com.esprit.utilis.HashCode.generatedHash;
 import com.esprit.utilis.Sms;
@@ -205,15 +206,15 @@ public class InterfaceController implements Initializable {
                         //System.out.println(u.toString());
                         su.ModifierUserWmdp(u, Session.getId());
                     }
-
+                    if(!Session.filename.isEmpty()){
+                        su.sendphp(pathfile);
+                    }
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
                     alert.setContentText("Profil modifié avec succés!");
                     alert.show();
-                    if (source != null && dest != null) {
-                        FileUtils.copyFile(source, dest);
-                    }
+
 
                     //Session.filename = "";
                     mdpfield.clear();
@@ -272,14 +273,17 @@ public class InterfaceController implements Initializable {
 
     @FXML
     private void upload(ActionEvent event) {
-        FileChooser f = new FileChooser();
-        String imggg;
+FileChooser f = new FileChooser();
+        String imgg;
+        
         f.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
         File fc = f.showOpenDialog(null);
         if (f != null) {
             //System.out.println(fc.getName());
-            imggg = fc.getAbsoluteFile().toURI().toString();
-            Image i = new Image(imggg);
+            imgg = fc.getAbsoluteFile().toURI().toString();
+            System.out.println(imgg);
+            //System.out.println(fc.getAbsolutePath());
+            Image i = new Image(imgg);
             img.setImage(i);
             pathimage = fc.toString();
             //System.out.println(imageviewfxid);
@@ -287,13 +291,17 @@ public class InterfaceController implements Initializable {
             if (index > 0) {
                 filename = pathimage.substring(index + 1);
             }
-
-            source = new File(pathimage);
-            dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
-            Session.filename = "/com/esprit/img/" + filename;
+            
+            //source = new File(pathimage);
+            
+            //dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
+            Session.filename="localhost:8080/img/" + filename;
+            //su.sendphp(fc.getAbsolutePath());
         }
-//        img.setFitHeight(94);
-//        img.setFitWidth(94);
+      
+        //..\img\google.png
+        //C:\Users\splin\Documents\NetBeansProjects\FanArt\\com\esprit\img
+        pathfile = fc.getAbsolutePath();
     }
 
     @FXML

@@ -128,7 +128,11 @@ public class WebCamGui extends javax.swing.JFrame {
         Date date = new Date();
         Session.filename ="localhost:8080/img/"+ format.format(date)+".png";
         BufferedImage bImage = (BufferedImage) image;
-        Session.pathfile= "D:\\"+format.format(date)+".png";
+        Session.pathfile= "file:/D:/"+format.format(date)+".png";
+        /*CreateCompteController cc = new CreateCompteController();
+        javafx.scene.image.Image ig = new javafx.scene.image.Image(Session.pathfile);
+        cc.pdp.setImage(ig);*/
+        //System.out.println(Session.pathfile);
         try {
             ImageIO.write(bImage, "png", new File ("D:\\"+format.format(date)+".png"));
         } catch (IOException ex) {

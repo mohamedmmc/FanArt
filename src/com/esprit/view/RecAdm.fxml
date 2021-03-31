@@ -35,16 +35,17 @@
                         <TextField fx:id="su" layoutX="14.0" layoutY="104.0" />
                         <TextArea fx:id="repp" layoutX="14.0" layoutY="173.0" prefHeight="116.0" prefWidth="200.0" />
                         <Button fx:id="env" layoutX="37.0" layoutY="310.0" mnemonicParsing="false" onMouseClicked="#send" prefHeight="25.0" prefWidth="128.0" text="Envoyer" />
-                        <TextField fx:id="ch" layoutX="240.0" layoutY="13.0" prefHeight="25.0" prefWidth="187.0" />
+                        <TextField fx:id="sta" layoutX="192.0" layoutY="335.0" />
+                        <TextField fx:id="chid" layoutX="353.0" layoutY="335.0" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
           <Tab text="Produit">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="337.0" prefWidth="787.0">
                      <children>
-                        <TableView fx:id="recev1" layoutX="273.0" layoutY="5.0" prefHeight="225.0" prefWidth="200.0">
+                        <TableView fx:id="recev1" layoutX="229.0" layoutY="53.0" prefHeight="271.0" prefWidth="302.0">
                            <columns>
                               <TableColumn fx:id="neve1" prefWidth="75.0" text="nomevent" />
                               <TableColumn fx:id="eemail1" prefWidth="75.0" text="email" />
@@ -52,9 +53,20 @@
                               <TableColumn fx:id="esta1" prefWidth="75.0" text="status" />
                            </columns>
                         </TableView>
+                        <Label layoutX="563.0" layoutY="49.0" prefHeight="17.0" prefWidth="131.0" text="Reclamation" />
+                        <TextArea fx:id="recc1" editable="false" layoutX="563.0" layoutY="85.0" prefHeight="238.0" prefWidth="200.0" />
+                        <Label layoutX="14.0" layoutY="25.0" prefHeight="17.0" prefWidth="128.0" text="email du client" />
+                        <Label layoutX="14.0" layoutY="87.0" prefHeight="17.0" prefWidth="45.0" text="Sujet" />
+                        <Label fx:id="rep1" layoutX="14.0" layoutY="156.0" prefHeight="17.0" prefWidth="95.0" text="Reponse" />
+                        <TextField fx:id="em1" editable="false" layoutX="14.0" layoutY="45.0" />
+                        <TextField fx:id="su1" layoutX="14.0" layoutY="104.0" />
+                        <TextArea fx:id="repp1" layoutX="14.0" layoutY="173.0" prefHeight="116.0" prefWidth="200.0" />
+                        <Button fx:id="env1" layoutX="37.0" layoutY="310.0" mnemonicParsing="false" onMouseClicked="#sende" prefHeight="25.0" prefWidth="128.0" text="Envoyer" />
+                        <TextField fx:id="sta1" layoutX="192.0" layoutY="335.0" />
+                        <TextField fx:id="chid1" layoutX="353.0" layoutY="335.0" />
                      </children>
                   </AnchorPane>
-            </content>
+               </content>
           </Tab>
         </tabs>
       </TabPane>

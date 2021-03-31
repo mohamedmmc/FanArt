@@ -75,6 +75,10 @@ public class recprod {
     public SimpleStringProperty getrecProperty(){
         return rec;
     }
+    
+    public SimpleStringProperty getstaProperty(){
+        return status;
+    }
    
     public void setemail(String em) {
         this.email = new SimpleStringProperty(em);

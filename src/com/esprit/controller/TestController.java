@@ -681,11 +681,7 @@ String lp = cmb.getValue();
             }
             else{
             
-            try { 
                 pdao = recpdao.getInstance();
-            } catch (SQLException ex) {
-                Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
-            }
             pdao.insert(p);
             
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

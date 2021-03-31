@@ -30,12 +30,16 @@ public  class recpdao implements ldao<recprod> {
     private Statement st;
     private ResultSet rs;
     
-    private recpdao() throws SQLException {
+    private recpdao()  {
             ConnexionSingleton cs=ConnexionSingleton.getInstance();
+        try {
             st=cs.getCnx().createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    public static recpdao getInstance() throws SQLException{
+    public static recpdao getInstance(){
         if(instance==null) 
             instance=new recpdao();
         return instance;
@@ -108,7 +112,7 @@ public  class recpdao implements ldao<recprod> {
             rs=st.executeQuery(req);
             while(rs.next()){
                 recprod p=new recprod();
-                
+                p.setId(rs.getInt("recpid"));
                 p.setprodnom(rs.getString("nomprod"));
                 p.setemail(rs.getString("email"));
                 p.setrec(rs.getString("reclprod"));
@@ -131,7 +135,7 @@ public  class recpdao implements ldao<recprod> {
             rs=st.executeQuery(req);
             while(rs.next()){
                 recprod p=new recprod();
-                 
+                p.setId(rs.getInt("recpid")); 
                 p.setprodnom(rs.getString("nomprod"));
                 p.setemail(rs.getString("email"));
                 p.setrec(rs.getString("reclprod"));

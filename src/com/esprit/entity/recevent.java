@@ -85,12 +85,12 @@ public class recevent {
     }
 
     
-     public SimpleStringProperty getstaProperty(){
+     public SimpleStringProperty getstaPropertyy(){
         return status;
     }
      public SimpleStringProperty getstaProperty(String s){
-      this.status = SimpleStringProperty(s);
-        return this.status;
+ 
+        return SimpleStringProperty(s);
     }
    
     public void setemail(String em) {

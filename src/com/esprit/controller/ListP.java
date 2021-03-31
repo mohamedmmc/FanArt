@@ -4,49 +4,43 @@
  * and open the template in the editor.
  */
 package com.esprit.controller;
+
 import com.esprit.dao.recedao;
 import com.esprit.dao.recpdao;
 
         
 import com.esprit.entity.recevent;        
 import com.esprit.entity.recprod;
+import java.sql.SQLException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 /**
  *
  * @author ASUS GL703VD
  */
-public class ListD {
-    
-    private ObservableList<recevent> persons=FXCollections.observableArrayList();
+public class ListP {
+    private ObservableList<recprod> persons=FXCollections.observableArrayList();
     
 
-    public ListD() {
+    public ListP() {
         
-        recedao pdao=recedao.getInstance();
+        recpdao pdao=recpdao.getInstance();
         persons= pdao.displayAll();
         System.out.println(persons);
     }
     
-    public ObservableList<recevent> getPersons(){
+    public ObservableList<recprod> getPersons(){
         
         return persons;
     }
     
-    public ObservableList<recevent> clr(){
+    public ObservableList<recprod> clr() {
         persons.clear();
-        recedao pdao=recedao.getInstance();
+        recpdao pdao=recpdao.getInstance();
         persons= pdao.displayAll();
         System.out.println(persons);
         return persons;
     }
-    
-    /*public ObservableList<recevent> getevv(String v){
-        recedao pdao=recedao.getInstance();
-        persons= pdao.displayByeve(v);
-        return persons;
-    }*/
     
 }

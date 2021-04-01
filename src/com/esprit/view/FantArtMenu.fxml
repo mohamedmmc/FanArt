@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1315.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.FantArtMenuController">
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="20.0" styleClass="white-background" stylesheets="@../utilis/style.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="60.0" prefWidth="208.0" text="Fan Art" textFill="#ff5056">
+               <font>
+                  <Font name="Edwardian Script ITC" size="36.0" />
+               </font>
+            </Label>
+            <Separator maxHeight="-Infinity" orientation="VERTICAL" prefHeight="27.0" prefWidth="5.0" />
+            <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="35.0" prefWidth="290.0" styleClass="round-layout" stylesheets="@../utilis/style.css">
+               <children>
+                  <TextField prefHeight="25.0" prefWidth="196.0" promptText="Chercher" styleClass="transparent" stylesheets="@../utilis/style.css" />
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="227.0">
+               <children>
+                  <Label prefHeight="53.0" prefWidth="155.0" text="Mon panier">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#panier" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../wamp64/www/img/shopping_cart_24px.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="227.0">
+               <children>
+                  <Label prefHeight="53.0" prefWidth="155.0" text="Label">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="250.0" styleClass="white-background" stylesheets="@../utilis/style.css" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="177.0" prefWidth="250.0" spacing="5.0">
+               <children>
+                  <Label prefHeight="36.0" prefWidth="155.0" text="Evenement">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" onMouseClicked="#listevenement" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../wamp64/www/img/list_50px.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="36.0" prefWidth="155.0" text="List des evenements">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" onMouseClicked="#ajouterevenement" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../wamp64/www/img/add_24px.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="36.0" prefWidth="155.0" text="Ajouter evenement">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" onMouseClicked="#listmesevenement" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../wamp64/www/img/list_24px.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="36.0" prefWidth="155.0" text="Mes Evenements">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Separator prefWidth="200.0" />
+            <VBox prefHeight="177.0" prefWidth="250.0" spacing="5.0">
+               <children>
+                  <Label prefHeight="36.0" prefWidth="155.0" text="Produit">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" onMouseClicked="#listproduit" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../wamp64/www/img/list_50px.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="36.0" prefWidth="155.0" text="List des produits">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" onMouseClicked="#ajouterproduit" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../wamp64/www/img/add_24px.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="36.0" prefWidth="155.0" text="Ajouter produit">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" onMouseClicked="#listermesproduit" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../wamp64/www/img/list_24px.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="36.0" prefWidth="155.0" text="Mes produits">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Separator prefWidth="200.0" />
+            <VBox prefHeight="177.0" prefWidth="250.0" spacing="5.0">
+               <children>
+                  <Label prefHeight="36.0" prefWidth="155.0" text="Reclamation">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label prefHeight="36.0" prefWidth="155.0" text="Evenement">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label prefHeight="36.0" prefWidth="155.0" text="Evenement">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label prefHeight="36.0" prefWidth="155.0" text="Evenement">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Separator prefWidth="200.0" />
+            <VBox prefHeight="177.0" prefWidth="250.0" spacing="5.0">
+               <children>
+                  <Label prefHeight="36.0" prefWidth="155.0" text="Visitez nous">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../wamp64/www/img/facebook_48px.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="36.0" prefWidth="155.0" text="fb/FantArt">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../wamp64/www/img/instagram_48px.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="36.0" prefWidth="155.0" text="ins/FanArt">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../wamp64/www/img/youtube_80px.png" />
+                           </image>
+                        </ImageView>
+                        <Label prefHeight="36.0" prefWidth="155.0" text="yt/FanArt">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

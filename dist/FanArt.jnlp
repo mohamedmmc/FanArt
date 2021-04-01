@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="FanArt.jar" size="17785331" download="eager" />
+    <jar href="FanArt.jar" size="17803565" download="eager" />
     <jar href="lib\activation.jar" size="55147" download="eager" />
     <jar href="lib\ant-javafx.jar" size="1491488" download="eager" />
     <jar href="lib\authy-java-1.5.1-javadoc.jar" size="188613" download="eager" />

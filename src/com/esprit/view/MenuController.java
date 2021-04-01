@@ -96,7 +96,7 @@ public class MenuController implements Initializable {
     }
      @FXML
     private void LoadProduit(ActionEvent event) {
-        LoadPage("/com/esprit/view/FXMLproduis");
+        LoadPage("/com/esprit/view/produit");
     }
 
 

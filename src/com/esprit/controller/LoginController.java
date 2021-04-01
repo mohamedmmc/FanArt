@@ -160,7 +160,7 @@ public class LoginController implements Initializable {
                     Session.filename="";
                     alert.show();
                     try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/Menu.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/FantArtMenu.fxml"));
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         stage.setScene(new Scene(loader.load()));
                         Session.setId(sp.verify(email.getText(), mdp.getText()));

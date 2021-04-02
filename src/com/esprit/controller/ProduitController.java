@@ -8,10 +8,12 @@ package com.esprit.controller;
 import com.esprit.dao.ServicePanier;
 import com.esprit.dao.ServicePanier_elem;
 import com.esprit.dao.ServiceProduit;
+import com.esprit.dao.ServiceUser;
 import com.esprit.dao.Session;
 import com.esprit.entity.Panier;
 import com.esprit.entity.Panier_elem;
 import com.esprit.entity.Produit;
+import com.esprit.entity.User;
 import com.esprit.utilis.MyListener;
 //import static com.sun.tools.doclint.Entity.image;
 import java.io.IOException;
@@ -92,6 +94,10 @@ public class ProduitController implements Initializable{
         ProduitPriceLabel.setText(produit.getPrix()+" Dt");
         Image image = new Image("http://"+produit.getImage());
         Img.setImage(image);
+        User u=new User();
+        ServiceUser su =new ServiceUser();
+        u=su.findBymail(produit.getArtiste());
+        artiste.setText(u.getNom()+" "+u.getPrenom());
     } 
       
     private void listproduit() throws IOException{

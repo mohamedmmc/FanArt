@@ -10,21 +10,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.ParticiperEventController">
+<AnchorPane id="AnchorPane" prefHeight="404.0" prefWidth="690.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.ParticiperEventController">
    <children>
-      <ImageView fx:id="img_event" fitHeight="209.0" fitWidth="267.0" layoutX="49.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/image.png" />
-         </image>
-      </ImageView>
-      <Text layoutX="60.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre de billet">
-         <font>
-            <Font size="11.0" />
-         </font>
-      </Text>
-      <TextField fx:id="nb_billet" layoutX="168.0" layoutY="249.0" onKeyTyped="#getnombrebillet" prefHeight="25.0" prefWidth="76.0" />
-      <Text layoutX="60.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix total" wrappingWidth="69.396484375" />
-      <TextField fx:id="prix_total" layoutX="167.0" layoutY="282.0" prefHeight="25.0" prefWidth="76.0" />
+      <ImageView fx:id="img_event" fitHeight="397.0" fitWidth="395.0" layoutX="-2.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
       <VBox layoutX="393.0" layoutY="6.0" prefHeight="397.0" prefWidth="297.0" style="-fx-background-color: white;">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Paiement" translateX="65.0" translateY="20.0" wrappingWidth="127.13671875">
@@ -39,8 +27,8 @@
                </VBox.margin>
             </TextField>
             <TextField fx:id="num_compte_id" scaleX="0.9" translateY="100.0" />
-            <TextField fx:id="date_month" prefHeight="25.0" prefWidth="32.0" scaleX="0.15" translateX="-110.0" translateY="130.0" />
-            <TextField fx:id="date_year" prefHeight="25.0" prefWidth="32.0" scaleX="0.15" translateX="-50.0" translateY="105.0" />
+            <TextField fx:id="date_month" alignment="CENTER" prefHeight="25.0" prefWidth="32.0" scaleX="0.4" translateX="-75.0" translateY="130.0" />
+            <TextField fx:id="date_year" alignment="CENTER" prefHeight="0.0" prefWidth="0.0" scaleX="0.44" translateX="65.0" translateY="105.0" />
             <TextField fx:id="cvc" scaleX="0.5" translateX="-60.0" translateY="130.0" />
             <Button fx:id="btn_valider" cache="true" depthTest="DISABLE" mnemonicParsing="false" onMouseClicked="#onCliqPayer" prefHeight="34.0" prefWidth="261.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black;" text="Valider" translateX="20.0" translateY="150.0" underline="true">
                <graphic>

@@ -94,6 +94,8 @@ public class ServiceUser {
         }
 
     }
+    
+    
 
     public Integer VerifyNum(Integer num) throws SQLException {
         String req = "select id,numtel from user where numtel='" + num + "'";
@@ -265,6 +267,7 @@ public class ServiceUser {
                 u.setNumtel(rs.getInt("numtel"));
                 u.setPhoto(rs.getString("photo"));
                 u.setId(rs.getInt("id"));
+                u.setType(rs.getString("type"));
             }
         } catch (Exception e) {
         }

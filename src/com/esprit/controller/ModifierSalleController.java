@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 /**
  * FXML Controller class
  *
- * @author splin
+ * @author ranya
  */
 
 public class ModifierSalleController implements Initializable {
@@ -88,7 +88,7 @@ public class ModifierSalleController implements Initializable {
     void retour2(ActionEvent event) {
        
        try {
-       Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/Acceuil.fxml"));
+       Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/Welcome.fxml"));
             Scene scene = new Scene(page1);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);

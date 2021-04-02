@@ -1,13 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.esprit.controller;
 
-import com.esprit.entity.ModelTable2;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +18,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -36,14 +38,20 @@ public class InfoSalleController implements Initializable {
     @FXML
     private TextArea desc;
     
+    @FXML
+    private Button retour;
 
+    @FXML
+    private ImageView imageviewfxid;
     /**
      * Initializes the controller class.
      */
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+  
     }   
+    
     public void initData(ModelTable2 tab)
     {
         System.out.println(tab.getNumsalle());
@@ -57,9 +65,10 @@ public class InfoSalleController implements Initializable {
     private void place(ActionEvent event) {
     }
 
+    @FXML
     private void retour(ActionEvent event) {
           try {
-            Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/ListeSalles.fxml"));
+            Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/ListSalle.fxml"));
             Scene scene = new Scene(page1);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -69,7 +78,7 @@ public class InfoSalleController implements Initializable {
             }
     }
     
-    public void ShowInformation(String a, String b, String c)
+    public void ShowInformation(String a, String b, String c,String p) throws FileNotFoundException
     {
         numsalle.setText(a);
         nbreplace.setText(b);
@@ -78,7 +87,12 @@ public class InfoSalleController implements Initializable {
         numsalle.setDisable(true);
         nbreplace.setDisable(true);
         desc.setDisable(true);
-
+        
+    InputStream stream = new FileInputStream(p);
+    Image image = new Image(stream);
+      //Creating the image view
+      //Setting image to the image view
+    imageviewfxid.setImage(image);
     }
     
 }

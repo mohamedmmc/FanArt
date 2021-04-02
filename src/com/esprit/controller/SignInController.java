@@ -53,7 +53,8 @@ public class SignInController implements Initializable {
     private JFXButton connexion;
     @FXML
     private VBox parent;
-double x = 0, y = 0;
+    double x = 0, y = 0;
+
     /**
      * Initializes the controller class.
      */
@@ -61,9 +62,10 @@ double x = 0, y = 0;
     public void initialize(URL url, ResourceBundle rb) {
         Session.setId(0);
         makeDragable();
-        
-    }    
- private void makeDragable() {
+
+    }
+
+    private void makeDragable() {
 
         parent.setOnMousePressed(((event) -> {
             x = event.getSceneX();
@@ -89,9 +91,10 @@ double x = 0, y = 0;
         }));
 
     }
+
     @FXML
     private void mdpoublie(MouseEvent event) throws IOException {
-                Parent part = FXMLLoader.load(getClass().getResource("/com/esprit/view/ChangementMDP.fxml"));
+        Parent part = FXMLLoader.load(getClass().getResource("/com/esprit/view/ChangementMDP.fxml"));
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         Scene scene = new Scene(part);
@@ -119,22 +122,33 @@ double x = 0, y = 0;
         } else {
             if (validate(email.getText())) {
                 if (sp.verify(email.getText(), mdp.getText()) != 0) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information Dialog");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Connexion réussie");
-                    Session.filename = "";
-                    alert.show();
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/FantArtMenu.fxml"));
+//                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//                    alert.setTitle("Information Dialog");
+//                    alert.setHeaderText(null);
+//                    alert.setContentText("Connexion réussie");
+//                    Session.filename = "";
+//                    alert.show();
+                    u = sp.findBymail(sp.verify(email.getText(), mdp.getText()));
+                    System.out.println(u.toString());
+                    if (u.getType().equals("Admin")) {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/Admin.fxml"));
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         stage.setScene(new Scene(loader.load()));
-                        Session.setId(sp.verify(email.getText(), mdp.getText()));
                         stage.show();
-                        //Session.wrong = 0;
-                    } catch (IOException ex) {
-                        Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    } else {
+                        try {
+                            Session.setId(sp.verify(email.getText(), mdp.getText()));
+
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/FantArtMenu.fxml"));
+                            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            stage.setScene(new Scene(loader.load()));
+                            stage.show();
+                            //Session.wrong = 0;
+                        } catch (IOException ex) {
+                            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
+
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Information Dialog");
@@ -150,13 +164,13 @@ double x = 0, y = 0;
                         MailSender ok = new MailSender();
                         ok.sendHack(email.getText(), "D:\\hack.png");
                         webcam.close();
-                         Alert alerta = new Alert(Alert.AlertType.ERROR);
-                    alerta.setHeaderText(null);
-                    alert.setTitle("Activité suspecte detectée");
-                    alerta.setContentText("Un mail a été envoyé a l'utilisateur");
-                    Session.filename = "";
-                    alerta.show();
-                    
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setHeaderText(null);
+                        alert.setTitle("Activité suspecte detectée");
+                        alerta.setContentText("Un mail a été envoyé a l'utilisateur");
+                        Session.filename = "";
+                        alerta.show();
+
                     }
                 }
             } else {
@@ -167,5 +181,5 @@ double x = 0, y = 0;
             }
         }
     }
-    
+
 }

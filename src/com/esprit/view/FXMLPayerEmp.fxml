@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="538.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.FXMLPayerEmpController">
+   <children>
+      <Label layoutX="212.0" layoutY="37.0" minHeight="16" minWidth="69" stylesheets="@../utils/fich1.css" text="Payer un employé" textFill="#878787">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn_payer" layoutX="145.0" layoutY="448.0" prefHeight="30.0" prefWidth="101.0" stylesheets="@../utils/fich1.css" text="Enregistrer" textFill="#ee2525" />
+      <Button fx:id="button11" layoutX="407.0" layoutY="448.0" prefHeight="30.0" prefWidth="101.0" stylesheets="@../utils/fich1.css" text="Annuler" textFill="#ee2525" />
+      <Label layoutX="140.0" layoutY="125.0" minHeight="16" minWidth="69" stylesheets="@../utils/fich1.css" text="Nom et prénom" textFill="#3864f5">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label layoutX="171.0" layoutY="166.0" minHeight="16" minWidth="69" stylesheets="@../utils/fich1.css" text="Tache" textFill="#3864f5">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label layoutX="132.0" layoutY="235.0" minHeight="16" minWidth="69" stylesheets="@../utils/fich1.css" text="num de carte bancaire" textFill="#3864f5">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label layoutX="161.0" layoutY="276.0" minHeight="16" minWidth="69" stylesheets="@../utils/fich1.css" text="Montant" textFill="#3864f5">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Label fx:id="nom_label" layoutX="287.0" layoutY="125.0" minHeight="16" minWidth="69" prefHeight="21.0" prefWidth="101.0" text="Gouider">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="tache_label" layoutX="330.0" layoutY="166.0" minHeight="16" minWidth="69" text="Ingenieur">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="num_compte_id" layoutX="319.0" layoutY="233.0" promptText="4444 5555 6666 7777" />
+      <TextField fx:id="salaire" layoutX="319.0" layoutY="274.0" promptText="900dt" />
+      <Label fx:id="prenom_label" layoutX="419.0" layoutY="125.0" minHeight="16" minWidth="44.0" prefHeight="21.0" prefWidth="101.0" text="Seifeddine">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

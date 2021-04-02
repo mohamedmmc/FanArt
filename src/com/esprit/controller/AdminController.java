@@ -55,10 +55,15 @@ import javax.swing.JOptionPane;
 import com.esprit.dao.Session;
 import com.esprit.dao.recedao;
 import com.esprit.dao.recpdao;
+import com.esprit.entity.Evenement;
 import com.esprit.entity.Produit;
 import com.esprit.entity.recevent;
 import com.esprit.entity.recprod;
 import com.esprit.utilis.MailSender;
+import javafx.collections.FXCollections;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -66,6 +71,8 @@ import com.esprit.utilis.MailSender;
  * @author splin
  */
 public class AdminController implements Initializable {
+     private Stage primaryStage;
+    private Parent parentPage;
 
     Connection con;
     PreparedStatement ps;
@@ -109,19 +116,11 @@ public class AdminController implements Initializable {
     @FXML
     private AnchorPane parentt;
     @FXML
-    private TextField numsalle;
-    @FXML
+    private TableColumn<ModelTable2, ?> numsalle;
     private TextField place;
     @FXML
-    private Button parcourrir;
-    @FXML
-    private Button annuler;
-    @FXML
-    private Button ajout;
-    @FXML
-    private TextArea desc;
+    private TableColumn<ModelTable2, ?> desc;
     private String pathimage;
-    @FXML
     private ImageView imgg;
     private String filename;
 
@@ -195,7 +194,71 @@ public class AdminController implements Initializable {
     private TableColumn<Produit, String> artistefxid;
     @FXML
     private ImageView imageviewfxid;
-
+    @FXML
+    private TableView<ModelTable2> tab;
+    @FXML
+    private TableColumn<ModelTable2, ?> idsalle;
+    @FXML
+    private TableColumn<ModelTable2, ?> nbreplace;
+    @FXML
+    private Button suppsalle;
+    @FXML
+    private Button ajoutsalle;
+    @FXML
+    private Button reservation;
+ObservableList<ModelTable2> ob =FXCollections.observableArrayList();
+    @FXML
+    
+    private TableColumn<Evenement, String> titre;
+    @FXML
+    private TableColumn<Evenement, String>  desc1;
+    @FXML
+    private TableColumn<Evenement, String>  date_debut;
+    @FXML
+    private TableColumn<Evenement, String>  date_fin;
+    @FXML
+    private TableColumn<Evenement, String>  salle;
+    @FXML
+    private TableColumn<Evenement, Integer>  nbplace;
+    @FXML
+    private TableColumn<Evenement, Integer>  price;
+    @FXML
+    private TableView<Evenement> lsitevent;
+    @FXML
+    private TextField titre1;
+    @FXML
+    private TextField description;
+    @FXML
+    private DatePicker date_debut1;
+    @FXML
+    private DatePicker date_fin1;
+    @FXML
+    private TextField nbplace1;
+    @FXML
+    private TextField prix;
+    @FXML
+    private ComboBox<String> artist;
+    @FXML
+    private ComboBox<String> local;
+    @FXML
+    private Button btn_enregistrer;
+    @FXML
+    private Button btn_reinitialiser;
+    @FXML
+    private Button bt_upload_img;
+    @FXML
+    private Button btn_supp;
+    @FXML
+    private Text idselectedevent;
+    @FXML
+    private Button btnAjout;
+    String mail_contenu="";
+    @FXML
+    private Button btnAffiche;
+    @FXML
+    private Button btnPayer;
+    @FXML
+    private Button btnPlacer;
     public String verifier() {
         updatetable();
         if (numsalle.getText().equals("") || place.getText().equals("") || desc.getText().equals("")) {
@@ -211,7 +274,60 @@ public class AdminController implements Initializable {
     @Override
 
     public void initialize(URL url, ResourceBundle rb) {
+        
         Platform.runLater(() -> {
+            
+            btnPayer.setOnAction(event -> {
+
+            try {
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/FXMLPayerEmp.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    
+        } catch(Exception e) {
+        e.printStackTrace();
+        }
+        });
+            btnAffiche.setOnAction(event -> {
+            try {
+       
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/FXMLListEmp.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    
+        } catch(Exception e) {
+        e.printStackTrace();
+        }
+        });
+        btnPlacer.setOnAction(event -> {
+
+            try {
+        
+Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/FXMLPlacerEmp.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    
+        } catch(Exception e) {
+        e.printStackTrace();
+        }
+        });
+        
+        btnAjout.setOnAction(event -> {
+
+            try {
+Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/FXMLDocument.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    
+        } catch(Exception e) {
+        e.printStackTrace();
+        }
+        });
             imageviewfxid.setImage(new Image("http://localhost:8080/img/user.png"));
             updatetable();
             makeDragable();
@@ -262,7 +378,29 @@ public class AdminController implements Initializable {
                     repp.clear();
                 }
             });
+ try {
+        Connection con ;
+        Connexion cnx = new Connexion();
+        con = cnx.getConnection();
+             
+        ResultSet rs=con.createStatement().executeQuery("select * from salle");
+        while (rs.next())  {
+            ob.add(new ModelTable2(rs.getInt("idsalle"), rs.getString("numsalle"), rs.getString("nbreplace"),rs.getString("description")));
+            }
+        
+        } catch (Exception ex) {
+        Logger.getLogger(AcceuilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+            idsalle.setCellValueFactory(new PropertyValueFactory<>("idsalle"));
+            numsalle.setCellValueFactory(new PropertyValueFactory<>("numsalle"));
+            nbreplace.setCellValueFactory(new PropertyValueFactory<>("nbreplace"));
+            desc.setCellValueFactory(new PropertyValueFactory<>("desc"));
+         
 
+            tab.setItems(ob);
+        // TODO
+         
             recev1.setOnMouseClicked(event -> {
                 int y = data1.getPersons()
                         .get(recev1.getSelectionModel().getSelectedIndex())
@@ -359,6 +497,7 @@ public class AdminController implements Initializable {
         // imagefxid.setCellValueFactory(new PropertyValueFactory<>(setImage("image")));
 
         listproduitfxid.setItems(d);
+        
 
     }
 
@@ -448,14 +587,12 @@ public class AdminController implements Initializable {
         userTab.setItems(su.getUserListfiltered(chercher.getText()));
     }
 
-    @FXML
     private void Annuler(ActionEvent event) {
         numsalle.setText("");
         place.setText("");
         desc.setText("");
     }
 
-    @FXML
     private void add(ActionEvent event) {
         Connection con;
         Connexion cnx = new Connexion();
@@ -487,7 +624,6 @@ public class AdminController implements Initializable {
         }
     }
 
-    @FXML
     private void ajoutImg(ActionEvent event) {
         FileChooser f = new FileChooser();
         String imggg;
@@ -643,5 +779,107 @@ public class AdminController implements Initializable {
             Logger.getLogger(FXMLAffichageTouslesProduitController.class.getName()).log(Level.SEVERE, null, ex);
         }
         updatetable();
+    }
+
+    @FXML
+    private void delete(ActionEvent event) throws SQLException {
+        Connection con ;
+        Connexion cnx = new Connexion();
+        con = cnx.getConnection();
+
+        ModelTable2 song = tab.getSelectionModel().getSelectedItem();
+        System.out.println(song);
+
+        if (song != null) {
+        int n = JOptionPane.showConfirmDialog(null, "Vous voulez vraiment supprimer l'élément ? " , "SVP select", JOptionPane.YES_NO_OPTION);
+        
+        if (n==0) {  
+        PreparedStatement statement = con.prepareStatement("DELETE FROM salle WHERE idsalle = ?");
+        tab.getItems().remove(song);
+        statement.setInt(1, song.getIdsalle());
+        statement.executeUpdate();
+            }
+        }  else
+        JOptionPane.showMessageDialog(null, "Vous devez sélecionner une ligne ! ");
+    }
+
+    @FXML
+    private void modifiersalle(ActionEvent event) throws SQLException, IOException {
+        Connection con ;
+        Connexion cnx = new Connexion();
+        con = cnx.getConnection();
+        
+        int id;
+        String s="",nbr="",desc="";
+        ModelTable2 song = tab.getSelectionModel().getSelectedItem();
+       
+        ResultSet rs;
+        PreparedStatement ps = con.prepareStatement("select * FROM salle  WHERE numsalle="+song.getNumsalle() );
+        
+        
+        rs=ps.executeQuery();
+        while(rs.next())
+        {
+        id=rs.getInt("idsalle");
+        s=rs.getString("numsalle");
+        nbr = rs.getString("nbreplace");
+        desc = rs.getString("description");
+        }
+            Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/ModifierSalle.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+        
+    }
+
+    @FXML
+    private void addsalle(ActionEvent event) throws IOException {
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/AjouterSalle.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+        
+//        try {
+//        Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/AjouterSalle.fxml"));
+//        Scene scene = new Scene(page1);
+//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        stage.setScene(scene);
+//        stage.show(); 
+//        stage.show();
+//    
+//        } catch(Exception e) {
+//        e.printStackTrace();
+//        }
+    }
+
+    @FXML
+    private void reservation(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/ListSalle.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+        
+    }
+
+    @FXML
+    private void getselected(MouseEvent event) {
+    }
+
+    @FXML
+    private void nbpalcemaximal(MouseEvent event) {
+    }
+
+    @FXML
+    private void initiate(MouseEvent event) {
+    }
+
+    @FXML
+    private void UploadImage(MouseEvent event) {
+    }
+
+    @FXML
+    private void Supprimerevenement(MouseEvent event) {
+        
     }
 }

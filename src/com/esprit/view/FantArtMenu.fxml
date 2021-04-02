@@ -43,14 +43,14 @@
                   </ImageView>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="227.0">
+            <HBox alignment="CENTER" onMouseClicked="#profil" prefHeight="60.0" prefWidth="227.0">
                <children>
-                  <Label prefHeight="53.0" prefWidth="155.0" text="Label">
+                  <Label fx:id="profilname" prefHeight="53.0" prefWidth="155.0" text="Label">
                      <font>
                         <Font name="Berlin Sans FB" size="18.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imageprofil" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
          </children>
@@ -182,7 +182,7 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" onMouseClicked="#listmesevenementa" prefHeight="50.0" prefWidth="200.0">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                         <Label prefHeight="36.0" prefWidth="155.0" text="Evenement">
@@ -217,6 +217,28 @@
             <Separator prefWidth="200.0" />
             <VBox prefHeight="177.0" prefWidth="250.0" spacing="5.0">
                <children>
+                  <VBox onMouseClicked="#loadale" prefHeight="177.0" prefWidth="250.0" spacing="5.0">
+                     <children>
+                        <Label prefHeight="36.0" prefWidth="155.0" text="Salles">
+                           <font>
+                              <Font name="Berlin Sans FB" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                              <Label prefHeight="36.0" prefWidth="155.0" text="List des salles">
+                                 <font>
+                                    <Font name="Berlin Sans FB" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                   <Label prefHeight="36.0" prefWidth="155.0" text="Visitez nous">
                      <font>
                         <Font name="Berlin Sans FB" size="18.0" />
@@ -280,7 +302,7 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox alignment="CENTER" onMouseClicked="#deco" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                  <HBox fx:id="cross" alignment="CENTER" onMouseClicked="#deco" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>

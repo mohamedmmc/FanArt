@@ -39,7 +39,7 @@ import javafx.stage.Stage;
  * @author Juka
  */
 public class FXMLpanierController implements Initializable {
-
+int prixtotal=0;
     @FXML
     private ScrollPane spfxid;
     @FXML
@@ -95,6 +95,7 @@ public class FXMLpanierController implements Initializable {
                 Produit produit =new Produit();
                 produit = serviceproduit.displayById(panier_elem.getId_produit()); 
                 produitdanslepaniercontroller.sendData(produit,panier_elem,idpanier);
+                prixtotal+=(produit.getPrix()*panier_elem.getQuantite());
                 ++this.n;
                 if (column == 1) {
                 column = 0;
@@ -104,7 +105,7 @@ public class FXMLpanierController implements Initializable {
                 gpfxid.setMargin(cardbox ,new Insets(0, 20, 20, 20));
         }
             gpfxid.setPadding(new Insets(30, 20, 30, 30));
-            
+            Session.setPrix_total_prduit(prixtotal);
     }
 
     @FXML

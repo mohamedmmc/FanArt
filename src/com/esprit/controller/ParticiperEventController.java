@@ -10,14 +10,13 @@ import com.google.gson.GsonBuilder;
 import com.esprit.entity.ListData;
 import com.esprit.dao.ParticiperService;
 import com.esprit.utilis.MailSender;
+import com.esprit.utilis.Newmailevent;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
-import com.stripe.model.Review;
 import com.stripe.model.Token;
 import java.awt.AWTException;
-import java.awt.Robot;
 import java.awt.SystemTray;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,12 +27,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -66,19 +63,12 @@ public class ParticiperEventController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+          btn_valider.setText(String.valueOf("Payer "+ListData.getPricetotal()+".00DT"));
         
     }    
 
     
-    @FXML
-    private void getnombrebillet(KeyEvent event) throws AWTException {
-        
-       int nbr=Integer.parseInt("0"+nb_billet.getText())*ListData.getEvenement().getPrix();
-      
-       prix_total.setText(String.valueOf(nbr));
-        if(!prix_total.getText().equals("")){
-                btn_valider.setText(String.valueOf("Payer "+prix_total.getText()+".00DT"));}
-    }
+
 
  
     @FXML
@@ -90,13 +80,14 @@ public class ParticiperEventController implements Initializable {
                 
                 
                             
-                            ListData.getParticiper().setNbr_reservation(Integer.parseInt(nb_billet.getText()));
-                           ListData.getParticiper().setPaiement(Integer.parseInt(prix_total.getText()));
-                            System.out.println(ListData.getParticiper().toString());
+                            ListData.getParticiper().setNbr_reservation(ListData.getNombrebillet());
+                           ListData.getParticiper().setPaiement(ListData.getPricetotal());
+                           
                 
                 es.insert(ListData.getParticiper());
             } catch (SQLException ex) {
-                Logger.getLogger(HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger
+        (HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
             }
          
            
@@ -128,14 +119,16 @@ public class ParticiperEventController implements Initializable {
             source.put("source", token.getId());
             
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            System.out.println(gson.toJson(token));
             
+            System.out.println(gson);
             Map<String,Object> chargeParam = new HashMap<String, Object>();
-            chargeParam.put("amount", 3.00);
-            chargeParam.put("currency", "usd");
+            int n =ListData.getPricetotal()*100;
+            chargeParam.put("amount",n);
+            chargeParam.put("currency", "eur");
             chargeParam.put("source", token.getId());
              MailSender s =new MailSender();
-                 s.send("monam.bengouta@esprit.tn","monam");//,"chrit o khrit ffyh ");
+             
+            //  s.send("monam.bengouta@esprit.tn","monam");
             
              
              if (SystemTray.isSupported()) {

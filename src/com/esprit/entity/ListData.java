@@ -22,6 +22,25 @@ public class ListData {
     private static Evenement evenement = new Evenement();
     private static Participer participer = new Participer();
     private static User user=new User();
+    public static int pricetotal;
+    public static int nombrebillet;
+
+    public static int getNombrebillet() {
+        return nombrebillet;
+    }
+
+    public static void setNombrebillet(int nombrebillet) {
+        ListData.nombrebillet = nombrebillet;
+    }
+    
+
+    public static int getPricetotal() {
+        return pricetotal;
+    }
+
+    public static void setPricetotal(int pricetotal) {
+        ListData.pricetotal = pricetotal;
+    }
    
 
     public static User getUser() {

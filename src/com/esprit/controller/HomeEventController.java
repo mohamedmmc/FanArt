@@ -6,13 +6,19 @@
 package com.esprit.controller;
 
 import com.esprit.dao.EvenementService;
+import com.esprit.dao.ServiceUser;
+import com.esprit.dao.Session;
+import static com.esprit.dao.Session.pathfile;
 import com.esprit.entity.Evenement;
+import com.esprit.entity.User;
+import com.esprit.utilis.MailSender;
+import com.esprit.utilis.Newmailevent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -21,10 +27,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -36,7 +39,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -67,16 +69,10 @@ public class HomeEventController implements Initializable {
 
     @FXML
     private DatePicker date_debut;
-    private Button btn_addevent;
-    private Button btn_selectevent;
+    
     @FXML
     private ImageView imageview;
-    @FXML
-    private Button btn_list;
-    @FXML
-    private Button btn_stat;
-    @FXML
-    private Button btn_acceuil;
+   
     @FXML
     private Button bt_upload_img;
     String pathimage;
@@ -84,15 +80,15 @@ public class HomeEventController implements Initializable {
     String stringfinal;
     File source;
     File dest;
-    String chaine2="C:\\xampp\\htdocs\\img\\events.jpg";
+    String chaine2="http://localhost:8080/img/picture.png";
     
-
+    String mail_contenu="";
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+imageview.setImage(new Image(chaine2));
         try {
             // TODO
             EvenementService ed;
@@ -111,21 +107,35 @@ public class HomeEventController implements Initializable {
                 LocalDate value1 = date_fin.getValue();
                 String s = String.valueOf(value.getMonthValue()) + "/" + String.valueOf(value.getDayOfMonth() + "/" + String.valueOf(value.getYear()));
                 String s1 = String.valueOf(value1.getMonthValue()) + "/" + String.valueOf(value1.getDayOfMonth() + "/" + String.valueOf(value1.getYear()));
-                Evenement p = new Evenement(titre.getText(), description.getText(), local.getValue(), s, s1, Integer.parseInt(nbplace.getText()), Integer.parseInt(prix.getText()), stringfinal);
-                System.out.println(p.toString());
+                Evenement p = new Evenement(titre.getText(), description.getText(), local.getValue(), s, s1, Integer.parseInt(nbplace.getText()), Integer.parseInt(prix.getText()), Session.filename);
+                
                 EvenementService es;
-                try {
-                    FileUtils.copyFile(source, dest);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                
                 try {
                     es = EvenementService.getInstance();
                     
                         es.insert(p);
+                        ServiceUser su=new ServiceUser();
+                        su.sendphp(pathfile);
+            List mail=su.displayAllList();
+                    for (Iterator iterator = mail.iterator(); iterator.hasNext();) {
+                       User next = (User) iterator.next();
+                       Newmailevent mailpourtous =new Newmailevent();
+                       mailpourtous.setNom_user(next.getPrenom()+""+next.getNom());
+                       MailSender mailsender =new MailSender(); 
+                        mailsender.send(next.getEmail(),next.getPrenom()+""+next.getNom(), mailpourtous.getMail_contenu());
+                        
+                    }
+                        
+                      
+                        
                     
 
                 } catch (SQLException ex) {
+                    Logger.getLogger(HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
                     Logger.getLogger(HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 Alert alert = new Alert(AlertType.INFORMATION);
@@ -134,36 +144,7 @@ public class HomeEventController implements Initializable {
                 alert.show();
 
             });
-            btn_list.setOnAction((ActionEvent event1) -> {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/ListEvent.fxml"));
-                    Stage window = (Stage) btn_list.getScene().getWindow();
-                    window.setScene(new Scene(root));
-
-                } catch (IOException ex) {
-                    Logger.getLogger(HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-            btn_stat.setOnAction((ActionEvent event1) -> {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/Statistique.fxml"));
-                    Stage window = (Stage) btn_stat.getScene().getWindow();
-                    window.setScene(new Scene(root));
-
-                } catch (IOException ex) {
-                    Logger.getLogger(HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
-            btn_acceuil.setOnAction((ActionEvent event1) -> {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/com/esprit/view/Menu.fxml"));
-                    Stage window = (Stage) btn_acceuil.getScene().getWindow();
-                    window.setScene(new Scene(root));
-
-                } catch (IOException ex) {
-                    Logger.getLogger(HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });
+           
         } catch (SQLException ex) {
             Logger.getLogger(HomeEventController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -175,35 +156,45 @@ public class HomeEventController implements Initializable {
         description.setText("");
         prix.setText("");
         local.setValue("Aucun");
-        date_debut.setValue(null);
-        date_fin.setValue(null);
+        date_debut.getEditor().clear();
+        date_fin.getEditor().clear();
         nbplace.setText("");
+        imageview.setImage(new Image(chaine2));
 
     }
 
     @FXML
     private void UploadImage(MouseEvent event) {
-        FileChooser fc = new FileChooser();
-
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
-        File SelectedFile = fc.showOpenDialog(null);
-        if (SelectedFile != null) {
-            pathimage = SelectedFile.toString();
+        FileChooser f = new FileChooser();
+        String img;
+        
+        f.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
+        File fc = f.showOpenDialog(null);
+        if (f != null) {
+            //System.out.println(fc.getName());
+            img = fc.getAbsoluteFile().toURI().toString();
+            System.out.println(img);
+            //System.out.println(fc.getAbsolutePath());
+            Image i = new Image(img);
+            imageview.setImage(i);
+            pathimage = fc.toString();
+            //System.out.println(imageviewfxid);
             int index = pathimage.lastIndexOf('\\');
             if (index > 0) {
                 filename = pathimage.substring(index + 1);
             }
-            source = new File(pathimage);
             
+            //source = new File(pathimage);
             
-            dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
-//            System.out.println(dest);
-//            System.out.println(source);
-            stringfinal = "/com/esprit/image/" + filename;
-            //..\img\google.png
-            //C:\Users\splin\Documents\NetBeansProjects\FanArt\\com\esprit\img
-
+            //dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
+            Session.filename="localhost:8080/img/" + filename;
+            //su.sendphp(fc.getAbsolutePath());
         }
+        imageview.setFitHeight(94);
+        imageview.setFitWidth(94);
+        //..\img\google.png
+        //C:\Users\splin\Documents\NetBeansProjects\FanArt\\com\esprit\img
+        pathfile = fc.getAbsolutePath();
     }
 
    
@@ -227,6 +218,10 @@ public class HomeEventController implements Initializable {
         }
     });
         
+    }
+
+    @FXML
+    private void nbpalcemaximal(MouseEvent event) {
     }
 
 }

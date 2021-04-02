@@ -5,6 +5,8 @@
  */
 package com.esprit.controller;
 
+import com.esprit.dao.ListData;
+import com.esprit.dao.ServiceProduit;
 import com.esprit.dao.ServiceUser;
 import com.esprit.entity.User;
 import com.esprit.utilis.Connexion;
@@ -51,6 +53,12 @@ import javafx.stage.Stage;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import com.esprit.dao.Session;
+import com.esprit.dao.recedao;
+import com.esprit.dao.recpdao;
+import com.esprit.entity.Produit;
+import com.esprit.entity.recevent;
+import com.esprit.entity.recprod;
+import com.esprit.utilis.MailSender;
 
 /**
  * FXML Controller class
@@ -112,25 +120,84 @@ public class AdminController implements Initializable {
     private Button ajout;
     @FXML
     private TextArea desc;
-    @FXML
-    private TextField numsalle1;
-    @FXML
-    private TextField place1;
-    @FXML
-    private Button parcourrir1;
-    @FXML
-    private Button annuler1;
-    @FXML
-    private Button ajout1;
-    @FXML
-    private TextArea desc1;
     private String pathimage;
     @FXML
     private ImageView imgg;
     private String filename;
-    private File source, dest;
+
+    @FXML
+    private TableView<recevent> recev;
+    @FXML
+    private TableColumn<recevent, String> neve;
+    @FXML
+    private TableColumn<recevent, String> eemail;
+    @FXML
+    private TableColumn<recevent, String> eracl;
+    @FXML
+    private TableColumn<recevent, String> esta;
+    ListD data = new ListD();
+    MailSender ms = new MailSender();
+    ListP data1 = new ListP();
+    @FXML
+    private TextArea recc;
+    @FXML
+    private Label rep;
+    @FXML
+    private TextField em;
+    @FXML
+    private TextField su;
+    @FXML
+    private TextArea repp;
+    @FXML
+    private Button env;
+    @FXML
+    private TextField sta;
+    @FXML
+    private TextField chid;
+    int index = -1;
+    @FXML
+    private TableView<recprod> recev1;
+    @FXML
+    private TableColumn<recprod, String> neve1;
+    @FXML
+    private TableColumn<recprod, String> eemail1;
+    @FXML
+    private TableColumn<recprod, String> eracl1;
+    @FXML
+    private TableColumn<recprod, String> esta1;
+    @FXML
+    private TextArea recc1;
+    @FXML
+    private Label rep1;
+    @FXML
+    private TextField em1;
+    @FXML
+    private TextField su1;
+    @FXML
+    private TextArea repp1;
+    @FXML
+    private Button env1;
+    @FXML
+    private TextField sta1;
+    @FXML
+    private TextField chid1;
+    @FXML
+    private TableView<Produit> listproduitfxid;
+    @FXML
+    private TableColumn<Produit, String> id_produitfxid;
+    @FXML
+    private TableColumn<Produit, String> titrefxid;
+    @FXML
+    private TableColumn<Produit, String> descriptionfxid;
+    @FXML
+    private TableColumn<Produit, Float> prixfxid;
+    @FXML
+    private TableColumn<Produit, String> artistefxid;
+    @FXML
+    private ImageView imageviewfxid;
 
     public String verifier() {
+        updatetable();
         if (numsalle.getText().equals("") || place.getText().equals("") || desc.getText().equals("")) {
             return "true";
         } else {
@@ -145,37 +212,120 @@ public class AdminController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
         Platform.runLater(() -> {
+            imageviewfxid.setImage(new Image("http://localhost:8080/img/user.png"));
+            updatetable();
             makeDragable();
+            recev.setItems(data.getPersons());
+            neve.setCellValueFactory(cell -> cell.
+                    getValue().geteventnomProperty());
+            eemail.setCellValueFactory(cell -> cell.
+                    getValue().getemailProperty());
+            eracl.setCellValueFactory(cell -> cell.
+                    getValue().getrecProperty());
+            esta.setCellValueFactory(cell -> cell.
+                    getValue().getstaPropertyy());
 
-            ServiceUser su = new ServiceUser();
+            recev1.setItems(data1.getPersons());
+            neve1.setCellValueFactory(cell -> cell.
+                    getValue().getprodnomProperty());
+            eemail1.setCellValueFactory(cell -> cell.
+                    getValue().getemailProperty());
+            eracl1.setCellValueFactory(cell -> cell.
+                    getValue().getrecProperty());
+            esta1.setCellValueFactory(cell -> cell.
+                    getValue().getstaProperty());
+
+            recev.setOnMouseClicked(event -> {
+                int x = data.getPersons()
+                        .get(recev.getSelectionModel().getSelectedIndex())
+                        .getId();
+                //System.out.println(x);
+
+                em.setText(String.valueOf(data.getPersons()
+                        .get(recev.getSelectionModel().getSelectedIndex())
+                        .getemail()));
+                recc.setText(data.getPersons()
+                        .get(recev.getSelectionModel().getSelectedIndex())
+                        .getrec());
+                chid.setText(String.valueOf(data.getPersons()
+                        .get(recev.getSelectionModel().getSelectedIndex())
+                        .getId()));
+
+                sta.setText(data.getPersons()
+                        .get(recev.getSelectionModel().getSelectedIndex())
+                        .getsta());
+                if (sta.getText().equals("repondu")) {
+                    env.setDisable(true);
+                } else {
+                    env.setDisable(false);
+                    su.clear();
+                    repp.clear();
+                }
+            });
+
+            recev1.setOnMouseClicked(event -> {
+                int y = data1.getPersons()
+                        .get(recev1.getSelectionModel().getSelectedIndex())
+                        .getId();
+                //  System.out.println(y);
+
+                em1.setText(String.valueOf(data1.getPersons()
+                        .get(recev1.getSelectionModel().getSelectedIndex())
+                        .getemail()));
+                recc1.setText(data1.getPersons()
+                        .get(recev1.getSelectionModel().getSelectedIndex())
+                        .getrec());
+                chid1.setText(String.valueOf(data1.getPersons()
+                        .get(recev1.getSelectionModel().getSelectedIndex())
+                        .getId()));
+
+                sta1.setText(data1.getPersons()
+                        .get(recev1.getSelectionModel().getSelectedIndex())
+                        .getsta());
+                if (sta1.getText().equals("repondu")) {
+                    env1.setDisable(true);
+                } else {
+                    env1.setDisable(false);
+                    su1.clear();
+                    repp1.clear();
+                }
+
+                // TODO
+            });
+            ServiceProduit es = new ServiceProduit();
+            ServiceUser suu = new ServiceUser();
             //Image im = new Image(getClass().getResourceAsStream("/com/esprit/img/guestuser.png"));
             imagee.setFitHeight(150);
             imagee.setPreserveRatio(true);
+            listproduitfxid.setOnMouseClicked((e) -> {
+                //System.out.println("http://" + es.displayAll().get(userTab.getSelectionModel().getSelectedIndex()).getImage());
+                imageviewfxid.setImage(new Image("http://" + es.displayAll().get(listproduitfxid.getSelectionModel().getSelectedIndex()).getImage()));
 
+            });
             userTab.setOnMouseClicked((event) -> {
                 //vue.getChildren().remove(imagee);
-                String imageSource = "http://" +su.displayAllList().get(userTab.getSelectionModel().getSelectedIndex()).getPhoto();
+                String imageSource = "http://" + suu.displayAllList().get(userTab.getSelectionModel().getSelectedIndex()).getPhoto();
                 System.out.println(imageSource);
-                Image imgg = new Image(imageSource);
-                imagee.setImage(imgg);
-               /*Image img = new Image(getClass().getResourceAsStream(su.displayAllList()
+                Image imggg = new Image(imageSource);
+                imagee.setImage(imggg);
+                /*Image img = new Image(getClass().getResourceAsStream(su.displayAllList()
                         .get(userTab.getSelectionModel().getSelectedIndex())
                         .getPhoto()));
                 imagee.setImage(img);*/
                 //System.out.println(String.valueOf(su.displayAllList().get(userTab.getSelectionModel().getSelectedIndex()).getNom()));
-                nomlabel.setText(su.displayAllList()
+                nomlabel.setText(suu.displayAllList()
                         .get(userTab.getSelectionModel().getSelectedIndex())
                         .getNom());
-                prenomlabel.setText(su.displayAllList()
+                prenomlabel.setText(suu.displayAllList()
                         .get(userTab.getSelectionModel().getSelectedIndex())
                         .getPrenom());
-                emaillabel.setText(su.displayAllList()
+                emaillabel.setText(suu.displayAllList()
                         .get(userTab.getSelectionModel().getSelectedIndex())
                         .getEmail());
-                typelabel.setText(su.displayAllList()
+                typelabel.setText(suu.displayAllList()
                         .get(userTab.getSelectionModel().getSelectedIndex())
                         .getType());
-                numerolabel.setText(String.valueOf(su.displayAllList()
+                numerolabel.setText(String.valueOf(suu.displayAllList()
                         .get(userTab.getSelectionModel().getSelectedIndex())
                         .getNumtel()));
 
@@ -183,7 +333,7 @@ public class AdminController implements Initializable {
             try {
                 // TODO
 
-                ObservableList<User> list = su.getUserList();
+                ObservableList<User> list = suu.getUserList();
                 nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
                 prenom.setCellValueFactory(new PropertyValueFactory<>("prenom"));
                 email.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -195,6 +345,21 @@ public class AdminController implements Initializable {
 
             }
         });
+    }
+
+    public void updatetable() {
+        ServiceProduit es = new ServiceProduit();
+        ListData l = new ListData();
+        ObservableList<Produit> d = l.getProduit();
+        id_produitfxid.setCellValueFactory(new PropertyValueFactory<>("id"));
+        titrefxid.setCellValueFactory(new PropertyValueFactory<>("titre"));
+        descriptionfxid.setCellValueFactory(new PropertyValueFactory<>("description"));
+        prixfxid.setCellValueFactory(new PropertyValueFactory<>("prix"));
+        artistefxid.setCellValueFactory(new PropertyValueFactory<>("artiste"));
+        // imagefxid.setCellValueFactory(new PropertyValueFactory<>(setImage("image")));
+
+        listproduitfxid.setItems(d);
+
     }
 
     @FXML
@@ -340,10 +505,143 @@ public class AdminController implements Initializable {
             if (index > 0) {
                 filename = pathimage.substring(index + 1);
             }
-            source = new File(pathimage);
-            dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
+            //source = new File(pathimage);
+            // dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
         }
         imgg.setFitHeight(94);
         imgg.setFitWidth(94);
+    }
+
+    public void updatet() {
+        data.clr();
+        recev.setItems(data.getPersons());
+        neve.setCellValueFactory(cell -> cell.
+                getValue().geteventnomProperty());
+        eemail.setCellValueFactory(cell -> cell.
+                getValue().getemailProperty());
+        eracl.setCellValueFactory(cell -> cell.
+                getValue().getrecProperty());
+        esta.setCellValueFactory(cell -> cell.
+                getValue().getstaPropertyy());
+
+    }
+
+    public void updatep() {
+        data1.clr();
+        recev1.setItems(data1.getPersons());
+        neve1.setCellValueFactory(cell -> cell.
+                getValue().getprodnomProperty());
+        eemail1.setCellValueFactory(cell -> cell.
+                getValue().getemailProperty());
+        eracl1.setCellValueFactory(cell -> cell.
+                getValue().getrecProperty());
+        esta1.setCellValueFactory(cell -> cell.
+                getValue().getstaProperty());
+
+    }
+
+    @FXML
+    private void send(MouseEvent event) {
+        String ema = em.getText();
+        int x = Integer.parseInt(chid.getText());
+        String sub = su.getText();
+        String re = repp.getText();
+        String recev = recc.getText();
+        //System.out.println(re);
+        if (sub.isEmpty() || re.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Veillez remplir les champs");
+            alert.show();
+
+        } else {
+            try {
+                ms.Recadm(ema, sub, re);
+                recevent p = new recevent(x);
+                recedao pdao = recedao.getInstance();
+                pdao.updatest(p, "repondu");
+
+                // System.out.println(p.getstaPropertyy());
+                em.clear();
+                chid.clear();
+                su.clear();
+                repp.clear();
+                recc.clear();
+                sta.clear();
+
+                updatet();
+
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Envoyez");
+            alert.show();
+
+        }
+    }
+
+    @FXML
+    private void sende(MouseEvent event) {
+        String ema = em1.getText();
+        int x = Integer.parseInt(chid1.getText());
+        String sub = su1.getText();
+        String re = repp1.getText();
+        String recev = recc1.getText();
+        //System.out.println(re);
+        if (sub.isEmpty() || re.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Veillez remplir les champs");
+            alert.show();
+
+        } else {
+            try {
+                ms.Recadm(ema, sub, re);
+                recprod p = new recprod(x);
+                recpdao pdao = recpdao.getInstance();
+                pdao.updatest(p, "repondu");
+
+                //System.out.println(p.getstaProperty());
+                em1.clear();
+                chid1.clear();
+                su1.clear();
+                repp1.clear();
+                recc1.clear();
+                sta1.clear();
+
+                updatep();
+
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Envoyé");
+            alert.show();
+
+        }
+
+    }
+
+    @FXML
+    private void deleteRowFromTable(MouseEvent event) {
+        Produit p = listproduitfxid.getSelectionModel().getSelectedItems().get(0);
+        ServiceProduit es;
+        try {
+            es = ServiceProduit.getInstance();
+            es.delete(p);
+            imageviewfxid.setImage(new Image("http://localhost:8080/img/user.png"));
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLAffichageTouslesProduitController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        updatetable();
     }
 }

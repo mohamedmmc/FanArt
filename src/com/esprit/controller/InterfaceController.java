@@ -12,6 +12,7 @@ import com.esprit.entity.User;
 import static com.esprit.utilis.HashCode.generatedHash;
 import com.esprit.utilis.Sms;
 import com.esprit.utilis.WebCamGui;
+import com.google.common.base.CharMatcher;
 import java.io.File;
 
 import java.sql.SQLException;
@@ -61,8 +62,10 @@ import javax.imageio.ImageIO;
 public class InterfaceController implements Initializable {
 
     User u, u2;
+    String mailToDb;
     String oldmail, oldpass;
     private int current;
+    Boolean test=false;
 
     @FXML
     private AnchorPane parent;
@@ -84,8 +87,6 @@ public class InterfaceController implements Initializable {
     private ImageView img;
     private String pathimage;
     private String filename;
-    private File source;
-    private File dest;
     @FXML
     private VBox userInfoContainer1;
     @FXML
@@ -98,7 +99,7 @@ public class InterfaceController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         Platform.runLater(() -> {
             try {
                 this.togglevisiblePassword(null);
@@ -121,10 +122,10 @@ public class InterfaceController implements Initializable {
             emailfield.setText(u.getEmail());
             numfield.setText(num);
             Session.filename = u.getPhoto();
-            
+            emailaffiche.setText(emailfield.getText());
             oldmail = u.getEmail();
-            
-            String imageSource = "http://"+Session.filename; 
+
+            String imageSource = "http://" + Session.filename;
             Image imgg = new Image(imageSource);
             img.setImage(imgg);
             //String imageUrl = ;
@@ -132,7 +133,7 @@ public class InterfaceController implements Initializable {
             //System.out.println(Session.filename);
             //oldpass = u.getMdp();
             // System.out.println(emailfield.toString());
-           
+
         });
 
     }
@@ -165,7 +166,7 @@ public class InterfaceController implements Initializable {
         String numtell = numfield.getText();
         int num = Integer.parseInt(numtell);
         ServiceUser su = new ServiceUser();
-        if ((nomfield.getText().isEmpty()) || prenomfield.getText().isEmpty() || emailfield.getText().isEmpty() || numfield.getText().isEmpty()) {
+        if ((nomfield.getText().isEmpty()) || prenomfield.getText().isEmpty() || emailfield.getText().isEmpty()|| emailaffiche.getText().isEmpty()  || numfield.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Information Dialog");
             alert.setHeaderText(null);
@@ -193,20 +194,16 @@ public class InterfaceController implements Initializable {
             if (result.isPresent()) {
 
                 if ((su.verify(oldmail, result.get()) != 0)) {
-                    /*System.out.println(u.toString());
-                    u2 = new User(Session.getId(),nomfield.getText(), prenomfield.getText(), generatedHash(result.get(), "SHA-256"), emailfield.getText(), num);
-                    System.out.println(u2.toString());*/
+                    
                     if (!mdpfieldv.getText().isEmpty()) {
                         String Hashed = generatedHash(mdpfieldv.getText(), "SHA-256");
-                        u = new User(nomfield.getText(), prenomfield.getText(), Hashed, emailfield.getText(), num, Session.filename);
+                        u = new User(nomfield.getText(), prenomfield.getText(), Hashed, emailaffiche.getText(), num, Session.filename);
                         su.ModifierUser(u, Session.getId());
                     } else {
-                        u = new User(nomfield.getText(), prenomfield.getText(), emailfield.getText(), num, Session.filename);
-                        //System.out.println(Session.filename);
-                        //System.out.println(u.toString());
+                        u = new User(nomfield.getText(), prenomfield.getText(), emailaffiche.getText(), num, Session.filename);
                         su.ModifierUserWmdp(u, Session.getId());
                     }
-                    if(!Session.filename.isEmpty()){
+                    if (!Session.filename.isEmpty() && test) {
                         su.sendphp(pathfile);
                     }
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -214,14 +211,10 @@ public class InterfaceController implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText("Profil modifié avec succés!");
                     alert.show();
-
-
-                    //Session.filename = "";
                     mdpfield.clear();
                     mdpfieldv.clear();
                     u = su.findBymail(Session.getId());
                     oldmail = u.getEmail();
-                    //System.out.println(oldmail);
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Information Dialog");
@@ -273,9 +266,9 @@ public class InterfaceController implements Initializable {
 
     @FXML
     private void upload(ActionEvent event) {
-FileChooser f = new FileChooser();
+        FileChooser f = new FileChooser();
         String imgg;
-        
+
         f.getExtensionFilters().add(new FileChooser.ExtensionFilter("image", "*.png"));
         File fc = f.showOpenDialog(null);
         if (f != null) {
@@ -291,14 +284,13 @@ FileChooser f = new FileChooser();
             if (index > 0) {
                 filename = pathimage.substring(index + 1);
             }
-            
+
             //source = new File(pathimage);
-            
             //dest = new File(System.getProperty("user.dir") + "\\src\\com\\esprit\\img\\" + filename);
-            Session.filename="localhost:8080/img/" + filename;
+            Session.filename = "localhost:8080/img/" + filename;
             //su.sendphp(fc.getAbsolutePath());
         }
-      
+        test = true;
         //..\img\google.png
         //C:\Users\splin\Documents\NetBeansProjects\FanArt\\com\esprit\img
         pathfile = fc.getAbsolutePath();
@@ -307,6 +299,7 @@ FileChooser f = new FileChooser();
     @FXML
     private void cam(ActionEvent event) {
         WebCamGui.main(new String[0]);
+        test = true;
     }
 
     @FXML
@@ -360,12 +353,14 @@ FileChooser f = new FileChooser();
                     emailaffiche.setVisible(true);
                     emailfield.setVisible(false);
                     return;
+
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText(null);
                     alert.setContentText("Ancien mot de passe incorrect");
                     alert.show();
+
                 }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -373,6 +368,7 @@ FileChooser f = new FileChooser();
                 alert.setHeaderText(null);
                 alert.setContentText("Code erroné");
                 alert.show();
+
             }
 
         }

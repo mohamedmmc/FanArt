@@ -6,6 +6,7 @@
 package com.esprit.dao;
 import com.esprit.entity.Produit;
 import com.esprit.utilis.ConnexionSingleton;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -55,11 +56,24 @@ public class ServiceProduit {
         alert.show();
         }
     }
+   
      public void delete(Produit o) throws SQLException {
         {
         String req="delete from produit where id_produit="+(o.getId());
         Produit p=displayById(o.getId());
         
+              try {
+           
+            ste.executeUpdate(req);
+             
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceProduit.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        }
+     }
+     public void deletebyid(int o) throws SQLException {
+        {
+        String req="delete from produit where id_produit="+(o);
               try {
            
             ste.executeUpdate(req);
@@ -77,10 +91,11 @@ public class ServiceProduit {
             rs=ste.executeQuery(req);
             while(rs.next()){
                 Produit p=new Produit();
-                p.setId(rs.getInt(1));
+                p.setId(rs.getInt("id_produit"));
                 p.setTitre(rs.getString("titre"));
                 p.setDescription(rs.getString("description"));
                 p.setImage(rs.getString("image"));
+                p.setArtiste(rs.getInt("id_user"));
                 p.setPrix(rs.getFloat("prix"));
                 list.add(p);
             }
@@ -97,10 +112,32 @@ public class ServiceProduit {
             rs=ste.executeQuery(req);
             while(rs.next()){
                 Produit p=new Produit();
-                p.setId(rs.getInt(1));
+                p.setId(rs.getInt("id_produit"));
                 p.setTitre(rs.getString("titre"));
                 p.setDescription(rs.getString("description"));
                 p.setImage(rs.getString("image"));
+                p.setArtiste(rs.getInt("id_user"));
+                p.setPrix(rs.getFloat("prix"));
+                list.add(p);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceProduit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+     public List<Produit> displayListbyartiste(Integer artiste) {
+        String req="select * from produit where id_user='"+artiste+"'";
+        List<Produit> list=new ArrayList<Produit>();           
+        try {
+            rs=ste.executeQuery(req);
+            while(rs.next()){
+                Produit p=new Produit();
+                p.setId(rs.getInt("id_produit"));
+                p.setTitre(rs.getString("titre"));
+                p.setDescription(rs.getString("description"));
+                p.setImage(rs.getString("image"));
+                p.setArtiste(rs.getInt("id_user"));
                 p.setPrix(rs.getFloat("prix"));
                 list.add(p);
             }

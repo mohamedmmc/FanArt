@@ -6,14 +6,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="227.0" prefWidth="349.0" style="-fx-background-color: #2b2a4c;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.ChangementMDPController">
+<AnchorPane prefHeight="247.0" prefWidth="391.0" styleClass="pane" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.esprit.controller.ChangementMDPController">
    <children>
-      <CheckBox fx:id="checkbox" layoutX="179.0" layoutY="157.0" mnemonicParsing="false" onAction="#afficher" text="Afficher Mot de passe" textFill="WHITE" />
-      <Button fx:id="turnoff" layoutX="66.0" layoutY="153.0" mnemonicParsing="false" onAction="#valider" prefHeight="25.0" prefWidth="74.0" text="Valider" />
-      <TextField fx:id="v2" layoutX="66.0" layoutY="101.0" prefHeight="25.0" prefWidth="226.0" />
-      <TextField fx:id="v1" layoutX="66.0" layoutY="63.0" prefHeight="25.0" prefWidth="226.0" />
-      <PasswordField fx:id="v1c" layoutX="66.0" layoutY="63.0" prefHeight="25.0" prefWidth="226.0" promptText="Saisir votre nouveau mot de passe" />
-      <PasswordField fx:id="v2c" layoutX="66.0" layoutY="101.0" prefHeight="25.0" prefWidth="226.0" promptText="Retapper votre mot de passe" />
-      <TextField fx:id="mailoublie" layoutX="66.0" layoutY="26.0" prefHeight="25.0" prefWidth="226.0" promptText="Numéro de téléphone" />
+      <CheckBox fx:id="checkbox" layoutX="181.0" layoutY="174.0" mnemonicParsing="false" onAction="#afficher" text="Afficher Mot de passe" textFill="WHITE" />
+      <Button fx:id="turnoff" layoutX="68.0" layoutY="170.0" mnemonicParsing="false" onAction="#valider" prefHeight="25.0" prefWidth="74.0" text="Valider" />
+      <TextField fx:id="v2" layoutX="83.0" layoutY="106.0" prefHeight="25.0" prefWidth="226.0" />
+      <TextField fx:id="v1" layoutX="83.0" layoutY="68.0" prefHeight="25.0" prefWidth="226.0" />
+      <PasswordField fx:id="v1c" layoutX="83.0" layoutY="68.0" prefHeight="25.0" prefWidth="226.0" promptText="Saisir votre nouveau mot de passe" />
+      <PasswordField fx:id="v2c" layoutX="83.0" layoutY="106.0" prefHeight="25.0" prefWidth="226.0" promptText="Retapper votre mot de passe" />
+      <TextField fx:id="mailoublie" layoutX="83.0" layoutY="31.0" prefHeight="25.0" prefWidth="226.0" promptText="Numéro de téléphone" />
    </children>
 </AnchorPane>

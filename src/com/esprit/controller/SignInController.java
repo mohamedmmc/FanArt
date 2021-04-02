@@ -12,11 +12,7 @@ import static com.esprit.entity.User.validate;
 import com.esprit.utilis.MailSender;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamResolution;
-import com.restfb.DefaultFacebookClient;
-import com.restfb.FacebookClient;
-import com.restfb.Version;
-import com.restfb.scope.FacebookPermissions;
-import com.restfb.scope.ScopeBuilder;
+import com.jfoenix.controls.JFXButton;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -33,78 +29,41 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
-import static org.openqa.grid.common.SeleniumProtocol.WebDriver;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
+ * FXML Controller class
  *
- * @author TheDot
+ * @author splin
  */
-public class LoginController implements Initializable {
-
-    private static String session;
-    // private String current;
-
-    @FXML
-    AnchorPane parent;
-    double x = 0, y = 0;
+public class SignInController implements Initializable {
 
     @FXML
     private TextField email;
     @FXML
-    private Button creationCompte;
+    private PasswordField mdp;
     @FXML
-    private TextField mdp;
+    private JFXButton connexion;
     @FXML
-    private Button connexion;
-    @FXML
-    private ImageView cross;
-    @FXML
-    private Button admin;
-
+    private VBox parent;
+double x = 0, y = 0;
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Session.setId(0);
         makeDragable();
-
-        creationCompte.setOnAction(event -> {
-            try {
-
-                Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/CreateCompte.fxml"));
-                Scene scene = new Scene(page1);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        admin.setOnAction(event -> {
-            try {
-
-                Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/Admin.fxml"));
-                Scene scene = new Scene(page1);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-
-    }
-
-    private void makeDragable() {
+        
+    }    
+ private void makeDragable() {
 
         parent.setOnMousePressed(((event) -> {
             x = event.getSceneX();
@@ -130,15 +89,18 @@ public class LoginController implements Initializable {
         }));
 
     }
-
     @FXML
-    private void exit(MouseEvent event) {
-        Stage stage = (Stage) cross.getScene().getWindow();
-        stage.close();
+    private void mdpoublie(MouseEvent event) throws IOException {
+                Parent part = FXMLLoader.load(getClass().getResource("/com/esprit/view/ChangementMDP.fxml"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.WINDOW_MODAL);
+        Scene scene = new Scene(part);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
-    private void verify(ActionEvent event) throws SQLException, NoSuchAlgorithmException, IOException, InterruptedException {
+    private void verify(ActionEvent event) throws IOException, InterruptedException, SQLException, NoSuchAlgorithmException {
         ServiceUser sp = new ServiceUser();
         User u = new User();
 
@@ -164,7 +126,7 @@ public class LoginController implements Initializable {
                     Session.filename = "";
                     alert.show();
                     try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/Menu.fxml"));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/esprit/view/FantArtMenu.fxml"));
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         stage.setScene(new Scene(loader.load()));
                         Session.setId(sp.verify(email.getText(), mdp.getText()));
@@ -205,52 +167,5 @@ public class LoginController implements Initializable {
             }
         }
     }
-
-    @FXML
-    private void fb(ActionEvent event) {
-        String domain = "https://localhost/fblocal/";
-        String appId = "197623945102545";
-        String appidsecret = "577564482e4db4474577db2e570dadb9";
-        ScopeBuilder scopeBuilder = new ScopeBuilder();
-        scopeBuilder.addPermission(FacebookPermissions.EMAIL);
-
-        String authUrl = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id=" + appId + "&redirect_uri=" + domain + "&scope=email";
-
-        System.setProperty("webdirver.chrome.driver", "chromedriver.exe");
-
-        WebDriver driver = new ChromeDriver();
-        driver.get(authUrl);
-        //String accessToken;
-        while (true) {
-
-            if (!driver.getCurrentUrl().contains("facebook.com")) {
-                String url = driver.getCurrentUrl();
-                //accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
-                FacebookClient client = new DefaultFacebookClient(Version.LATEST);
-
-                String loginDialogUrlString = client.getLoginDialogUrl(appId, domain, scopeBuilder);
-
-                System.out.println(loginDialogUrlString);
-                //accessToken ="EAAHZAuVpnjpoBAKUx3smusRvTUZAR7BaBt0vngXgEkcwx3puzwSZCLiK7B8ZBY0hZBSyyRhUzat52cv9v4mVPGpdvlB3jwHZBXBUPdlBTI9Oo3UVtTIQuCePOWCMd4xZCmYtampZAITATCj3ZCvrUhQJznC2R8ZAWykCfkbHnTYHaT2WrdB2XmZCzAMg6uAXoZAaHmZB9KZBTjqH6Ppv8R8SMS3q6mOhnhCx0ZBSqZAUiGEw5wi3xqetsuE7QyEB";
-                //System.out.println(accessToken);
-
-                User user = client.fetchObject("me", User.class);
-
-                System.out.println(user.getEmail());
-
-            }
-
-        }
-    }
-
-    @FXML
-    private void mdpoublie(MouseEvent event) throws IOException {
-        Parent part = FXMLLoader.load(getClass().getResource("/com/esprit/view/ChangementMDP.fxml"));
-        Stage stage = new Stage();
-        stage.initModality(Modality.WINDOW_MODAL);
-        Scene scene = new Scene(part);
-        stage.setScene(scene);
-        stage.show();
-    }
-
+    
 }

@@ -62,7 +62,7 @@
                            </font>
                         </Label>
                         <TextArea fx:id="rec" layoutX="14.0" layoutY="146.0" prefHeight="169.0" prefWidth="253.0" wrapText="true" />
-                        <Button fx:id="recprodd" layoutX="6.0" layoutY="331.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="131.0" text="Envoyer reclamation" />
+                        <Button fx:id="recprodd" layoutX="6.0" layoutY="331.0" mnemonicParsing="false" onMouseClicked="#addrp" prefHeight="25.0" prefWidth="131.0" text="Envoyer reclamation" />
                         <ListView fx:id="listpro" layoutX="380.0" layoutY="106.0" onMouseClicked="#Display" prefHeight="225.0" prefWidth="200.0" />
                         <Label layoutX="380.0" layoutY="14.0" prefHeight="17.0" prefWidth="169.0" text="Produit reclamé">
                            <font>

@@ -13,18 +13,14 @@ import static com.esprit.entity.User.validate;
 import com.esprit.utilis.MailSender;
 import com.esprit.utilis.Sms;
 import com.esprit.utilis.WebCamGui;
-import com.github.sarxos.webcam.Webcam;
-import com.github.sarxos.webcam.WebcamPanel;
-import com.github.sarxos.webcam.WebcamResolution;
-import java.io.ByteArrayOutputStream;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,52 +30,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import java.security.MessageDigest;
-import java.util.Optional;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import org.apache.commons.io.FileUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.ContentBody;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.CoreProtocolPNames;
-import org.apache.http.util.EntityUtils;
 
 /**
  * FXML Controller class
  *
  * @author splin
  */
-public class CreateCompteController implements Initializable {
-
+public class SignUpController implements Initializable {
     String filename = "";
     String tosend;
 
-    @FXML
-    private AnchorPane parent;
     @FXML
     private TextField nom;
     @FXML
@@ -87,28 +58,25 @@ public class CreateCompteController implements Initializable {
     @FXML
     private TextField email;
     @FXML
-    private TextField mdp;
-    @FXML
-    private TextField numtel;
-    @FXML
-    private Button retour;
-    @FXML
-    private Button creation;
-    @FXML
-    private ImageView cross;
-    ServiceUser su = new ServiceUser();
-    MailSender ms = new MailSender();
-    Boolean test = false;
-    /**
-     * Initializes the controller class.
-     */
-    Boolean emailvalide = false, mdpvalide = false, mail = false;
+    private PasswordField mdp;
     @FXML
     private PasswordField mdp2;
     @FXML
-    private ComboBox<String> type;
+    private TextField numtel;
     @FXML
-    private Button browse;
+    private JFXComboBox<String> type;
+    @FXML
+    private ImageView pdp;
+    @FXML
+    private JFXButton browse;
+    @FXML
+    private JFXButton creation;
+    @FXML
+    private VBox parent;
+     ServiceUser su = new ServiceUser();
+    MailSender ms = new MailSender();
+    Boolean test = false;
+    Boolean emailvalide = false, mdpvalide = false, mail = false;
     @FXML
     private Label noml;
     @FXML
@@ -123,12 +91,13 @@ public class CreateCompteController implements Initializable {
     private Label tell;
     @FXML
     private Label photol;
-    @FXML
-    public ImageView pdp;
 
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         makeDragable();
         type.getItems().removeAll(type.getItems());
         type.getItems().addAll("Client", "Artiste");
@@ -154,7 +123,7 @@ public class CreateCompteController implements Initializable {
                 noml.setText("");
             }
             
-            if (Session.filename  ==null){
+            if (filename.isEmpty()){
                 photol.setText("Photo obligatoire !");
             } else {
                 photol.setText("");
@@ -176,7 +145,8 @@ public class CreateCompteController implements Initializable {
             } else {
                 mdprl.setText("");
             }
-            if (email.getText().isEmpty() || prenom.getText().isEmpty() || mdp.getText().isEmpty() || nom.getText().equals("") || Session.filename ==null || numtel.getText().isEmpty()) {
+            
+            if (email.getText().isEmpty() || prenom.getText().isEmpty() || mdp.getText().isEmpty() || nom.getText().equals("") || filename ==null || numtel.getText().isEmpty()) {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Attention");
@@ -234,7 +204,7 @@ public class CreateCompteController implements Initializable {
                                         mail = true;
                                         try {
 
-                                            Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/Login.fxml"));
+                                            Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/Main.fxml"));
                                             Scene scene = new Scene(page1);
                                             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                                             stage.setScene(scene);
@@ -274,20 +244,7 @@ public class CreateCompteController implements Initializable {
             }
 
         });
-        retour.setOnAction(event -> {
-            try {
-
-                Parent page1 = FXMLLoader.load(getClass().getResource("/com/esprit/view/Login.fxml"));
-                Scene scene = new Scene(page1);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-    }
-
+    } 
     double x, y = 0;
     String pathimage;
 
@@ -319,14 +276,7 @@ public class CreateCompteController implements Initializable {
     }
 
     @FXML
-    private void exit(MouseEvent event) {
-        Stage stage = (Stage) cross.getScene().getWindow();
-        Session.setFile(filename);
-        stage.close();
-    }
-
-    @FXML
-    private void browseaction(ActionEvent event) throws FileNotFoundException, IOException {
+    private void browseaction(ActionEvent event) {
         FileChooser f = new FileChooser();
         String img;
         
@@ -360,30 +310,8 @@ public class CreateCompteController implements Initializable {
     }
 
     @FXML
-    private void cam(ActionEvent event) throws InterruptedException {
-        /*Webcam webcam = Webcam.getDefault();
-        webcam.setViewSize(WebcamResolution.VGA.getSize());
-        
-        WebcamPanel webcampanel = new WebcamPanel(webcam);
-        webcampanel.setImageSizeDisplayed(true);
-        JFrame frame = new  JFrame();
-        frame.add(webcampanel);
-        frame.setLocationRelativeTo(null);
-        frame.pack();
-        //frame.
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setVisible(true);*/
-
-        WebCamGui.main(new String[0]);
-        
-        /* Image image = new Image(Session.getFile());
-            
-
-            pdp.setImage(image);
-            pdp.setFitHeight(94);
-            pdp.setFitWidth(94);*/
+    private void cam(ActionEvent event) {
+         WebCamGui.main(new String[0]);
     }
-
-
-
+    
 }

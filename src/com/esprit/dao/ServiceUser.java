@@ -353,5 +353,20 @@ public class ServiceUser {
         }
 
     }
+    public Boolean verifytype(Integer id) throws SQLException, NoSuchAlgorithmException {
+        String req = "select * from user where id='" + id + "'";
+         try {
+            rs = ste.executeQuery(req);
+            while (rs.next()) {
+                if ("Artiste".equals(rs.getString(8))) {
+                    return true;
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ServicePanier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
 }

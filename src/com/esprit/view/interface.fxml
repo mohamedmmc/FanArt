@@ -23,7 +23,7 @@
       <ImageView fx:id="img" fitHeight="271.0" fitWidth="288.0" layoutX="553.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
       <Button layoutX="734.0" layoutY="376.0" mnemonicParsing="false" onAction="#upload" text="Parcourir" />
       <Button layoutX="607.0" layoutY="376.0" mnemonicParsing="false" onAction="#cam" text="Camera" />
-      <VBox fx:id="userInfoContainer1" layoutX="12.0" layoutY="33.0" prefHeight="418.0" prefWidth="175.0" spacing="40.0">
+      <VBox fx:id="userInfoContainer1" layoutX="12.0" layoutY="33.0" prefHeight="418.0" prefWidth="175.0" spacing="40.0" stylesheets="@../css/User.css">
          <children>
             <Label text="Nom" textFill="#ebe2e2" />
             <Label text="Prenom" textFill="#ebe2e2" />
@@ -37,16 +37,16 @@
          </padding>
       </VBox>
       <Label layoutX="342.0" layoutY="426.0" onMouseClicked="#mdpoublie" text="Mot de passe oublié ?" textFill="#a11616" />
-      <CheckBox fx:id="pass_toggle" layoutX="401.0" layoutY="279.0" mnemonicParsing="false" onAction="#togglevisiblePassword" text="Afficher" textFill="WHITE" />
+      <CheckBox fx:id="pass_toggle" layoutX="401.0" layoutY="297.0" mnemonicParsing="false" onAction="#togglevisiblePassword" text="Afficher" textFill="WHITE" />
       <TextField fx:id="nomfield" layoutX="193.0" layoutY="49.0" prefHeight="25.0" prefWidth="191.0" />
-      <TextField fx:id="prenomfield" layoutX="193.0" layoutY="103.0" prefHeight="25.0" prefWidth="191.0" />
-      <PasswordField fx:id="mdpfield" layoutX="193.0" layoutY="160.0" prefHeight="25.0" prefWidth="191.0">
+      <TextField fx:id="prenomfield" layoutX="193.0" layoutY="110.0" prefHeight="25.0" prefWidth="191.0" />
+      <PasswordField fx:id="mdpfield" layoutX="193.0" layoutY="165.0" prefHeight="25.0" prefWidth="191.0">
          <tooltip>
             <Tooltip text="Pour modifier son mot de passe, il faut obligatoirement entrer un nouveau mot de passe dans le champs suivant !" />
          </tooltip></PasswordField>
-      <PasswordField fx:id="mdpfieldv" layoutX="193.0" layoutY="217.0" prefHeight="25.0" prefWidth="191.0" />
-      <PasswordField fx:id="emailfield" layoutX="193.0" layoutY="275.0" prefHeight="25.0" prefWidth="191.0" />
-      <TextField fx:id="emailaffiche" layoutX="193.0" layoutY="275.0" prefHeight="25.0" prefWidth="191.0" />
-      <TextField fx:id="numfield" layoutX="193.0" layoutY="334.0" prefHeight="25.0" prefWidth="191.0" />
+      <PasswordField fx:id="mdpfieldv" layoutX="193.0" layoutY="231.0" prefHeight="25.0" prefWidth="191.0" />
+      <PasswordField fx:id="emailfield" layoutX="193.0" layoutY="293.0" prefHeight="25.0" prefWidth="191.0" />
+      <TextField fx:id="emailaffiche" layoutX="193.0" layoutY="293.0" prefHeight="25.0" prefWidth="191.0" />
+      <TextField fx:id="numfield" layoutX="193.0" layoutY="354.0" prefHeight="25.0" prefWidth="191.0" />
    </children>
 </AnchorPane>

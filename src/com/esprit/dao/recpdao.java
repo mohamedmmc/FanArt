@@ -6,6 +6,7 @@
 package com.esprit.dao;
 
 
+import com.esprit.entity.recevent;
 import com.esprit.entity.recprod;
 import com.esprit.utilis.ConnexionSingleton;
 import java.sql.ResultSet;
@@ -29,12 +30,16 @@ public  class recpdao implements ldao<recprod> {
     private Statement st;
     private ResultSet rs;
     
-    private recpdao() throws SQLException {
+    private recpdao()  {
             ConnexionSingleton cs=ConnexionSingleton.getInstance();
+        try {
             st=cs.getCnx().createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    public static recpdao getInstance() throws SQLException{
+    public static recpdao getInstance(){
         if(instance==null) 
             instance=new recpdao();
         return instance;
@@ -75,6 +80,16 @@ public  class recpdao implements ldao<recprod> {
         }
         
     }
+        public void updatest(recprod p, String email) {
+       String qry = "UPDATE recprod SET status = '"+email+"' WHERE recpid = "+p.getId();        
+        try {
+            st.executeUpdate(qry);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
        
        public void search(String p) {
        String qry = "select * from recprod where reclprod = '"+p+"' ";        
@@ -89,78 +104,50 @@ public  class recpdao implements ldao<recprod> {
 
     
 
-   /* @Override
-    public ObservableList<recprod> displayAll() {
+          public ObservableList<recprod> displayAll() {
         String req="select * from recprod";
         ObservableList<recprod> list=FXCollections.observableArrayList();       
         
         try {
             rs=st.executeQuery(req);
             while(rs.next()){
-                Reclamation p=new Reclamation();
+                recprod p=new recprod();
+                p.setId(rs.getInt("recpid"));
+                p.setprodnom(rs.getString("nomprod"));
+                p.setemail(rs.getString("email"));
+                p.setrec(rs.getString("reclprod"));
+                p.setsta(rs.getString("status"));
                 
-                p.setEmail(rs.getString("Email"));
-                p.setType(rs.getString("Type"));
-                p.setRec(rs.getString("Recl"));
-                p.setSta(rs.getString("Statu"));
                 list.add(p);
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(recldao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(recedao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
-
-    public List<Reclamation> displayAllList() {
-        String req="select * from personne";
-        List<Reclamation> list=new ArrayList<>();
+       
+              public List<recprod> displayAllList() {
+        String req="select * from recevent";
+        List<recprod> list=new ArrayList<>();
         
         try {
             rs=st.executeQuery(req);
             while(rs.next()){
-                Reclamation p=new Reclamation();
-                p.setEmail(rs.getString("Email"));
-               p.setType(rs.getString("Type"));
-               p.setRec(rs.getString("Recl"));
-               p.setSta(rs.getString("Statu"));
+                recprod p=new recprod();
+                p.setId(rs.getInt("recpid")); 
+                p.setprodnom(rs.getString("nomprod"));
+                p.setemail(rs.getString("email"));
+                p.setrec(rs.getString("reclprod"));
+                p.setsta(rs.getString("status"));
                 list.add(p);
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(recldao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(recedao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
     }
-    public Reclamation displayByEmail(String email) {
-           String req="select * from personne where email ="+email;
-           Reclamation  p=new Reclamation();
-        try {
-            rs=st.executeQuery(req);
-           // while(rs.next()){
-            rs.next();
-           p.setEmail(rs.getString("Email"));
-               p.setType(rs.getString("Type"));
-               p.setRec(rs.getString("Recl"));
-               p.setSta(rs.getString("Statu"));
-            //}  
-        } catch (SQLException ex) {
-            Logger.getLogger(recldao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    return p;
-    }
-*/
-   
-
-    /*@Override
-    public void delete(recprod o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public recprod displayById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }*/
 
     
     

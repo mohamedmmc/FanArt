@@ -19,7 +19,7 @@ import javafx.scene.layout.AnchorPane;
 
 /**
  *
- * @author Juka
+ * @author splin
  */
 public class ListData {
     
@@ -33,7 +33,7 @@ public class ListData {
         
         ServiceProduit pdao=ServiceProduit.getInstance();
         produit= pdao.displayAll();
-        System.out.println(produit);
+        //System.out.println(produit);
     }
     
     public ObservableList<Produit> getProduit(){

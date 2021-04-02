@@ -6,6 +6,7 @@
 package com.esprit.dao;
 
 import com.esprit.entity.recevent;
+import com.esprit.entity.recprod;
 
 import com.esprit.utilis.ConnexionSingleton;
 import java.sql.ResultSet;
@@ -79,6 +80,13 @@ public  class recedao implements ldao<recevent> {
         
     }
        
+//         public void updatest(recevent p, String email) {
+//       
+//        
+//    }
+         
+           
+       
        public void search(String p) {
        String qry = "select * from recevent where reclevent = '"+p+"' ";        
         try {
@@ -98,11 +106,11 @@ public  class recedao implements ldao<recevent> {
             rs=st.executeQuery(req);
             while(rs.next()){
                 recevent p=new recevent();
-                
+                p.setId(rs.getInt("receid"));
                 p.seteventnom(rs.getString("nomevent"));
                 p.setemail(rs.getString("email"));
                 p.setrec(rs.getString("reclevent"));
-                p.setsta(rs.getString("reclevent"));
+                p.setsta(rs.getString("status"));
                 
                 list.add(p);
             }
@@ -113,6 +121,29 @@ public  class recedao implements ldao<recevent> {
         return list;
     }
        
+       /*public ObservableList<recevent> displayByeve(String ev) {
+           String req="select * from recevent where nomevent ="+ev;
+                  ObservableList<recevent> list=FXCollections.observableArrayList();       
+
+        try {
+            rs=st.executeQuery(req);
+           // while(rs.next()){
+            while(rs.next()){
+                 recevent p=new recevent();
+                 p.setId(rs.getInt("receid"));
+                p.seteventnom(rs.getString("nomevent"));
+                p.setemail(rs.getString("email"));
+                p.setrec(rs.getString("reclevent"));
+                p.setsta(rs.getString("status"));
+            list.add(p);}}
+            //}  
+         catch (SQLException ex) {
+            Logger.getLogger(recedao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    return list;
+           }*/
+       
               public List<recevent> displayAllList() {
         String req="select * from recevent";
         List<recevent> list=new ArrayList<>();
@@ -121,11 +152,11 @@ public  class recedao implements ldao<recevent> {
             rs=st.executeQuery(req);
             while(rs.next()){
                 recevent p=new recevent();
-                 
+                p.setId(rs.getInt("receid"));
                 p.seteventnom(rs.getString("nomevent"));
                 p.setemail(rs.getString("email"));
                 p.setrec(rs.getString("reclevent"));
-                p.setsta(rs.getString("reclevent"));
+                p.setsta(rs.getString("status"));
                 list.add(p);
             }
             
@@ -134,6 +165,15 @@ public  class recedao implements ldao<recevent> {
         }
         return list;
     }
+
+    public void updatest(recevent p, String repondu) {
+String qry = "UPDATE recevent SET status = '"+repondu+"' WHERE receid = "+p.getId();        
+        try {
+            st.executeUpdate(qry);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(recpdao.class.getName()).log(Level.SEVERE, null, ex);
+        }    }
        
        
        

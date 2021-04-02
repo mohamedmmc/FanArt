@@ -72,6 +72,8 @@ public class recevent {
     public SimpleStringProperty geteventnomProperty(){
         return eventnom;
     }
+    
+     
     public SimpleStringProperty getemailProperty(){
         return email;
     }
@@ -83,8 +85,12 @@ public class recevent {
     }
 
     
-     public SimpleStringProperty getstaProperty(){
+     public SimpleStringProperty getstaPropertyy(){
         return status;
+    }
+     public SimpleStringProperty getstaProperty(String s){
+ 
+        return SimpleStringProperty(s);
     }
    
     public void setemail(String em) {
@@ -101,7 +107,7 @@ public class recevent {
 
     @Override
     public String toString() {
-        return "recprod{" + "id=" + id.get() + ", eventnom=" + eventnom.get() + ", email=" + email.get() + ", rec=" + rec.get()+ '}';
+        return "recprod{" + " eventnom=" + eventnom.get() + ", email=" + email.get() + ", rec=" + rec.get()+ ", status=" + status.get()+ '}';
     }
 
     @Override
@@ -124,6 +130,10 @@ public class recevent {
             return false;
         }
         return true;
+    }
+
+    private SimpleStringProperty SimpleStringProperty(String s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
